@@ -14,19 +14,18 @@ public class Kontenverwaltung {
 
 	}
 
-	private void addGeschaeftsfall() {
+	public void addGeschaeftsfall() {
 
 	}
 
-	private void addBuchungssatz() {
+	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
+	}
+
+	public void removeGeschaeftsfall() {
 
 	}
 
-	private void removeGeschaeftsfall() {
-
-	}
-
-	private void removeBuchungssatz() {
+	public void removeBuchungssatz() {
 
 	}
 

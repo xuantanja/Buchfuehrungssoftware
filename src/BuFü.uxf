@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>99</x>
-      <y>198</y>
+      <x>90</x>
+      <y>171</y>
       <w>252</w>
       <h>171</h>
     </coordinates>
@@ -25,8 +25,8 @@ rueckbuchung(Buchungssatz bsatz) : void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>981</x>
-      <y>423</y>
+      <x>972</x>
+      <y>396</y>
       <w>189</w>
       <h>171</h>
     </coordinates>
@@ -45,8 +45,8 @@ Buchungssatz(long ID)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>954</x>
-      <y>216</y>
+      <x>945</x>
+      <y>189</y>
       <w>207</w>
       <h>144</h>
     </coordinates>
@@ -61,8 +61,8 @@ Buchungssatz(long ID)
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>585</x>
-      <y>432</y>
+      <x>576</x>
+      <y>405</y>
       <w>270</w>
       <h>171</h>
     </coordinates>
@@ -81,8 +81,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
-      <y>432</y>
+      <x>27</x>
+      <y>405</y>
       <w>189</w>
       <h>171</h>
     </coordinates>
@@ -94,8 +94,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>270</x>
-      <y>630</y>
+      <x>261</x>
+      <y>603</y>
       <w>189</w>
       <h>171</h>
     </coordinates>
@@ -107,8 +107,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>270</x>
-      <y>432</y>
+      <x>261</x>
+      <y>405</y>
       <w>189</w>
       <h>171</h>
     </coordinates>
@@ -121,8 +121,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>117</x>
-      <y>360</y>
+      <x>108</x>
+      <y>333</y>
       <w>90</w>
       <h>90</h>
     </coordinates>
@@ -132,8 +132,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>234</x>
-      <y>360</y>
+      <x>225</x>
+      <y>333</y>
       <w>135</w>
       <h>90</h>
     </coordinates>
@@ -143,8 +143,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>594</y>
+      <x>351</x>
+      <y>567</y>
       <w>27</w>
       <h>54</h>
     </coordinates>
@@ -154,8 +154,8 @@ getBetragssumme() : double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>468</x>
-      <y>27</y>
+      <x>459</x>
+      <y>0</y>
       <w>405</w>
       <h>171</h>
     </coordinates>
@@ -174,8 +174,8 @@ removeBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void</panel_attri
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>54</y>
+      <x>216</x>
+      <y>27</y>
       <w>261</w>
       <h>162</h>
     </coordinates>
@@ -185,8 +185,8 @@ removeBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void</panel_attri
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>864</x>
-      <y>54</y>
+      <x>855</x>
+      <y>27</y>
       <w>225</w>
       <h>180</h>
     </coordinates>
@@ -196,8 +196,8 @@ removeBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void</panel_attri
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1071</x>
-      <y>351</y>
+      <x>1062</x>
+      <y>324</y>
       <w>27</w>
       <h>90</h>
     </coordinates>
@@ -207,8 +207,8 @@ removeBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void</panel_attri
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>342</x>
-      <y>270</y>
+      <x>333</x>
+      <y>243</y>
       <w>351</w>
       <h>180</h>
     </coordinates>
