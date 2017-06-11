@@ -1,10 +1,10 @@
 
 /* Regeln:
  * 1. nicht in einer Methode arbeiten / bzw. nicht bevorzugt in einer klasse
- * 2. Commit--> Pull--> Push
+ * 2. Commit--> Pull--> "Commit und Push"
  * Beim Hochladen: nur "commit" und NICHT "commit and push" -> Schreibst es in github "meine Änderungen",
  * dann unbedingt pull (aktuellen stand runterladen), Dann push (hochladen für alle)
- * 3. Oder Pull --> commit--> push
+ * 3. Oder Pull --> commit" --> "commit und push"
  * 4. Kontakt miteinader haben/Absprache :D 
  */
 
