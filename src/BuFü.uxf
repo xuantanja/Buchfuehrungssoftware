@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>136</x>
+      <y>184</y>
+      <w>224</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Konto
+--
+-ID_T: int
+-titel: String
+-sollSeite: Kontoseite
+-habenSeite: Kontoseite
+-verrechnungKonto: String
+--
+saldieren() : void
+buchung(Buchungssatz bsatz) : void
+rueckbuchung(Buchungssatz bsatz) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>384</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Buchungssatz
+--
+-ID_B: String
+-name: String
+-sollKonto: String
+-habenKonto: String
+-betrag: double
+--
+Buchungssatz(long ID)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>896</x>
+      <y>200</y>
+      <w>184</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>Geschaeftsfall
+--
+-ID_G: long
+-titel: String
+-beschreibung: String
+-saetze: ArrayList&lt;Buchungssatz&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>392</y>
+      <w>240</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Kontoseite
+--
+-sollseite: boolean
+-container: HBox
+-refName: VBox
+-refBetrag: VBox
+-buchungen: HashMap&lt;String, Buchungssatz&gt;
+--
+aktualisieren() : void
+getBetragssumme() : double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>392</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Bestandskonto
+--
+-anfangsbestand: double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>568</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Steuerkonto
+--
+-steuersatz: double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>392</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Erfolgskonto
+--
+-ertragskonto: boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>152</x>
+      <y>328</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>256</x>
+      <y>328</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>536</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>464</x>
+      <y>32</y>
+      <w>360</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Kontenverwaltung
+--
+-konten: HashMap&lt;String, Konto&gt;
+-faelle: ArrayList&lt;Geschaeftsfall&gt;
+--
+addKonto(String titel, String verrechnungskonto) : void
+addGeschaeftsfall(Geschaeftsfall gfall) : void
+addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void
+removeGeschaeftsfall(Geschaeftsfall gfall) : void
+removeBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>248</x>
+      <y>56</y>
+      <w>232</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>816</x>
+      <y>56</y>
+      <w>200</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>320</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>352</x>
+      <y>248</y>
+      <w>312</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;370.0;180.0</additional_attributes>
+  </element>
+</diagram>
