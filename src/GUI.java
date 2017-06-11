@@ -5,6 +5,8 @@ public class GUI {
 		// TODO Auto-generated method stub
 
 		System.out.println("hi stalker");
-	}
+		System.out.println("hi stalker");
 
+	}
+	
 }
