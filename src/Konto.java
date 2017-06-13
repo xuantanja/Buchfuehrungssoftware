@@ -3,8 +3,8 @@ public class Konto {
 
 	private int ID_T;
 	private String titel;
-	private sollSeite Kontoseite;
-	private habenSeite kontoseite;
+	private Kontoseite sollSeite;
+	private Kontoseite habenSeite;
 	private String verrechnungKonto;
 
 	public Konto() {
