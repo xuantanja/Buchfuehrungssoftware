@@ -1,5 +1,10 @@
+package application;
+
 import java.util.HashMap;
 import java.util.ArrayList;
+
+import geschaeftsfall.*;
+import konten.*;
 
 public class Kontenverwaltung {
 

@@ -1,3 +1,6 @@
+package konten;
+
+import geschaeftsfall.Buchungssatz;
 
 public class Konto {
 

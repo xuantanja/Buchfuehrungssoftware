@@ -1,3 +1,4 @@
+package geschaeftsfall;
 import java.util.ArrayList;
 
 public class Geschaeftsfall {

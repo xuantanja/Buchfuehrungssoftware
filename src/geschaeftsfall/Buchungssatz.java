@@ -1,3 +1,4 @@
+package geschaeftsfall;
 
 public class Buchungssatz {
 
