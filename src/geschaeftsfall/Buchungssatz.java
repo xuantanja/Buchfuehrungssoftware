@@ -2,7 +2,7 @@ package geschaeftsfall;
 
 public class Buchungssatz {
 
-	private String ID_B;
+	private String ID;
 	private String name;
 	private String sollKonto;
 	private String habenKonto;
@@ -18,12 +18,12 @@ public class Buchungssatz {
 		
 	}
 
-	public String getID_B() {
-		return ID_B;
+	public String getID() {
+		return ID;
 	}
 
-	public void setID_B(String iD_B) {
-		ID_B = iD_B;
+	public void setID_B(String iD) {
+		ID = iD;
 	}
 
 	public String getName() {
