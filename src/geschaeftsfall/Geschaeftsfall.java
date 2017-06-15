@@ -10,4 +10,32 @@ public class Geschaeftsfall {
 	
 	
 	
+	
+	public long getID() {
+		return ID;
+	}
+	public void setID(long iD) {
+		ID = iD;
+	}
+	public String getTitel() {
+		return titel;
+	}
+	public void setTitel(String titel) {
+		this.titel = titel;
+	}
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+	public ArrayList<Buchungssatz> getSaetze() {
+		return saetze;
+	}
+	public void setSaetze(ArrayList<Buchungssatz> saetze) {
+		this.saetze = saetze;
+	}
+	
+	
+	
 }
