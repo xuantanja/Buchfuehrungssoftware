@@ -8,7 +8,10 @@ public class Geschaeftsfall {
 	private String beschreibung;
 	private ArrayList<Buchungssatz> saetze;
 	
-	
+	public Geschaeftsfall(String titel, String beschreibung){
+		this.titel = titel; 
+		this.beschreibung = beschreibung;
+	}
 	
 	
 	public long getID() {
