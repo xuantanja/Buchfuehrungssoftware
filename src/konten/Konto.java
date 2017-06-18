@@ -14,7 +14,8 @@ public class Konto {
 		this.ID_T = ID_T;
 		this.titel = titel;
 		this.verrechnungKonto = verrechnungskonto;
-
+		
+		
 		sollSeite = new Kontoseite(true);
 		habenSeite = new Kontoseite(false);
 	}
