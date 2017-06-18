@@ -6,23 +6,58 @@ public class Konto {
 
 	private int ID_T;
 	private String titel;
-	public int getID_T() {
-		return ID_T;
-	}
-	
 	private Kontoseite sollSeite;
 	private Kontoseite habenSeite;
 	private String verrechnungKonto;
 
-	public Konto(int ID_T, String titel, Kontoseite sollSeite, Kontoseite habenseite, String verrechnungskonto) {
-
-		this.ID_T= ID_T;
-		this.titel= titel;
-		this.sollSeite = sollSeite;
-		this.habenSeite = habenseite;
+	public Konto(int ID_T, String titel, String verrechnungskonto) {
+		this.ID_T = ID_T;
+		this.titel = titel;
 		this.verrechnungKonto = verrechnungskonto;
+
+		sollSeite = new Kontoseite(true);
+		habenSeite = new Kontoseite(false);
 	}
 
+	public void saldieren() {
+		double sollBetrag = sollSeite.getBetragssumme();
+		double habenBetrag = habenSeite.getBetragssumme();
+
+		if (sollBetrag > habenBetrag) {
+			habenSeite.setSalidierungsbetrag(verrechnungKonto, sollBetrag - habenBetrag);
+			sollSeite.setBilanzsumme(sollBetrag);
+			habenSeite.setBilanzsumme(sollBetrag);
+		} else if (sollBetrag < habenBetrag) {
+			sollSeite.setSalidierungsbetrag(verrechnungKonto, habenBetrag - sollBetrag);
+			sollSeite.setBilanzsumme(habenBetrag);
+			habenSeite.setBilanzsumme(habenBetrag);
+		} else {
+			sollSeite.setBilanzsumme(sollBetrag);
+			habenSeite.setBilanzsumme(sollBetrag);
+		}
+		System.out.println(titel);
+		System.out.println("Sollseite: " + sollBetrag);
+		System.out.println("Habenseite: " + habenBetrag);
+		System.out.println(verrechnungKonto + " " + (sollBetrag - habenBetrag));
+		System.out.println();
+	}
+
+	public void buchung(Buchungssatz bsatz, boolean sollseite) {
+		if (sollseite) {
+			sollSeite.addBuchungssatz(bsatz);
+		} else {
+			habenSeite.addBuchungssatz(bsatz);
+		}
+	}
+
+	// isi hier die Buchung im Verrechnungskonto gemeint?
+	public void rueckbuchung(Buchungssatz bsatz) {
+
+	}
+
+	public int getID_T() {
+		return ID_T;
+	}
 
 	public void setID_T(int iD_T) {
 		ID_T = iD_T;
@@ -40,16 +75,8 @@ public class Konto {
 		return sollSeite;
 	}
 
-	public void setSollSeite(Kontoseite sollSeite) {
-		this.sollSeite = sollSeite;
-	}
-
 	public Kontoseite getHabenSeite() {
 		return habenSeite;
-	}
-
-	public void setHabenSeite(Kontoseite habenSeite) {
-		this.habenSeite = habenSeite;
 	}
 
 	public String getVerrechnungKonto() {
@@ -58,19 +85,6 @@ public class Konto {
 
 	public void setVerrechnungKonto(String verrechnungKonto) {
 		this.verrechnungKonto = verrechnungKonto;
-	}
-
-	private void saldieren() {
-
-	}
-
-	private void buchung(Buchungssatz bsatz) {
-		
-	}
-	
-	//isi hier die Buchung im Verrechnungskonto gemeint?
-	private void rueckbuchung(Buchungssatz bsatz) {
-
 	}
 
 }

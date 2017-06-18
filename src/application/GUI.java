@@ -2,18 +2,42 @@ package application;
 
 import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import konten.Konto;
 
-public class GUI {
+public class GUI extends Application{
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Geschaeftsfall g1 = new Geschaeftsfall(1, "Titel", "Beschr");
-		Buchungssatz b1 = new Buchungssatz();
-		Buchungssatz b2 = new Buchungssatz();
-		g1.addBuchung(b1);
-		g1.addBuchung(b2);
-		System.out.println(b1.getID());
-		System.out.println(b2.getID());
+		Kontenverwaltung kw = new Kontenverwaltung();
+		Konto bank = new Konto(1,"Bank","SBK");
+		Konto verb = new Konto(1,"Verb","SBK");
+		Konto ford = new Konto(1,"Ford","SBK");
+		kw.addKonto(bank);
+		kw.addKonto(verb);
+		kw.addKonto(ford);
+		
+		Buchungssatz b1 = new Buchungssatz("Verkauf von etwas", "Bank", "Verb", 100.0);
+		Buchungssatz b4 = new Buchungssatz("Verkauf von etwas", "Bank", "Verb", 300.0);
+		Buchungssatz b2 = new Buchungssatz("Kauf von esffgfesg", "Verb", "Bank", 2.0);
+		Buchungssatz b3 = new Buchungssatz("Neue Forderung", "Ford", "Bank", 50.0);
+		Geschaeftsfall g1 = new Geschaeftsfall(1,"Eine groﬂe Sache", "Verkauf/Kauf/usw.");
+		kw.addGeschaeftsfall(g1);
+		kw.addBuchungssatz(g1, b1);
+		kw.addBuchungssatz(g1, b2);
+		kw.addBuchungssatz(g1, b3);
+		kw.addBuchungssatz(g1, b4);
+		
+		kw.kontensaldierung();
+		Application.launch(args);
+		
 	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }
