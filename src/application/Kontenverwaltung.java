@@ -26,7 +26,7 @@ public class Kontenverwaltung {
 	}
 	//dem Geschäftsfall wird ein Buchungssatz hinzugefügt	
 	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
-		gfall.getSaetze().add(bsatz);
+		gfall.addBuchung(bsatz);
 	}
 
 	public void removeGeschaeftsfall() {
