@@ -16,6 +16,12 @@ public class Geschaeftsfall {
 		saetze = new ArrayList<>();
 	}
 
+	
+	public Geschaeftsfall(String titel, String beschreibung){
+		this.titel = titel; 
+		this.beschreibung = beschreibung;
+	}
+	
 	public long getID() {
 		return ID;
 	}

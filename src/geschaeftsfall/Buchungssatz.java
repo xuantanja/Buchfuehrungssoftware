@@ -8,14 +8,19 @@ public class Buchungssatz {
 	private String habenKonto;
 	private double betrag;
 	
-	public Buchungssatz(){
-		
+	public Buchungssatz(String ID, String name, String sollKonto, String habenKonto, double betrag){
+		//this.ID = ID; soll zb 3b sein
+		this.name = name;
+		this.sollKonto = sollKonto;
+		this.habenKonto = habenKonto;
+		this.betrag = betrag;
 	}
 	
-	private String erhoeheVersion(String versionBS){
-		
+	public Buchungssatz(){
+	}
+	
+	private String erhoeheVersion(String versionBS){		
 		return versionBS;
-		
 	}
 
 	public String getID() {
