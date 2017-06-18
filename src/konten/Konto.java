@@ -65,9 +65,10 @@ public class Konto {
 	}
 
 	private void buchung(Buchungssatz bsatz) {
-
+		
 	}
-
+	
+	//isi hier die Buchung im Verrechnungskonto gemeint?
 	private void rueckbuchung(Buchungssatz bsatz) {
 
 	}
