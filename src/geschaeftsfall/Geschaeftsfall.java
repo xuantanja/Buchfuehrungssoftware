@@ -17,11 +17,6 @@ public class Geschaeftsfall {
 	}
 
 	
-	public Geschaeftsfall(String titel, String beschreibung){
-		this.titel = titel; 
-		this.beschreibung = beschreibung;
-	}
-	
 	public long getID() {
 		return ID;
 	}
