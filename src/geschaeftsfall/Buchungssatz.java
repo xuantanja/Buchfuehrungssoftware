@@ -12,10 +12,8 @@ public class Buchungssatz {
 		
 	}
 	
-	private String erhoeheVersion(String versionBS){
-		
+	private String erhoeheVersion(String versionBS){		
 		return versionBS;
-		
 	}
 
 	public String getID() {

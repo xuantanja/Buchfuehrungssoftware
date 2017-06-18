@@ -10,8 +10,13 @@ public class Konto {
 	private Kontoseite habenSeite;
 	private String verrechnungKonto;
 
-	public Konto() {
+	public Konto(int ID_T, String titel, Kontoseite sollSeite, Kontoseite habenseite, String verrechnungskonto) {
 
+		this.ID_T= ID_T;
+		this.titel= titel;
+		this.sollSeite = sollSeite;
+		this.habenSeite = habenseite;
+		this.verrechnungKonto = verrechnungskonto;
 	}
 
 	private void saldieren() {

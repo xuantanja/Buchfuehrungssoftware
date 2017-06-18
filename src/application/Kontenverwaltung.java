@@ -15,8 +15,9 @@ public class Kontenverwaltung {
 
 	}
 
-	private void addKonto() {
+	private void addKonto(String titel) {
 
+		Konto myKonto = new Konto()
 	}
 
 	public void addGeschaeftsfall() {
