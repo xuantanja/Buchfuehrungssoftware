@@ -45,9 +45,11 @@ public class Konto {
 
 	public void buchung(Buchungssatz bsatz, boolean sollseite) {
 		if (sollseite) {
-			sollSeite.addBuchungssatz(bsatz);
+			sollSeite.getBuchungen().put(bsatz.getID(), bsatz);
+			sollSeite.aktualisieren();
 		} else {
-			habenSeite.addBuchungssatz(bsatz);
+			habenSeite.getBuchungen().put(bsatz.getID(), bsatz);
+			habenSeite.aktualisieren();
 		}
 	}
 

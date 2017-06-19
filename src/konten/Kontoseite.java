@@ -65,10 +65,11 @@ public class Kontoseite {
 		refBetrag.getChildren().add(new Label(Double.toString(betrag)));
 	}
 
-	public void addBuchungssatz(Buchungssatz bsatz) {
-		buchungen.put(bsatz.getID(), bsatz);
-		aktualisieren();
-	}
+	//Falls wird die methode noch brauchen
+//	public void addBuchungssatz(Buchungssatz bsatz) {
+//		buchungen.put(bsatz.getID(), bsatz);
+//		aktualisieren();
+//	}
 
 	public HashMap<String, Buchungssatz> getBuchungen() {
 		return buchungen;
