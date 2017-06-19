@@ -4,13 +4,13 @@ import geschaeftsfall.Buchungssatz;
 
 public class Konto {
 
-	private int ID_T;
+	private int ID_T; // ID in welchen Tab das Konto gehört
 	private String titel;
 	private Kontoseite sollSeite;
 	private Kontoseite habenSeite;
 	private String verrechnungKonto;
 
-	public Konto(int ID_T, String titel, String verrechnungskonto) {
+	public Konto(String titel, String verrechnungskonto,int ID_T) {
 		this.ID_T = ID_T;
 		this.titel = titel;
 		this.verrechnungKonto = verrechnungskonto;

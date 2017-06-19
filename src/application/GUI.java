@@ -10,9 +10,9 @@ public class GUI extends Application{
 
 	public static void main(String[] args) {
 		Kontenverwaltung kw = new Kontenverwaltung();
-		Konto bank = new Konto(1,"Bank","SBK");
-		Konto verb = new Konto(1,"Verb","SBK");
-		Konto ford = new Konto(1,"Ford","SBK");
+		Konto bank = new Konto("Bank","SBK",1);
+		Konto verb = new Konto("Verb","SBK",1);
+		Konto ford = new Konto("Ford","SBK",1);
 		kw.addKonto(bank);
 		kw.addKonto(verb);
 		kw.addKonto(ford);
