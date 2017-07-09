@@ -15,7 +15,6 @@ public class Kontenverwaltung {
 	public Kontenverwaltung() {
 		faelle = new ArrayList<>();
 		konten = new HashMap<>();
-
 	}
 
 	// Konto wird der HashMap hinzugefügt

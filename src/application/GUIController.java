@@ -25,6 +25,7 @@ public class GUIController implements Initializable {
     private VBox T1_A;
     @FXML
     private VBox T1_P;
+    private Kontenverwaltung kontenverwaltung;
 
     /**
      * Initializes the controller class.
@@ -33,6 +34,7 @@ public class GUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         T1_A.setSpacing(10);
         T1_P.setSpacing(10);
+        kontenverwaltung = new Kontenverwaltung();
     }
 
 	public VBox getT1_A() {
@@ -41,7 +43,7 @@ public class GUIController implements Initializable {
 
 	public VBox getT1_P() {
 		return T1_P;
-	} 
+	}
 	
 	@FXML
     private void handle_Datei_NeueBilanzErstellen(ActionEvent event) {
