@@ -45,8 +45,8 @@ public class GUI extends Application{
 		kw.addBuchungssatz(g1, b3);
 		kw.addBuchungssatz(g1, b4);
 		kw.addBuchungssatz(g1, b5);
-		controller.getT1_A().getChildren().add(bank.getGUIComponents());
-		controller.getT1_A().getChildren().add(verb.getGUIComponents());
+		controller.getT1_P().getChildren().add(bank.getGUIComponents());
+		controller.getT1_P().getChildren().add(verb.getGUIComponents());
 		controller.getT1_A().getChildren().add(ford.getGUIComponents());
 		controller.getT1_A().getChildren().add(kasse.getGUIComponents());
 		kw.kontensaldierung();
