@@ -20,7 +20,7 @@ public class Kontenverwaltung {
 
 	// Konto wird der HashMap hinzugefügt
 	public void addKonto(Konto myKonto) {
-		konten.put(myKonto.getTitel(), myKonto);
+		konten.put(myKonto.getKuerzel(), myKonto);
 	}
 	//Geschäftsfälle werden der ArrayList hinzugefügt
 	public void addGeschaeftsfall(Geschaeftsfall myGFall) {

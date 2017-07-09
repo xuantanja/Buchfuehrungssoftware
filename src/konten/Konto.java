@@ -1,21 +1,26 @@
 package konten;
 
 import geschaeftsfall.Buchungssatz;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class Konto {
 
 	private int ID_T; // ID in welchen Tab das Konto gehört
 	private String titel;
+	private String kuerzel;
 	private Kontoseite sollSeite;
 	private Kontoseite habenSeite;
 	private String verrechnungKonto;
+	private KontoContainer guiContainer;
 
-	public Konto(String titel, String verrechnungskonto,int ID_T) {
+	public Konto(String titel, String kuerzel, String verrechnungskonto, int ID_T) {
 		this.ID_T = ID_T;
 		this.titel = titel;
+		this.kuerzel = kuerzel;
 		this.verrechnungKonto = verrechnungskonto;
-		
-		
+		guiContainer = new KontoContainer(titel);
+
 		sollSeite = new Kontoseite(true);
 		habenSeite = new Kontoseite(false);
 	}
@@ -25,16 +30,18 @@ public class Konto {
 		double habenBetrag = habenSeite.getBetragssumme();
 
 		if (sollBetrag > habenBetrag) {
-			habenSeite.setSalidierungsbetrag(verrechnungKonto, sollBetrag - habenBetrag);
-			sollSeite.setBilanzsumme(sollBetrag);
-			habenSeite.setBilanzsumme(sollBetrag);
+			// habenSeite.setSalidierungsbetrag(verrechnungKonto, sollBetrag -
+			// habenBetrag);
+			// sollSeite.setBilanzsumme(sollBetrag);
+			// habenSeite.setBilanzsumme(sollBetrag);
 		} else if (sollBetrag < habenBetrag) {
-			sollSeite.setSalidierungsbetrag(verrechnungKonto, habenBetrag - sollBetrag);
-			sollSeite.setBilanzsumme(habenBetrag);
-			habenSeite.setBilanzsumme(habenBetrag);
+			// sollSeite.setSalidierungsbetrag(verrechnungKonto, habenBetrag -
+			// sollBetrag);
+			// sollSeite.setBilanzsumme(habenBetrag);
+			// habenSeite.setBilanzsumme(habenBetrag);
 		} else {
-			sollSeite.setBilanzsumme(sollBetrag);
-			habenSeite.setBilanzsumme(sollBetrag);
+			// sollSeite.setBilanzsumme(sollBetrag);
+			// habenSeite.setBilanzsumme(sollBetrag);
 		}
 		System.out.println(titel);
 		System.out.println("Sollseite: " + sollBetrag);
@@ -46,11 +53,14 @@ public class Konto {
 	public void buchung(Buchungssatz bsatz, boolean sollseite) {
 		if (sollseite) {
 			sollSeite.getBuchungen().put(bsatz.getID(), bsatz);
-			sollSeite.aktualisieren();
+			guiContainer.getRefNameS().getChildren().add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
 		} else {
 			habenSeite.getBuchungen().put(bsatz.getID(), bsatz);
-			habenSeite.aktualisieren();
+			guiContainer.getRefNameH().getChildren().add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag())+ " €"));
 		}
+		//guiContainer.refresh();
 	}
 
 	// isi hier die Buchung im Verrechnungskonto gemeint?
@@ -88,6 +98,14 @@ public class Konto {
 
 	public void setVerrechnungKonto(String verrechnungKonto) {
 		this.verrechnungKonto = verrechnungKonto;
+	}
+	
+	public String getKuerzel() {
+		return kuerzel;
+	}
+
+	public VBox getGUIComponents(){
+		return guiContainer.getLayout();
 	}
 
 }

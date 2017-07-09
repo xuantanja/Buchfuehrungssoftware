@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Datei">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_NeueBilanzErstellen" text="Neue Bilanz erstellen..." />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Oeffnen" text="Öffnen…" />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Speichern" text="Speichern" />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Einstellungen" text="Einstellungen" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Beenden" text="Beenden" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Bearbeiten">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittZurück" text="Schritt zurück" />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittVorwärts" text="Schritt vorwärts" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_Kontenverwaltung" text="Kontenverwaltung" />
+                  <Menu mnemonicParsing="false" text="Geschäftsfälle">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_Uebersicht" text="Übersicht anzeigen" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_neuerGF" text="Neuen Geschäftsfall hinzufügen" />
+                        <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_BSEintragen" text="Buchungssatz einem Geschäftsfall hinzufügen" />
+                     </items>
+                  </Menu>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Analyse">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_EBEinsehen" text="Eröffnungsbilanz einsehen" />
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_DiagrammeBerechnen" text="Diagramme berechnen" />
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Hilfe">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Hilfe_Produktinformationen" text="Produktinformationen" />
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Hilfe_Handbuch" text="Handbuch" />
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Hilfe_FAQ" text="FAQ" />
+               </items>
+            </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TabPane prefHeight="590.0" prefWidth="1013.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Bestandskonten">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <AnchorPane prefHeight="564.0" prefWidth="1015.0">
+                                 <children>
+                                    <VBox fx:id="T1_A" layoutX="17.0" layoutY="14.0" prefHeight="548.0" prefWidth="467.0">
+                                       <children>
+                                          <Label text="Aktiva">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children></VBox>
+                                    <VBox fx:id="T1_P" layoutX="502.0" layoutY="13.0" prefHeight="549.0" prefWidth="491.0">
+                                       <children>
+                                          <Label text="Passiva">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children></VBox>
+                                    <Separator layoutX="479.0" layoutY="8.0" orientation="VERTICAL" prefHeight="553.0" prefWidth="18.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
+                <Tab text="Erfolgskonten" />
+                  <Tab text="Bestandsveränderung" />
+                  <Tab text="GuV" />
+                  <Tab text="SBK" />
+                  <Tab text="Analyse" />
+              </tabs>
+            </TabPane>
+         </children></AnchorPane>
+  </children>
+</VBox>
