@@ -5,6 +5,7 @@ import geschaeftsfall.Geschaeftsfall;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import konten.Konto;
 
@@ -21,6 +22,7 @@ public class GUI extends Application{
 		GUIController controller = loader.getController();
 		
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("BuFü HWR Version");
 		primaryStage.show();
 		
 		Kontenverwaltung kw = new Kontenverwaltung();
