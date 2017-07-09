@@ -9,7 +9,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
