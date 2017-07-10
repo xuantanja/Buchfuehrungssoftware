@@ -2,8 +2,11 @@ package konten;
 
 public class Steuerkonto extends Konto{
 
-	public Steuerkonto(String titel, String kuerzel, String verrechnungskonto, int ID_T) {
+	private boolean steuersatz;
+
+	public Steuerkonto(String titel, String kuerzel, String verrechnungskonto, int ID_T, boolean steuersatz) {
 		super(titel, kuerzel, verrechnungskonto, ID_T);
+		this.steuersatz = steuersatz;
 	}
 
 }

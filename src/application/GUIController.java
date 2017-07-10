@@ -8,7 +8,7 @@ package application;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import io.DataStorage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,13 +52,18 @@ public class GUIController implements Initializable {
 	}
 
 	@FXML
-	private void handle_Datei_Oeffnen(ActionEvent event) {
+	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf konten und faelle geschrieben werden können
+	private DataStorage handle_Datei_Oeffnen(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
 		configureFileChooser(fileChooser);
 		File file = fileChooser.showOpenDialog(new Stage());
+		DataStorage myStorage = null;
 		if (file != null) {
-			// Auslesen der Daten
+			myStorage = io.IOManager.readFile(file);
+			//hier Fall beachten, wenn falscher Filetyp geöffnet wird
 		}
+		return myStorage;
+
 	}
 
 	@FXML
@@ -111,24 +116,24 @@ public class GUIController implements Initializable {
 	}
 
 	@FXML
-	private void handle_Hilfe_Produktinformationen(ActionEvent event) {	
+	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("application/specs.pdf").getFile());
-        GUI.services.showDocument(file.toURI().toString());
+		GUI.services.showDocument(file.toURI().toString());
 	}
 
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("application/Handbuch.pdf").getFile());
-        GUI.services.showDocument(file.toURI().toString());
+		GUI.services.showDocument(file.toURI().toString());
 	}
 
 	@FXML
 	private void handle_Hilfe_FAQ(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("application/FAQ.pdf").getFile());
-        GUI.services.showDocument(file.toURI().toString());
+		GUI.services.showDocument(file.toURI().toString());
 	}
 
 	private static void configureFileChooser(final FileChooser fileChooser) {
