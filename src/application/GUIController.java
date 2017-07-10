@@ -23,21 +23,21 @@ import javafx.stage.Stage;
  */
 public class GUIController implements Initializable {
 
-    @FXML
-    private VBox T1_A;
-    @FXML
-    private VBox T1_P;
-    private Kontenverwaltung kontenverwaltung;
-    
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        T1_A.setSpacing(10);
-        T1_P.setSpacing(10);
-        kontenverwaltung = new Kontenverwaltung();
-    }
+	@FXML
+	private VBox T1_A;
+	@FXML
+	private VBox T1_P;
+	private Kontenverwaltung kontenverwaltung;
+
+	/**
+	 * Initializes the controller class.
+	 */
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		T1_A.setSpacing(10);
+		T1_P.setSpacing(10);
+		kontenverwaltung = new Kontenverwaltung();
+	}
 
 	public VBox getT1_A() {
 		return T1_A;
@@ -111,15 +111,24 @@ public class GUIController implements Initializable {
 	}
 
 	@FXML
-	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
+	private void handle_Hilfe_Produktinformationen(ActionEvent event) {	
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("application/specs.pdf").getFile());
+        GUI.services.showDocument(file.toURI().toString());
 	}
 
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("application/Handbuch.pdf").getFile());
+        GUI.services.showDocument(file.toURI().toString());
 	}
 
 	@FXML
 	private void handle_Hilfe_FAQ(ActionEvent event) {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("application/FAQ.pdf").getFile());
+        GUI.services.showDocument(file.toURI().toString());
 	}
 
 	private static void configureFileChooser(final FileChooser fileChooser) {
