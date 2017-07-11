@@ -22,7 +22,7 @@ public class GUI extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		services = this.getHostServices();
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("BuFue.fxml"));
 		Scene scene = new Scene(loader.load());
 		GUIController controller = loader.getController();
 		

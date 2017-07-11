@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -7,13 +8,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
+<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.152-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -46,8 +48,9 @@
         <Menu mnemonicParsing="false" text="Analyse">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_EBEinsehen" text="Eröffnungsbilanz einsehen" />
-                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_DiagrammeBerechnen" text="Diagramme berechnen" />
                   <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_DiagrammeBerechnen" text="Diagramme berechnen" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Hilfe">
@@ -96,7 +99,20 @@
                   <Tab text="Bestandsveränderung" />
                   <Tab text="GuV" />
                   <Tab text="SBK" />
-                  <Tab text="Analyse" />
+                  <Tab text="Analyse">
+                     <content>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <PieChart layoutX="81.0" layoutY="6.0" prefHeight="267.0" prefWidth="339.0" />
+                                    <PieChart layoutX="534.0" layoutY="-3.0" prefHeight="285.0" prefWidth="390.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                          </items>
+                        </SplitPane>
+                     </content></Tab>
               </tabs>
             </TabPane>
          </children></AnchorPane>
