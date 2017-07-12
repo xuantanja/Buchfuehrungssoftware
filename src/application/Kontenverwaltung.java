@@ -2,6 +2,7 @@ package application;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.io.File;
 import java.util.ArrayList;
 
 import geschaeftsfall.*;
@@ -15,6 +16,10 @@ public class Kontenverwaltung {
 	public Kontenverwaltung() {
 		faelle = new ArrayList<>();
 		konten = new HashMap<>();
+	}
+
+	public Kontenverwaltung(File file, ArrayList<Konto> kontenListe) {
+		// TODO
 	}
 
 	// Konto wird der HashMap hinzugefügt

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warland.ressources.textures.BilanzErstellenController">
+   <children>
+      <TextField fx:id="textfieldBilanzname" layoutX="16.0" layoutY="26.0" prefHeight="25.0" prefWidth="357.0" promptText="Name der Bilanz" />
+      <Label layoutX="381.0" layoutY="30.0" text="Beginn des Geschäftsjahres:" />
+      <Label layoutX="16.0" layoutY="63.0" text="standardmäßiger Steuersatz:" />
+      <TextField fx:id="textfieldSteuersatz" layoutX="183.0" layoutY="59.0" prefHeight="25.0" prefWidth="68.0" />
+      <Label layoutX="256.0" layoutY="63.0" text="\%" />
+      <Separator layoutX="-7.0" layoutY="97.0" prefHeight="6.0" prefWidth="707.0" />
+      <Label layoutX="65.0" layoutY="115.0" text="Konto hinzufügen:" />
+      <TextField fx:id="textfieldKontenname" layoutX="179.0" layoutY="111.0" prefHeight="25.0" prefWidth="226.0" promptText="Kontenname" />
+      <TextField fx:id="textfieldKuerzel" layoutX="425.0" layoutY="111.0" prefHeight="25.0" prefWidth="159.0" promptText="Kürzel (max. 6 Buchstaben)" />
+      <Button fx:id="buttonAddKonto" layoutX="597.0" layoutY="111.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="28.0" text="+" />
+      <Separator layoutY="208.0" prefHeight="6.0" prefWidth="700.0" />
+      <TextField fx:id="textfieldAB" layoutX="286.0" layoutY="141.0" prefHeight="25.0" prefWidth="108.0" promptText="Anfangsbestand" />
+      <Label layoutX="397.0" layoutY="145.0" text="€" />
+      <RadioButton fx:id="radioAktivkonto" layoutX="425.0" layoutY="145.0" mnemonicParsing="false" selected="true" text="Aktivkonto" />
+      <RadioButton fx:id="radioPassivkonto" layoutX="540.0" layoutY="145.0" mnemonicParsing="false" text="Passivkonto" />
+      <RadioButton fx:id="radioErtragskonto" disable="true" layoutX="540.0" layoutY="175.0" mnemonicParsing="false" selected="true" text="Ertragskonto" />
+      <RadioButton fx:id="radioAufwandskonto" disable="true" layoutX="425.0" layoutY="175.0" mnemonicParsing="false" text="Aufwandskonto" />
+      <DatePicker fx:id="datepickerGJBeginn" layoutX="535.0" layoutY="26.0" prefHeight="25.0" prefWidth="151.0" />
+      <Separator layoutX="518.0" layoutY="211.0" orientation="VERTICAL" prefHeight="238.0" prefWidth="7.0" />
+      <Label layoutX="535.0" layoutY="217.0" text="Vorgefertigte Konten:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="535.0" layoutY="234.0" prefHeight="85.0" prefWidth="140.0" text="Umsatzsteuer, Vorsteuer, Bank , Kasse, Umsatzerlöse, Verbindlichkeiten a.L.L., Forderungen a.L.L." wrapText="true" />
+      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="238.0" onKeyReleased="#handleKontoLoeschen" prefHeight="179.0" prefWidth="491.0">
+        <columns>
+          <TableColumn fx:id="columnKonto" prefWidth="145.33331298828125" text="Konto" />
+          <TableColumn fx:id="columnBeschreibung" prefWidth="344.66668701171875" text="Beschreibung" />
+        </columns>
+      </TableView>
+      <RadioButton fx:id="radioBestandskonto" layoutX="182.0" layoutY="145.0" mnemonicParsing="false" selected="true" text="Bestandskonto" />
+      <RadioButton fx:id="radioErfolgskonto" layoutX="182.0" layoutY="175.0" mnemonicParsing="false" text="Erfolgskonto" />
+      <Label layoutX="16.0" layoutY="217.0" text="Übersicht der hinzugefügten Konten:" />
+      <Label layoutX="17.0" layoutY="412.0" prefHeight="34.0" prefWidth="484.0" text="Hinweis: Um Konten zu entfernen, wählen Sie das jeweilige Konto/ die jeweiligen Konten aus und drücken Sie die rechte Maustaste und dann &quot;Entfernen&quot; oder drücken Sie die Taste ENTF." wrapText="true">
+         <font>
+            <Font size="9.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonBilanzErstellen" layoutX="549.0" layoutY="409.0" mnemonicParsing="false" onAction="#handleBilanzErstellen" prefHeight="25.0" prefWidth="124.0" text="Bilanz erstellen" />
+      <CheckBox fx:id="checkboxProduzierendesU" layoutX="535.0" layoutY="326.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="167.0" text="(optinal) fertige Erzeugnisse, unfertige Erzeugnisse und Bestandsveränderungen" wrapText="true" />
+   </children>
+</AnchorPane>

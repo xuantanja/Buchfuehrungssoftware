@@ -6,12 +6,17 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -49,10 +54,26 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Datei_NeueBilanzErstellen(ActionEvent event) {
+
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("BuFue.fxml"));
+			Scene scene = new Scene(loader.load());
+			BilanzErstellenController controller = loader.getController();
+			Stage bilanzErstellenStage = new Stage();
+			bilanzErstellenStage.setScene(scene);
+			bilanzErstellenStage.setTitle("BuFü HWR Version");
+			bilanzErstellenStage.showAndWait();
+			kontenverwaltung = controller.getNeueBilanz();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@FXML
-	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf konten und faelle geschrieben werden können
+	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf
+	// konten und faelle geschrieben werden können
 	private DataStorage handle_Datei_Oeffnen(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
 		configureFileChooser(fileChooser);
@@ -60,7 +81,7 @@ public class GUIController implements Initializable {
 		DataStorage myStorage = null;
 		if (file != null) {
 			myStorage = io.IOManager.readFile(file);
-			//hier Fall beachten, wenn falscher Filetyp geöffnet wird
+			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
 		}
 		return myStorage;
 
