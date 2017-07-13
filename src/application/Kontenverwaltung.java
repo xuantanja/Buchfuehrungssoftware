@@ -12,6 +12,7 @@ public class Kontenverwaltung {
 
 	private HashMap<String, Konto> konten;
 	private ArrayList<Geschaeftsfall> faelle;
+	private File speicherort;
 
 	public Kontenverwaltung() {
 		faelle = new ArrayList<>();
@@ -19,7 +20,12 @@ public class Kontenverwaltung {
 	}
 
 	public Kontenverwaltung(File file, ArrayList<Konto> kontenListe) {
-		// TODO
+		speicherort = file;
+		faelle = new ArrayList<>();
+		konten = new HashMap<>();
+		for (Konto konto : kontenListe) {
+			konten.put(konto.getKuerzel(), konto);
+		}
 	}
 
 	// Konto wird der HashMap hinzugefügt
@@ -53,4 +59,7 @@ public class Kontenverwaltung {
 		}
 	}
 
+	public Iterator<Konto> getKonten() {
+		return konten.values().iterator();
+	}
 }

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.152-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
+<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -72,7 +72,7 @@
                            <content>
                               <AnchorPane prefHeight="564.0" prefWidth="1015.0">
                                  <children>
-                                    <VBox fx:id="T1_A" layoutX="17.0" layoutY="14.0" prefHeight="548.0" prefWidth="467.0">
+                                    <VBox fx:id="t1_A" layoutX="17.0" layoutY="14.0" prefHeight="548.0" prefWidth="467.0">
                                        <children>
                                           <Label text="Aktiva">
                                              <font>
@@ -80,7 +80,7 @@
                                              </font>
                                           </Label>
                                        </children></VBox>
-                                    <VBox fx:id="T1_P" layoutX="502.0" layoutY="13.0" prefHeight="549.0" prefWidth="491.0">
+                                    <VBox fx:id="t1_P" layoutX="502.0" layoutY="13.0" prefHeight="549.0" prefWidth="491.0">
                                        <children>
                                           <Label text="Passiva">
                                              <font>
@@ -95,8 +95,22 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                <Tab text="Erfolgskonten" />
-                  <Tab text="Bestandsveränderung" />
+                <Tab text="Erfolgskonten">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="t2" prefHeight="543.0" prefWidth="1014.0" />
+                           </content>
+                        </ScrollPane>
+                     </content></Tab>
+                  <Tab text="sonstige Konten">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="t3" prefHeight="547.0" prefWidth="1015.0" />
+                           </content>
+                        </ScrollPane>
+                     </content></Tab>
                   <Tab text="GuV" />
                   <Tab text="SBK" />
                   <Tab text="Analyse">
