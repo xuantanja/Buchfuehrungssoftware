@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.analyse.DiagrammErstellenController;
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
 import javafx.event.ActionEvent;
@@ -213,6 +214,21 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Analyse_DiagrammeBerechnen(ActionEvent event) {
+		try {
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/DiagrammErstellen.fxml"));
+			Scene scene = new Scene(loader.load());
+			//DiagrammErstellenController controller = loader.getController();
+			Stage diagrammErstellenStage = new Stage();
+			diagrammErstellenStage.setScene(scene);
+			diagrammErstellenStage.setTitle("BuFü HWR Version");
+			diagrammErstellenStage.show();
+			
+			//ladeKonten();
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
