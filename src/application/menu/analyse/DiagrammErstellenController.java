@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -28,9 +29,9 @@ public class DiagrammErstellenController implements Initializable {
     /**
      * Initializes the controller class.
      */
-	
+	@FXML	
 	private PieChart pieChart_Bestand;
-	
+	@FXML
 	private PieChart pieChart_Ertrags;
 	
     @Override
@@ -42,7 +43,7 @@ public class DiagrammErstellenController implements Initializable {
                 new PieChart.Data("y", 10),
                 new PieChart.Data("z", 10),
                 new PieChart.Data("q", 10),
-                new PieChart.Data("w", 10));
+                new PieChart.Data("w", 10));;
     	pieChart_Bestand.setData(pieChartData);
     }    
 }
