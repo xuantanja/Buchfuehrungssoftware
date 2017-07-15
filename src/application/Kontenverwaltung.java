@@ -26,7 +26,6 @@ public class Kontenverwaltung {
 		for (Konto konto : kontenListe) {
 			konten.put(konto.getKuerzel(), konto);
 		}
-		System.out.println(speicherort.getAbsolutePath());
 	}
 
 	// Konto wird der HashMap hinzugefügt

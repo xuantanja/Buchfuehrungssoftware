@@ -11,8 +11,6 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import javax.swing.plaf.metal.MetalBorders.OptionDialogBorder;
-
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
 import javafx.event.ActionEvent;
@@ -23,7 +21,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -32,7 +29,6 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
-import konten.Steuerkonto;
 
 /**
  * FXML Controller class
@@ -112,6 +108,7 @@ public class GUIController implements Initializable {
 				kontenverwaltung = controller.getNeueBilanz();
 				ladeKonten();
 			}
+			kontenverwaltung = controller.getNeueBilanz();
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
@@ -119,6 +116,7 @@ public class GUIController implements Initializable {
 			// TODO: Wenn das Fenster geschlossen wird, dann wird eine
 			// NullPointerException geworfen.
 		}
+
 	}
 
 	private void ladeKonten() {
@@ -129,6 +127,7 @@ public class GUIController implements Initializable {
 		Iterator<Konto> it = kontenverwaltung.getKonten();
 		while (it.hasNext()) {
 			Konto konto = it.next();
+			System.out.println(konto.getTitel());
 			switch (konto.getKontoart()) {
 			case (1):
 				Bestandskonto bkonto = (Bestandskonto) konto;
@@ -217,6 +216,19 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Analyse_DiagrammeBerechnen(ActionEvent event) {
+		try {
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/DiagrammErstellen.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage diagrammErstellenStage = new Stage();
+			diagrammErstellenStage.setScene(scene);
+			diagrammErstellenStage.setTitle("BuFü HWR Version");
+			diagrammErstellenStage.show();
+			
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

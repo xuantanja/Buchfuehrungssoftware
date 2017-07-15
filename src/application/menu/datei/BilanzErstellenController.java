@@ -126,14 +126,14 @@ public class BilanzErstellenController implements Initializable {
 		if (textfieldKuerzel.getText().length() > 6) {
 			fehlermeldung += "Das Kürzel besitzt mehr als 6 Zeichen!";
 		}
-		if (textfieldKontenname.getText().length() == 0) {
+		if(textfieldKontenname.getText().length() == 0){
 			fehlermeldung += "Keinen Kontonamen angegeben!";
 		}
 		// Fehlerüberprüfung abgeschlossen
 		if (fehlermeldung.equals("")) {
 			if (radioBestandskonto.isSelected()) {
 				Bestandskonto newBKonto = new Bestandskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
-						"SBK", Double.parseDouble(textfieldAB.getText()), radioAktivkonto.isSelected());
+						"SBK",Double.parseDouble(textfieldAB.getText()), radioAktivkonto.isSelected());
 				kontenListe.add(newBKonto);
 			} else if (radioErfolgskonto.isSelected()) {
 				Erfolgskonto newEKonto = new Erfolgskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
@@ -202,7 +202,7 @@ public class BilanzErstellenController implements Initializable {
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);
-
+		
 		kontenListe.add(bga);
 		kontenListe.add(bank);
 		kontenListe.add(kasse);
@@ -215,6 +215,16 @@ public class BilanzErstellenController implements Initializable {
 		kontenListe.add(uerl);
 		kontenListe.add(privat);
 		kontenListe.add(efpz);
+		
+		if(checkboxProduzierendesU.isSelected()){
+			Konto fe = new Bestandskonto("Fertige Erzeugnisse", "FE", "BV", 0, true);
+			Konto ue = new Bestandskonto("Unfertige Erzeugnisse", "UE", "BV", 0, true); 
+			Konto bv = new Bestandskonto("Bestandsveränderungen", "BV", "GuV", 0, true); 
+			kontenListe.add(fe);
+			kontenListe.add(ue);
+			kontenListe.add(bv);
+		}
+
 	}
 
 	public Kontenverwaltung getNeueBilanz() {
@@ -224,4 +234,5 @@ public class BilanzErstellenController implements Initializable {
 	public boolean isNeueBilanzErstellt() {
 		return bilanzHinzugefuegt;
 	}
+
 }
