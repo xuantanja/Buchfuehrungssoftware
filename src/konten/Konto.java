@@ -4,7 +4,7 @@ import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class Konto {
+public abstract class Konto {
 
 	private int ID_T; // ID in welchen Tab das Konto gehört
 	private String titel;
@@ -13,14 +13,17 @@ public class Konto {
 	private Kontoseite habenSeite;
 	private String verrechnungKonto;
 	private KontoContainer guiContainer;
+	private String beschreibung;
+	
+	public abstract int getKontoart();
+	public abstract String description();
 
-	public Konto(String titel, String kuerzel, String verrechnungskonto, int ID_T) {
+	public Konto(String titel, String kuerzel, String verrechnungskonto) {
 		this.ID_T = ID_T;
 		this.titel = titel;
 		this.kuerzel = kuerzel;
 		this.verrechnungKonto = verrechnungskonto;
 		guiContainer = new KontoContainer(titel);
-
 		sollSeite = new Kontoseite(true);
 		habenSeite = new Kontoseite(false);
 	}
@@ -107,5 +110,13 @@ public class Konto {
 	public VBox getGUIComponents(){
 		return guiContainer.getLayout();
 	}
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+	
+	
 
 }

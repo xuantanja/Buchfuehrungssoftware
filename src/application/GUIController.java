@@ -8,7 +8,10 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+
+import javax.swing.plaf.metal.MetalBorders.OptionDialogBorder;
 
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
@@ -16,10 +19,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import konten.Bestandskonto;
+import konten.Erfolgskonto;
+import konten.Konto;
+import konten.Steuerkonto;
 
 /**
  * FXML Controller class
@@ -29,9 +42,18 @@ import javafx.stage.Stage;
 public class GUIController implements Initializable {
 
 	@FXML
-	private VBox T1_A;
+	private VBox t1_A;
 	@FXML
-	private VBox T1_P;
+	private VBox t1_P;
+	@FXML
+	private VBox t2;
+	@FXML
+	private VBox t3;
+
+	private GridPane t2_Ertragskonten;
+	private GridPane t2_Aufwandskonten;
+	private GridPane t3_Steuerkonten;
+	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten;
 	private Kontenverwaltung kontenverwaltung;
 
 	/**
@@ -39,36 +61,101 @@ public class GUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		T1_A.setSpacing(10);
-		T1_P.setSpacing(10);
+		count_t2_Aufwandskonten = 5;
+		count_t2_Ertragskonten = 5;
+		count_t3_Steuerkonten = 0;
+		t2_Aufwandskonten = new GridPane();
+		t2_Ertragskonten = new GridPane();
+		t3_Steuerkonten = new GridPane();
+
+		t1_A.setSpacing(10);
+		t1_P.setSpacing(10);
+		Label labelErtrag = new Label("\tErtragskonten");
+		labelErtrag.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelAufwand = new Label("\tAufwandskonten");
+		labelAufwand.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelSteuerkonto = new Label("\tSteuerkonten");
+		labelSteuerkonto.setFont(Font.font("System", FontWeight.BOLD, 18));
 		kontenverwaltung = new Kontenverwaltung();
+		t2_Ertragskonten.add(labelErtrag, 0, 0, 2, 1);
+		t2_Aufwandskonten.add(labelAufwand, 0, 0, 2, 1);
+		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
+		t3.getChildren().addAll(labelSteuerkonto,t3_Steuerkonten);
+		GridPane[] gpList = new GridPane[] { t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
+		for (int i = 0; i < gpList.length; i++) {
+			gpList[i].setVgap(10);
+			gpList[i].setHgap(40);
+			gpList[i].setPadding(new Insets(10));
+		}
 	}
 
 	public VBox getT1_A() {
-		return T1_A;
+		return t1_A;
 	}
 
 	public VBox getT1_P() {
-		return T1_P;
+		return t1_P;
 	}
 
 	@FXML
 	private void handle_Datei_NeueBilanzErstellen(ActionEvent event) {
-
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("BuFue.fxml"));
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/datei/BilanzErstellen.fxml"));
 			Scene scene = new Scene(loader.load());
 			BilanzErstellenController controller = loader.getController();
 			Stage bilanzErstellenStage = new Stage();
 			bilanzErstellenStage.setScene(scene);
 			bilanzErstellenStage.setTitle("BuFü HWR Version");
 			bilanzErstellenStage.showAndWait();
-			kontenverwaltung = controller.getNeueBilanz();
+			if (controller.isNeueBilanzErstellt()) {
+				kontenverwaltung = controller.getNeueBilanz();
+				ladeKonten();
+			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO: Wenn das Fenster geschlossen wird, dann wird eine
+			// NullPointerException geworfen.
 		}
+	}
 
+	private void ladeKonten() {
+		System.out.println("[GUIController] Lade Konten...");
+		t1_P.getChildren().clear();
+		t1_A.getChildren().clear();
+
+		Iterator<Konto> it = kontenverwaltung.getKonten();
+		while (it.hasNext()) {
+			Konto konto = it.next();
+			switch (konto.getKontoart()) {
+			case (1):
+				Bestandskonto bkonto = (Bestandskonto) konto;
+				if (bkonto.isAktivkonto()) {
+					t1_A.getChildren().add(bkonto.getGUIComponents());
+				} else {
+					t1_P.getChildren().add(bkonto.getGUIComponents());
+				}
+				break;
+			case (2):
+				Erfolgskonto ekonto = (Erfolgskonto) konto;
+				if (ekonto.isErtragskonto()) {
+					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4,
+							count_t2_Ertragskonten / 4);
+					count_t2_Ertragskonten++;
+				} else {
+					t2_Aufwandskonten.add(ekonto.getGUIComponents(), count_t2_Aufwandskonten % 4,
+							count_t2_Aufwandskonten / 4);
+					count_t2_Aufwandskonten++;
+				}
+				break;
+			case (3):
+				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten, 0);
+				count_t3_Steuerkonten++;
+				break;
+			}
+		}
 	}
 
 	@FXML
@@ -81,10 +168,10 @@ public class GUIController implements Initializable {
 		DataStorage myStorage = null;
 		if (file != null) {
 			myStorage = io.IOManager.readFile(file);
+			// TODO
 			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
 		}
 		return myStorage;
-
 	}
 
 	@FXML
