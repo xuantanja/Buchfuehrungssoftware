@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,10 +11,12 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
+<VBox prefHeight="615.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -72,23 +73,23 @@
                            <content>
                               <AnchorPane prefHeight="564.0" prefWidth="1015.0">
                                  <children>
-                                    <VBox fx:id="t1_A" layoutX="17.0" layoutY="14.0" prefHeight="548.0" prefWidth="467.0">
-                                       <children>
-                                          <Label text="Aktiva">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Label>
-                                       </children></VBox>
-                                    <VBox fx:id="t1_P" layoutX="502.0" layoutY="13.0" prefHeight="549.0" prefWidth="491.0">
-                                       <children>
-                                          <Label text="Passiva">
-                                             <font>
-                                                <Font name="System Bold" size="20.0" />
-                                             </font>
-                                          </Label>
-                                       </children></VBox>
-                                    <Separator layoutX="479.0" layoutY="8.0" orientation="VERTICAL" prefHeight="553.0" prefWidth="18.0" />
+                                    <GridPane fx:id="t1_A" layoutX="17.0" layoutY="14.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <GridPane fx:id="t1_P" layoutX="534.0" layoutY="14.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <Separator layoutX="506.0" layoutY="8.0" orientation="VERTICAL" prefHeight="553.0" prefWidth="18.0" />
                                  </children>
                               </AnchorPane>
                            </content>

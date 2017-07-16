@@ -38,9 +38,9 @@ import konten.Konto;
 public class GUIController implements Initializable {
 
 	@FXML
-	private VBox t1_A;
+	private GridPane t1_A;
 	@FXML
-	private VBox t1_P;
+	private GridPane t1_P;
 	@FXML
 	private VBox t2;
 	@FXML
@@ -49,7 +49,7 @@ public class GUIController implements Initializable {
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
 	private GridPane t3_Steuerkonten;
-	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten;
+	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten, count_t1_A, count_t1_P;
 	private Kontenverwaltung kontenverwaltung;
 
 	/**
@@ -57,27 +57,16 @@ public class GUIController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		count_t2_Aufwandskonten = 5;
-		count_t2_Ertragskonten = 5;
-		count_t3_Steuerkonten = 0;
+
 		t2_Aufwandskonten = new GridPane();
 		t2_Ertragskonten = new GridPane();
 		t3_Steuerkonten = new GridPane();
-
-		t1_A.setSpacing(10);
-		t1_P.setSpacing(10);
-		Label labelErtrag = new Label("\tErtragskonten");
-		labelErtrag.setFont(Font.font("System", FontWeight.BOLD, 18));
-		Label labelAufwand = new Label("\tAufwandskonten");
-		labelAufwand.setFont(Font.font("System", FontWeight.BOLD, 18));
-		Label labelSteuerkonto = new Label("\tSteuerkonten");
-		labelSteuerkonto.setFont(Font.font("System", FontWeight.BOLD, 18));
 		kontenverwaltung = new Kontenverwaltung();
-		t2_Ertragskonten.add(labelErtrag, 0, 0, 2, 1);
-		t2_Aufwandskonten.add(labelAufwand, 0, 0, 2, 1);
+		initalHeadings();
+
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
-		t3.getChildren().addAll(labelSteuerkonto,t3_Steuerkonten);
-		GridPane[] gpList = new GridPane[] { t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
+		t3.getChildren().add(t3_Steuerkonten);
+		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
 		for (int i = 0; i < gpList.length; i++) {
 			gpList[i].setVgap(10);
 			gpList[i].setHgap(40);
@@ -85,11 +74,34 @@ public class GUIController implements Initializable {
 		}
 	}
 
-	public VBox getT1_A() {
+	private void initalHeadings() {
+		count_t2_Aufwandskonten = 5;
+		count_t2_Ertragskonten = 5;
+		count_t3_Steuerkonten = 5;
+		count_t1_A = 2;
+		count_t1_P = 2;
+		Label labelErtrag = new Label("\tErtragskonten");
+		labelErtrag.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelAktiva = new Label("\tAktiva");
+		labelAktiva.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelPassiva = new Label("\tPassiva");
+		labelPassiva.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelAufwand = new Label("\tAufwandskonten");
+		labelAufwand.setFont(Font.font("System", FontWeight.BOLD, 18));
+		Label labelSteuerkonto = new Label("\tSteuerkonten");
+		labelSteuerkonto.setFont(Font.font("System", FontWeight.BOLD, 18));
+		t2_Ertragskonten.add(labelErtrag, 0, 0, 5, 1);
+		t2_Aufwandskonten.add(labelAufwand, 0, 0, 5, 1);
+		t3_Steuerkonten.add(labelSteuerkonto, 0, 0, 5, 1);
+		t1_A.add(labelAktiva, 0, 0, 2, 1);
+		t1_P.add(labelPassiva, 0, 0, 2, 1);
+	}
+
+	public GridPane getT1_A() {
 		return t1_A;
 	}
 
-	public VBox getT1_P() {
+	public GridPane getT1_P() {
 		return t1_P;
 	}
 
@@ -121,9 +133,11 @@ public class GUIController implements Initializable {
 
 	private void ladeKonten() {
 		System.out.println("[GUIController] Lade Konten...");
-		t1_P.getChildren().clear();
-		t1_A.getChildren().clear();
-
+		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
+		for (int i = 0; i < gpList.length; i++) {
+			gpList[i].getChildren().clear();
+		}
+		initalHeadings();
 		Iterator<Konto> it = kontenverwaltung.getKonten();
 		while (it.hasNext()) {
 			Konto konto = it.next();
@@ -132,25 +146,25 @@ public class GUIController implements Initializable {
 			case (1):
 				Bestandskonto bkonto = (Bestandskonto) konto;
 				if (bkonto.isAktivkonto()) {
-					t1_A.getChildren().add(bkonto.getGUIComponents());
+					t1_A.add(bkonto.getGUIComponents(), count_t1_A % 2, count_t1_A / 2);
+					count_t1_A++;
 				} else {
-					t1_P.getChildren().add(bkonto.getGUIComponents());
+					t1_P.add(bkonto.getGUIComponents(), count_t1_P % 2, count_t1_P / 2);
+					count_t1_P++;
 				}
 				break;
 			case (2):
 				Erfolgskonto ekonto = (Erfolgskonto) konto;
 				if (ekonto.isErtragskonto()) {
-					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4,
-							count_t2_Ertragskonten / 4);
+					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4, count_t2_Ertragskonten / 4);
 					count_t2_Ertragskonten++;
 				} else {
-					t2_Aufwandskonten.add(ekonto.getGUIComponents(), count_t2_Aufwandskonten % 4,
-							count_t2_Aufwandskonten / 4);
+					t2_Aufwandskonten.add(ekonto.getGUIComponents(), count_t2_Aufwandskonten % 4, count_t2_Aufwandskonten / 4);
 					count_t2_Aufwandskonten++;
 				}
 				break;
 			case (3):
-				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten, 0);
+				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
 				count_t3_Steuerkonten++;
 				break;
 			}
@@ -224,7 +238,7 @@ public class GUIController implements Initializable {
 			diagrammErstellenStage.setScene(scene);
 			diagrammErstellenStage.setTitle("BuFü HWR Version");
 			diagrammErstellenStage.show();
-			
+
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
