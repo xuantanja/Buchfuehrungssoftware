@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.datei.BilanzErstellenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.datei.BilanzErstellenController">
    <children>
       <TextField fx:id="textfieldBilanzname" layoutX="16.0" layoutY="10.0" prefHeight="25.0" prefWidth="357.0" promptText="Name der Bilanz" />
       <Label layoutX="381.0" layoutY="14.0" text="Beginn des Geschäftsjahres:" />
@@ -43,7 +43,7 @@
          </font>
       </Label>
       <Label layoutX="524.0" layoutY="233.0" prefHeight="120.0" prefWidth="167.0" text="Umsatzsteuer, Vorsteuer, Bank, Kasse, Umsatzerlöse, Verbindlichkeiten a.L.L., Verbindlichkeiten geg. Kreditinstituten, Forderungen a.L.L., Rückstellungen, Privat, Ent. f. priv. Zwecke" wrapText="true" />
-      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="235.0" onKeyReleased="#handleKontoLoeschen" prefHeight="206.0" prefWidth="491.0">
+      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="235.0" onKeyReleased="#handleKontoLoeschen" onMouseDragReleased="#handleKontoLoeschen" prefHeight="206.0" prefWidth="491.0">
         <columns>
           <TableColumn fx:id="columnKonto" prefWidth="145.33331298828125" text="Konto" />
           <TableColumn fx:id="columnBeschreibung" prefWidth="344.66668701171875" text="Beschreibung" />
