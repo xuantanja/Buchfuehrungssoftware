@@ -62,4 +62,9 @@ public class Kontenverwaltung {
 	public Iterator<Konto> getKonten() {
 		return konten.values().iterator();
 	}
+
+	public ArrayList<Geschaeftsfall> getFaelle() {
+		return faelle;
+	}
+	
 }
