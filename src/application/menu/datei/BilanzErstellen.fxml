@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.datei.BilanzErstellenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.datei.BilanzErstellenController">
    <children>
       <TextField fx:id="textfieldBilanzname" layoutX="16.0" layoutY="10.0" prefHeight="25.0" prefWidth="357.0" promptText="Name der Bilanz" />
       <Label layoutX="381.0" layoutY="14.0" text="Beginn des Geschäftsjahres:" />
@@ -36,14 +36,14 @@
       <RadioButton fx:id="radioErtragskonto" disable="true" layoutX="464.0" layoutY="166.0" mnemonicParsing="false" selected="true" text="Ertragskonto" />
       <RadioButton fx:id="radioAufwandskonto" disable="true" layoutX="464.0" layoutY="142.0" mnemonicParsing="false" text="Aufwandskonto" />
       <DatePicker fx:id="datepickerGJBeginn" layoutX="535.0" layoutY="10.0" prefHeight="25.0" prefWidth="151.0" />
-      <Separator layoutX="515.0" layoutY="208.0" orientation="VERTICAL" prefHeight="276.0" prefWidth="10.0" />
+      <Separator layoutX="515.0" layoutY="208.0" orientation="VERTICAL" prefHeight="285.0" prefWidth="10.0" />
       <Label layoutX="525.0" layoutY="214.0" text="Vorgefertigte Konten:">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <Label layoutX="524.0" layoutY="233.0" prefHeight="120.0" prefWidth="167.0" text="Umsatzsteuer, Vorsteuer, Bank, Kasse, Umsatzerlöse, Verbindlichkeiten a.L.L., Verbindlichkeiten geg. Kreditinstituten, Forderungen a.L.L., Rückstellungen, Privat, Ent. f. priv. Zwecke" wrapText="true" />
-      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="235.0" onKeyReleased="#handleKontoLoeschen" onMouseDragReleased="#handleKontoLoeschen" prefHeight="206.0" prefWidth="491.0">
+      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="243.0" onKeyReleased="#handleKontoLoeschen" onMouseDragReleased="#handleKontoLoeschen" prefHeight="206.0" prefWidth="491.0">
         <columns>
           <TableColumn fx:id="columnKonto" prefWidth="145.33331298828125" text="Konto" />
           <TableColumn fx:id="columnBeschreibung" prefWidth="344.66668701171875" text="Beschreibung" />
@@ -51,7 +51,7 @@
       </TableView>
       <RadioButton fx:id="radioBestandskonto" layoutX="191.0" layoutY="117.0" mnemonicParsing="false" selected="true" text="Bestandskonto" />
       <RadioButton fx:id="radioErfolgskonto" layoutX="437.0" layoutY="117.0" mnemonicParsing="false" text="Erfolgskonto" />
-      <Label layoutX="17.0" layoutY="438.0" prefHeight="34.0" prefWidth="484.0" text="Hinweis: Um Konten zu entfernen, wählen Sie das jeweilige Konto/ die jeweiligen Konten aus und drücken Sie die rechte Maustaste und dann &quot;Entfernen&quot; oder drücken Sie die Taste ENTF." wrapText="true">
+      <Label layoutX="17.0" layoutY="446.0" prefHeight="34.0" prefWidth="484.0" text="Hinweis: Um Konten zu entfernen, wählen Sie das jeweilige Konto/ die jeweiligen Konten aus und drücken Sie die rechte Maustaste und dann &quot;Entfernen&quot; oder drücken Sie die Taste ENTF." wrapText="true">
          <font>
             <Font size="9.0" />
          </font>
@@ -64,5 +64,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="buttonAB" layoutX="373.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleABAendern" prefHeight="23.0" prefWidth="131.0" text="Anfangsbestände ändern">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

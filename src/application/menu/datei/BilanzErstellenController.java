@@ -6,6 +6,7 @@
 package application.menu.datei;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -53,6 +56,8 @@ public class BilanzErstellenController implements Initializable {
 	@FXML
 	private Button buttonAddKonto;
 	@FXML
+	private Button buttonAB;
+	@FXML
 	private TextField textfieldAB;
 	@FXML
 	private RadioButton radioAktivkonto;
@@ -86,6 +91,8 @@ public class BilanzErstellenController implements Initializable {
 	private Kontenverwaltung neueBilanz;
 
 	private boolean bilanzHinzugefuegt;
+	
+	private Bestandskonto bank, kasse, verb, ford, dar, bga, ek;
 
 	/**
 	 * Initializes the controller class.
@@ -116,8 +123,8 @@ public class BilanzErstellenController implements Initializable {
 			radioAktivkonto.setDisable(!(radioBestandskonto.isSelected()));
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
 		});
+		
 		standardkontenHinzufuegen();
-		handle_KontoHinzufuegen(null);
 	}
 
 	@FXML
@@ -126,14 +133,14 @@ public class BilanzErstellenController implements Initializable {
 		if (textfieldKuerzel.getText().length() > 6) {
 			fehlermeldung += "Das Kürzel besitzt mehr als 6 Zeichen!";
 		}
-		if(textfieldKontenname.getText().length() == 0){
+		if (textfieldKontenname.getText().length() == 0) {
 			fehlermeldung += "Keinen Kontonamen angegeben!";
 		}
 		// Fehlerüberprüfung abgeschlossen
 		if (fehlermeldung.equals("")) {
 			if (radioBestandskonto.isSelected()) {
 				Bestandskonto newBKonto = new Bestandskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
-						"SBK",Double.parseDouble(textfieldAB.getText()), radioAktivkonto.isSelected());
+						"SBK", Double.parseDouble(textfieldAB.getText()), radioAktivkonto.isSelected());
 				kontenListe.add(newBKonto);
 			} else if (radioErfolgskonto.isSelected()) {
 				Erfolgskonto newEKonto = new Erfolgskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
@@ -141,17 +148,7 @@ public class BilanzErstellenController implements Initializable {
 				kontenListe.add(newEKonto);
 			}
 		}
-		ObservableList<Konto> obsList = FXCollections.observableArrayList(kontenListe);
-		tableKonto.setItems(obsList);
-		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
-		columnBeschreibung.setCellValueFactory(new PropertyValueFactory<Konto, String>("beschreibung"));
-		ArrayList<String> kontenKuerzel = new ArrayList<>();
-		kontenKuerzel.add("SBK");
-		kontenKuerzel.add("GuV");
-		for (Konto konto : kontenListe) {
-			kontenKuerzel.add(konto.getKuerzel());
-		}
-		verrechnungskonto.setItems(FXCollections.observableArrayList(kontenKuerzel));
+		tabelleAktualisieren();
 	}
 
 	@FXML
@@ -189,20 +186,50 @@ public class BilanzErstellenController implements Initializable {
 		stage.close();
 	}
 
+	@FXML
+	private void handleABAendern(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("AB.fxml"));
+			Scene scene = new Scene(loader.load());
+			ABController controller = loader.getController();
+			controller.setTextfieldBankValue(bank.getAnfangsbestand());
+			controller.setTextfieldKasseValue(kasse.getAnfangsbestand());
+			controller.setTextfieldVerbValue(verb.getAnfangsbestand());
+			controller.setTextfieldFordValue(ford.getAnfangsbestand());
+			controller.setTextfieldDarValue(dar.getAnfangsbestand());
+			controller.setTextfieldBGAValue(bga.getAnfangsbestand());
+			controller.setTextfieldEKValue(ek.getAnfangsbestand());
+			Stage abStage = new Stage();
+			abStage.setScene(scene);
+			abStage.showAndWait();
+			bank.setAnfangsbestand(controller.getTextfieldBankValue());
+			kasse.setAnfangsbestand(controller.getTextfieldKasseValue());
+			verb.setAnfangsbestand(controller.getTextfieldVerbValue());
+			ford.setAnfangsbestand(controller.getTextfieldFordValue());
+			dar.setAnfangsbestand(controller.getTextfieldDarValue());
+			bga.setAnfangsbestand(controller.getTextfieldBGAValue());
+			ek.setAnfangsbestand(controller.getTextfieldEKValue());
+			tabelleAktualisieren();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	private void standardkontenHinzufuegen() {
-		Konto bank = new Bestandskonto("Bank", "Bank", "SBK", 0, true);
-		Konto bga = new Bestandskonto("Büro- und Geschäftsausstattung", "BGA", "SBK", 0, true);
-		Konto kasse = new Bestandskonto("Kasse", "Kasse", "SBK", 0, true);
-		Konto verb = new Bestandskonto("Verbindlichkeiten a.L.L.", "Verb", "SBK", 0, false);
-		Konto dar = new Bestandskonto("Darlehen", "Dar", "SBK", 0, false);
-		Konto ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, false);
-		Konto ford = new Bestandskonto("Forderungen a.L.L.", "Ford", "SBK", 0, true);
+		bank = new Bestandskonto("Bank", "Bank", "SBK", 0, true);
+		bga = new Bestandskonto("Büro- und Geschäftsausstattung", "BGA", "SBK", 0, true);
+		kasse = new Bestandskonto("Kasse", "Kasse", "SBK", 0, true);
+		verb = new Bestandskonto("Verbindlichkeiten a.L.L.", "Verb", "SBK", 0, false);
+		dar = new Bestandskonto("Darlehen", "Dar", "SBK", 0, false);
+		ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, false);
+		ford = new Bestandskonto("Forderungen a.L.L.", "Ford", "SBK", 0, true);
 		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "Vorst", 19);
 		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "USt", 19);
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);
-		
+
 		kontenListe.add(bga);
 		kontenListe.add(bank);
 		kontenListe.add(kasse);
@@ -215,16 +242,30 @@ public class BilanzErstellenController implements Initializable {
 		kontenListe.add(uerl);
 		kontenListe.add(privat);
 		kontenListe.add(efpz);
-		
-		if(checkboxProduzierendesU.isSelected()){
+
+		if (checkboxProduzierendesU.isSelected()) {
 			Konto fe = new Bestandskonto("Fertige Erzeugnisse", "FE", "BV", 0, true);
-			Konto ue = new Bestandskonto("Unfertige Erzeugnisse", "UE", "BV", 0, true); 
-			Konto bv = new Bestandskonto("Bestandsveränderungen", "BV", "GuV", 0, true); 
+			Konto ue = new Bestandskonto("Unfertige Erzeugnisse", "UE", "BV", 0, true);
+			Konto bv = new Bestandskonto("Bestandsveränderungen", "BV", "GuV", 0, true);
 			kontenListe.add(fe);
 			kontenListe.add(ue);
 			kontenListe.add(bv);
 		}
-
+		tabelleAktualisieren();
+	}
+	
+	private void tabelleAktualisieren(){
+		ObservableList<Konto> obsList = FXCollections.observableArrayList(kontenListe);
+		tableKonto.setItems(obsList);
+		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
+		columnBeschreibung.setCellValueFactory(new PropertyValueFactory<Konto, String>("beschreibung"));
+		ArrayList<String> kontenKuerzel = new ArrayList<>();
+		kontenKuerzel.add("SBK");
+		kontenKuerzel.add("GuV");
+		for (Konto konto : kontenListe) {
+			kontenKuerzel.add(konto.getKuerzel());
+		}
+		verrechnungskonto.setItems(FXCollections.observableArrayList(kontenKuerzel));
 	}
 
 	public Kontenverwaltung getNeueBilanz() {
