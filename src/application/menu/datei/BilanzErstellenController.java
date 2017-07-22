@@ -194,7 +194,7 @@ public class BilanzErstellenController implements Initializable {
 		}
 		// Fehlerüberprüfung abgeschlossen
 		neueBilanz = new Kontenverwaltung(new File(STANDARD_PATH + textfieldBilanzname.getText() + ".bil"),
-				kontenListe);
+				kontenListe, datepickerGJBeginn.getValue());
 		bilanzHinzugefuegt = true;
 		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
 		stage.close();

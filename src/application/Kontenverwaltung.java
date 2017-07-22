@@ -3,6 +3,7 @@ package application;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import geschaeftsfall.*;
@@ -13,16 +14,18 @@ public class Kontenverwaltung {
 	private HashMap<String, Konto> konten;
 	private ArrayList<Geschaeftsfall> faelle;
 	private File speicherort;
+	private LocalDate geschaeftsjahrBeginn;
 
 	public Kontenverwaltung() {
 		faelle = new ArrayList<>();
 		konten = new HashMap<>();
 	}
 
-	public Kontenverwaltung(File file, ArrayList<Konto> kontenListe) {
+	public Kontenverwaltung(File file, ArrayList<Konto> kontenListe, LocalDate gfBeginn) {
 		speicherort = file;
 		faelle = new ArrayList<>();
 		konten = new HashMap<>();
+		geschaeftsjahrBeginn = gfBeginn;
 		for (Konto konto : kontenListe) {
 			konten.put(konto.getKuerzel(), konto);
 		}
