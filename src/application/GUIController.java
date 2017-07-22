@@ -145,6 +145,7 @@ public class GUIController implements Initializable {
 			switch (konto.getKontoart()) {
 			case (1):
 				Bestandskonto bkonto = (Bestandskonto) konto;
+				bkonto.confirmAB();
 				if (bkonto.isAktivkonto()) {
 					t1_A.add(bkonto.getGUIComponents(), count_t1_A % 2, count_t1_A / 2);
 					count_t1_A++;

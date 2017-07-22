@@ -1,5 +1,7 @@
 package konten;
 
+import javafx.scene.control.Label;
+
 public class Bestandskonto extends Konto {
 
 	private static final int KONTENART_ID = 1;
@@ -14,6 +16,29 @@ public class Bestandskonto extends Konto {
 		setBeschreibung(description());
 	}
 
+	public void confirmAB() {
+		if (isAktivkonto()) {
+			getGuiContainer().getRefNameS().getChildren().add(new Label("AB"));
+			getGuiContainer().getRefBetragS().getChildren().add(new Label(anfangsbestand + " €"));
+		} else {
+			getGuiContainer().getRefNameH().getChildren().add(new Label("AB"));
+			getGuiContainer().getRefBetragH().getChildren().add(new Label(anfangsbestand + " €"));
+		}
+	}
+
+	@Override
+	public String description() {
+		String beschreibung = "";
+		if (isAktivkonto()) {
+			beschreibung += "aktives ";
+		} else {
+			beschreibung += "pasives ";
+		}
+		beschreibung += "Bestandskonto; Anfangsbestand: " + getAnfangsbestand() + "; " + getTitel() + " ("
+				+ getKuerzel() + ") wird in das Konto " + getVerrechnungKonto() + " saldiert.";
+		return beschreibung;
+	}
+	
 	public double getAnfangsbestand() {
 		return anfangsbestand;
 	}
@@ -33,17 +58,7 @@ public class Bestandskonto extends Konto {
 	public int getKontoart() {
 		return KONTENART_ID;
 	}
-
-	@Override
-	public String description() {
-		String beschreibung = "";
-		if(isAktivkonto()){
-			beschreibung += "aktives ";
-		} else{
-			beschreibung += "pasives ";
-		}
-		beschreibung += "Bestandskonto; Anfangsbestand: " + getAnfangsbestand() + "; " + getTitel() + " (" + getKuerzel() + ") wird in das Konto " + getVerrechnungKonto() + " saldiert.";
-		return beschreibung;
-	}
+	
+	
 
 }

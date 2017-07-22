@@ -23,7 +23,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -91,7 +93,7 @@ public class BilanzErstellenController implements Initializable {
 	private Kontenverwaltung neueBilanz;
 
 	private boolean bilanzHinzugefuegt;
-	
+
 	private Bestandskonto bank, kasse, verb, ford, dar, bga, ek;
 
 	/**
@@ -123,7 +125,19 @@ public class BilanzErstellenController implements Initializable {
 			radioAktivkonto.setDisable(!(radioBestandskonto.isSelected()));
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
 		});
-		
+
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem item1 = new MenuItem("Bearbeiten");
+		MenuItem item2 = new MenuItem("Löschen");
+		item1.setOnAction(ev -> {
+			bearbeiteKonto(tableKonto.getSelectionModel().getSelectedItem());
+		});
+		item2.setOnAction(ev -> {
+			loescheKonto(tableKonto.getSelectionModel().getSelectedItems());
+		});
+		contextMenu.getItems().addAll(item1, item2);
+		tableKonto.setContextMenu(contextMenu);
+
 		standardkontenHinzufuegen();
 	}
 
@@ -253,8 +267,9 @@ public class BilanzErstellenController implements Initializable {
 		}
 		tabelleAktualisieren();
 	}
-	
-	private void tabelleAktualisieren(){
+
+	private void tabelleAktualisieren() {
+		tableKonto.getItems().clear();
 		ObservableList<Konto> obsList = FXCollections.observableArrayList(kontenListe);
 		tableKonto.setItems(obsList);
 		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
@@ -266,6 +281,39 @@ public class BilanzErstellenController implements Initializable {
 			kontenKuerzel.add(konto.getKuerzel());
 		}
 		verrechnungskonto.setItems(FXCollections.observableArrayList(kontenKuerzel));
+	}
+
+	private void loescheKonto(ObservableList<Konto> selectedKonten) {
+		System.out.println("Löschen....");
+		for (int i = 0; i < selectedKonten.size(); i++) {
+			if (kontenListe.contains(selectedKonten.get(i))) {
+				kontenListe.remove(selectedKonten.get(i));
+			}
+		}
+		tabelleAktualisieren();
+	}
+
+	private void bearbeiteKonto(Konto selectedKonto) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("KontoBearbeiten.fxml"));
+			Scene scene = new Scene(loader.load());
+			KontoBearbeitenController controller = loader.getController();
+			ArrayList<String> kontenKuerzel = new ArrayList<>();
+			kontenKuerzel.add("SBK");
+			kontenKuerzel.add("GuV");
+			for (Konto konto : kontenListe) {
+				kontenKuerzel.add(konto.getKuerzel());
+			}
+			controller.setChangeKonto(selectedKonto, FXCollections.observableArrayList(kontenKuerzel));
+			
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.showAndWait();
+			tabelleAktualisieren();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public Kontenverwaltung getNeueBilanz() {

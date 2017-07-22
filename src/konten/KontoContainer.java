@@ -1,5 +1,7 @@
 package konten;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -38,13 +40,18 @@ public class KontoContainer {
 		layout.setPrefSize(200, 200);
 		layout.setAlignment(Pos.CENTER);
 		initialKontoLayout();
+		
 	}
 
 	private void initialKontoLayout() {
-		Label l1 = new Label("\t\t\t\t");
-		Label l2 = new Label("\t\t\t\t");
-		Label l3 = new Label("\t\t\t\t");
-		Label l4 = new Label("\t\t\t\t");
+		Label l1 = new Label("-------------------");
+		Label l2 = new Label("-------------------");
+		Label l3 = new Label("-----------------------------------------");
+		Label l4 = new Label("-----------------------------------------");
+		l1.setVisible(false);
+		l2.setVisible(false);
+		l3.setVisible(false);
+		l4.setVisible(false);
 		l1.setFont(new Font(5));
 		l2.setFont(new Font(5));
 		l3.setFont(new Font(5));
@@ -53,16 +60,16 @@ public class KontoContainer {
 		refNameH.getChildren().add(l2);
 		refBetragS.getChildren().add(l3);
 		refBetragH.getChildren().add(l4);
-		
+
 	}
-	
-	public void refresh(){
-		if(refNameS.getWidth() < refNameH.getWidth()){
+
+	public void refresh() {
+		if (refNameS.getWidth() < refNameH.getWidth()) {
 			refNameH.setPrefWidth(refNameS.getWidth());
 		} else {
 			refNameS.setPrefWidth(refNameH.getWidth());
 		}
-		if(refBetragS.getWidth() < refBetragH.getWidth()){
+		if (refBetragS.getWidth() < refBetragH.getWidth()) {
 			refBetragS.setPrefWidth(refBetragH.getWidth());
 		} else {
 			refBetragH.setPrefWidth(refBetragS.getWidth());
@@ -109,5 +116,9 @@ public class KontoContainer {
 	public void setRefBetragH(VBox refBetragH) {
 		this.refBetragH = refBetragH;
 	}
-	
+
+	public void setName(String name) {
+		this.name.setText(name);
+	}
+
 }
