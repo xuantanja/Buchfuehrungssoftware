@@ -235,11 +235,12 @@ public class GUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/UebersichtAnzeigen.fxml"));
 			Scene scene = new Scene(loader.load());
 			UebersichtanzeigenController controller = loader.getController();
+			controller.setFaelle(kontenverwaltung.getFaelle());
+
 			Stage bilanzErstellenStage = new Stage();
 			bilanzErstellenStage.setScene(scene);
 			bilanzErstellenStage.setTitle("XX");
 			bilanzErstellenStage.showAndWait();
-			controller.setFaelle(kontenverwaltung.getFaelle());
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
