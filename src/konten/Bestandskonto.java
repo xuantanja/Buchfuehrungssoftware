@@ -1,8 +1,10 @@
 package konten;
 
+import java.io.Serializable;
+
 import javafx.scene.control.Label;
 
-public class Bestandskonto extends Konto {
+public class Bestandskonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 1;
 	private double anfangsbestand;

@@ -1,10 +1,12 @@
 package konten;
 
+import java.io.Serializable;
+
 import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public abstract class Konto {
+public abstract class Konto implements Serializable{
 
 	private String titel;
 	private String kuerzel;

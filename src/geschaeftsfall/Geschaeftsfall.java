@@ -1,8 +1,9 @@
 package geschaeftsfall;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Geschaeftsfall {
+public class Geschaeftsfall implements Serializable{
 
 	private long ID;
 	private String titel;

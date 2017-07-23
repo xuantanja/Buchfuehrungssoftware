@@ -24,13 +24,12 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Datei_NeueBilanzErstellen" text="Neue Bilanz erstellen..." />
             <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Oeffnen" text="Öffnen…" />
-            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Speichern" text="Speichern" />
-            <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Einstellungen" text="Einstellungen" />
+            <MenuItem fx:id="menuitemSpeichern" mnemonicParsing="false" onAction="#handle_Datei_Speichern" text="Speichern" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#handle_Datei_Beenden" text="Beenden" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Bearbeiten">
+        <Menu fx:id="menuBearbeiten" mnemonicParsing="false" text="Bearbeiten">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittZurück" text="Schritt zurück" />
             <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittVorwärts" text="Schritt vorwärts" />
@@ -46,7 +45,7 @@
                   </Menu>
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Analyse">
+        <Menu fx:id="menuAnalyse" mnemonicParsing="false" text="Analyse">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_EBEinsehen" text="Eröffnungsbilanz einsehen" />
                   <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
@@ -112,8 +111,6 @@
                            </content>
                         </ScrollPane>
                      </content></Tab>
-                  <Tab text="GuV" />
-                  <Tab text="SBK" />
                   <Tab text="Analyse">
                      <content>
                         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">

@@ -1,6 +1,8 @@
 package konten;
 
-public class Erfolgskonto extends Konto {
+import java.io.Serializable;
+
+public class Erfolgskonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 2;
 	private boolean ertragskonto;

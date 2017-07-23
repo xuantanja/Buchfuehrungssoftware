@@ -30,6 +30,13 @@ public class Kontenverwaltung {
 			konten.put(konto.getKuerzel(), konto);
 		}
 	}
+	
+	public Kontenverwaltung(File file, HashMap<String, Konto> kontenListe, ArrayList<Geschaeftsfall> faelle, LocalDate gfBeginn) {
+		speicherort = file;
+		faelle = new ArrayList<>(faelle);
+		konten = new HashMap<>(kontenListe);
+		geschaeftsjahrBeginn = gfBeginn;
+	}
 
 	// Konto wird der HashMap hinzugefügt
 	public void addKonto(Konto myKonto) {
@@ -62,12 +69,23 @@ public class Kontenverwaltung {
 		}
 	}
 
-	public Iterator<Konto> getKonten() {
+	public Iterator<Konto> getKontenIterator() {
 		return konten.values().iterator();
+	}
+	
+	public HashMap<String, Konto> getKonten() {
+		return konten;
 	}
 
 	public ArrayList<Geschaeftsfall> getFaelle() {
 		return faelle;
 	}
-	
+
+	public File getSpeicherort() {
+		return speicherort;
+	}
+
+	public LocalDate getGeschaeftsjahrBeginn() {
+		return geschaeftsjahrBeginn;
+	}
 }

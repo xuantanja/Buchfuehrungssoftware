@@ -11,8 +11,10 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.bearbeiten.NeuerGFController;
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
+import io.IOManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -45,6 +49,10 @@ public class GUIController implements Initializable {
 	private VBox t2;
 	@FXML
 	private VBox t3;
+	@FXML
+	private Menu menuBearbeiten, menuAnalyse;
+	@FXML
+	private MenuItem menuitemSpeichern;
 
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
@@ -72,6 +80,7 @@ public class GUIController implements Initializable {
 			gpList[i].setHgap(40);
 			gpList[i].setPadding(new Insets(10));
 		}
+		enableMenuBar(false);
 	}
 
 	private void initalHeadings() {
@@ -114,13 +123,13 @@ public class GUIController implements Initializable {
 			BilanzErstellenController controller = loader.getController();
 			Stage bilanzErstellenStage = new Stage();
 			bilanzErstellenStage.setScene(scene);
-			bilanzErstellenStage.setTitle("BuFü HWR Version");
+			bilanzErstellenStage.setTitle("Neue Bilanz erstellen");
 			bilanzErstellenStage.showAndWait();
 			if (controller.isNeueBilanzErstellt()) {
 				kontenverwaltung = controller.getNeueBilanz();
 				ladeKonten();
+				enableMenuBar(true);
 			}
-			kontenverwaltung = controller.getNeueBilanz();
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
@@ -132,13 +141,12 @@ public class GUIController implements Initializable {
 	}
 
 	private void ladeKonten() {
-		System.out.println("[GUIController] Lade Konten...");
 		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
 		for (int i = 0; i < gpList.length; i++) {
 			gpList[i].getChildren().clear();
 		}
 		initalHeadings();
-		Iterator<Konto> it = kontenverwaltung.getKonten();
+		Iterator<Konto> it = kontenverwaltung.getKontenIterator();
 		while (it.hasNext()) {
 			Konto konto = it.next();
 			System.out.println(konto.getTitel());
@@ -157,10 +165,12 @@ public class GUIController implements Initializable {
 			case (2):
 				Erfolgskonto ekonto = (Erfolgskonto) konto;
 				if (ekonto.isErtragskonto()) {
-					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4, count_t2_Ertragskonten / 4);
+					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4,
+							count_t2_Ertragskonten / 4);
 					count_t2_Ertragskonten++;
 				} else {
-					t2_Aufwandskonten.add(ekonto.getGUIComponents(), count_t2_Aufwandskonten % 4, count_t2_Aufwandskonten / 4);
+					t2_Aufwandskonten.add(ekonto.getGUIComponents(), count_t2_Aufwandskonten % 4,
+							count_t2_Aufwandskonten / 4);
 					count_t2_Aufwandskonten++;
 				}
 				break;
@@ -184,16 +194,19 @@ public class GUIController implements Initializable {
 			myStorage = io.IOManager.readFile(file);
 			// TODO
 			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
+			
+			kontenverwaltung = new Kontenverwaltung(file,myStorage.getKonten(),myStorage.getFaelle(),myStorage.getGeschaeftsjahrBeginn());
+			ladeKonten();
+			enableMenuBar(true);
 		}
+
 		return myStorage;
 	}
 
 	@FXML
 	private void handle_Datei_Speichern(ActionEvent event) {
-	}
-
-	@FXML
-	private void handle_Datei_Einstellungen(ActionEvent event) {
+		IOManager.saveFile(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle(),
+				kontenverwaltung.getSpeicherort(), kontenverwaltung.getGeschaeftsjahrBeginn());
 	}
 
 	@FXML
@@ -219,6 +232,21 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_GF_neuerGF(ActionEvent event) {
+		try {
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/NeuerGF.fxml"));
+			Scene scene = new Scene(loader.load());
+			NeuerGFController controller = loader.getController();
+			Stage stage = new Stage();
+			stage.setTitle("Neuen Geschäftsfall erstellen");
+			stage.setScene(scene);
+			stage.showAndWait();
+			kontenverwaltung.addGeschaeftsfall(controller.getGeschaeftsfall(kontenverwaltung.getFaelle().size() + 1));
+
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -273,7 +301,13 @@ public class GUIController implements Initializable {
 
 	private static void configureFileChooser(final FileChooser fileChooser) {
 		fileChooser.setTitle("Öffne Bilanzdatei");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\"));
+	}
+
+	private void enableMenuBar(boolean enable) {
+		menuBearbeiten.setDisable(!enable);
+		menuAnalyse.setDisable(!enable);
+		menuitemSpeichern.setDisable(!enable);
 	}
 
 }

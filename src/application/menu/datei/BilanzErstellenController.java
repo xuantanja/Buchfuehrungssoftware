@@ -46,7 +46,7 @@ import konten.Steuerkonto;
  */
 public class BilanzErstellenController implements Initializable {
 
-	private static final String STANDARD_PATH = System.getProperty("Appdata") + "\\BuFü-HWRVersion\\";
+	private static final String STANDARD_PATH = System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\";
 	@FXML
 	private TextField textfieldBilanzname;
 	@FXML
@@ -195,6 +195,10 @@ public class BilanzErstellenController implements Initializable {
 		// Fehlerüberprüfung abgeschlossen
 		neueBilanz = new Kontenverwaltung(new File(STANDARD_PATH + textfieldBilanzname.getText() + ".bil"),
 				kontenListe, datepickerGJBeginn.getValue());
+		File standardPath = new File(STANDARD_PATH);
+		if(!standardPath.exists()){
+			standardPath.mkdirs();
+		}
 		bilanzHinzugefuegt = true;
 		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
 		stage.close();

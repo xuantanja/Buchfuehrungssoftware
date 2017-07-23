@@ -1,6 +1,8 @@
 package geschaeftsfall;
 
-public class Buchungssatz {
+import java.io.Serializable;
+
+public class Buchungssatz implements Serializable{
 
 	private String ID;
 	private String name;

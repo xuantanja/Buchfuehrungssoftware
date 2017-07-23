@@ -1,5 +1,6 @@
 package konten;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class Kontoseite {
+public class Kontoseite implements Serializable{
 
 	private boolean sollseite;
 	private HashMap<String, Buchungssatz> buchungen;

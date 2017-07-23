@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,10 +29,10 @@ public class IOManager {
 		return null;
 	}
 	
-	public static void saveFile(HashMap<String,Konto> faelle, ArrayList<Geschaeftsfall> konten, File destination) {
+	public static void saveFile(HashMap<String,Konto> faelle, ArrayList<Geschaeftsfall> konten, File destination, LocalDate gjBeginn) {
 		try {
 			ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(destination));
-			fileWriter.writeObject(new DataStorage(faelle, konten));
+			fileWriter.writeObject(new DataStorage(faelle, konten, gjBeginn));
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,6 +1,8 @@
 package konten;
 
-public class Steuerkonto extends Konto {
+import java.io.Serializable;
+
+public class Steuerkonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 3;
 	private double steuersatz;
