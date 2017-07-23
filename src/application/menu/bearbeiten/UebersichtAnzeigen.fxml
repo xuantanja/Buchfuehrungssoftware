@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.UebersichtanzeigenController">
+   <children>
+      <Pane prefHeight="47.0" prefWidth="600.0">
+         <children>
+            <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="47.0" prefWidth="600.0">
+               <children>
+                  <ComboBox fx:id="CB_GF_auswaehlen" layoutX="37.0" layoutY="11.0" prefHeight="25.0" prefWidth="290.0" promptText="Wählen Sie einen Geschäftfall aus" />
+                  <Button fx:id="BTN_alle_GF_anzeigen" layoutX="399.0" layoutY="11.0" mnemonicParsing="false" onAction="#handle_alle_GF_anzeigen" text="Alle Geschäftsfälle anzeigen" />
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+      <ScrollPane prefHeight="353.0" prefWidth="600.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="601.0">
+               <children>
+                  <VBox fx:id="VBox_Anzeige" layoutX="34.0" layoutY="9.0" prefHeight="326.0" prefWidth="529.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</VBox>

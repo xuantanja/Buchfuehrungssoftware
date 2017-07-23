@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import application.menu.bearbeiten.NeuerGFController;
+import application.menu.bearbeiten.UebersichtanzeigenController;
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
 import io.IOManager;
@@ -187,15 +188,17 @@ public class GUIController implements Initializable {
 	// konten und faelle geschrieben werden können
 	private DataStorage handle_Datei_Oeffnen(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
-		configureFileChooser(fileChooser);
+		fileChooser.setTitle("Öffne Bilanzdatei");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\"));
 		File file = fileChooser.showOpenDialog(new Stage());
 		DataStorage myStorage = null;
 		if (file != null) {
 			myStorage = io.IOManager.readFile(file);
 			// TODO
 			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
-			
-			kontenverwaltung = new Kontenverwaltung(file,myStorage.getKonten(),myStorage.getFaelle(),myStorage.getGeschaeftsjahrBeginn());
+
+			kontenverwaltung = new Kontenverwaltung(file, myStorage.getKonten(), myStorage.getFaelle(),
+					myStorage.getGeschaeftsjahrBeginn());
 			ladeKonten();
 			enableMenuBar(true);
 		}
@@ -228,6 +231,19 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_GF_Uebersicht(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/UebersichtAnzeigen.fxml"));
+			Scene scene = new Scene(loader.load());
+			UebersichtanzeigenController controller = loader.getController();
+			Stage bilanzErstellenStage = new Stage();
+			bilanzErstellenStage.setScene(scene);
+			bilanzErstellenStage.setTitle("XX");
+			bilanzErstellenStage.showAndWait();
+			controller.setFaelle(kontenverwaltung.getFaelle());
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -299,10 +315,6 @@ public class GUIController implements Initializable {
 		GUI.services.showDocument(file.toURI().toString());
 	}
 
-	private static void configureFileChooser(final FileChooser fileChooser) {
-		fileChooser.setTitle("Öffne Bilanzdatei");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\"));
-	}
 
 	private void enableMenuBar(boolean enable) {
 		menuBearbeiten.setDisable(!enable);
