@@ -133,15 +133,7 @@ public class NeuerBSController implements Initializable {
 		betragHaben = toDoubleArraylist(betragListHaben);
 		System.out.println("Size: " + betragSoll.size() + "    " + betragHaben.size());
 		int sollPos = 0, habenPos = 0;
-		double zwischenbetrag;
-		boolean isSollBigger;
-		if (betragSoll.get(sollPos) > betragHaben.get(habenPos)) {
-			zwischenbetrag = betragSoll.get(sollPos);
-			isSollBigger = true;
-		} else {
-			zwischenbetrag = betragHaben.get(habenPos);
-			isSollBigger = false;
-		}
+		boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 		putBuchungssatz(sollPos, habenPos, isSollBigger);
 		test();
 	}
@@ -154,7 +146,6 @@ public class NeuerBSController implements Initializable {
 			buchungsbetrag = betragHaben.get(habenPos);
 			betragSoll.set(sollPos, betragSoll.get(sollPos) - betragHaben.get(habenPos));
 			
-			//isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
 			if (!isSollBigger) {
@@ -166,7 +157,6 @@ public class NeuerBSController implements Initializable {
 			buchungsbetrag = betragSoll.get(sollPos);
 			betragHaben.set(habenPos, betragHaben.get(habenPos) - betragSoll.get(sollPos));
 			
-			//isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
 			if (isSollBigger) {
