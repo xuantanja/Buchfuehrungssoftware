@@ -38,6 +38,7 @@ import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
 import konten.Steuerkonto;
+import utility.alertDialog.AlertDialogFrame;
 
 /**
  * FXML Controller class
@@ -200,6 +201,7 @@ public class BilanzErstellenController implements Initializable {
 			standardPath.mkdirs();
 		}
 		bilanzHinzugefuegt = true;
+		new AlertDialogFrame().showConfirmDialog("Die Bilanz wurde erfolgreich erstellt", "Sie können nun beginnen Ihre ersten Geschäftsfälle und Buchungen zu erstellen!", "Bestätigen");
 		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
 		stage.close();
 	}

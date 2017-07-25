@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import konten.Konto;
+import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
 
 import java.net.URL;
@@ -131,11 +132,16 @@ public class NeuerBSController implements Initializable {
 		String ID = comboGF.getSelectionModel().getSelectedIndex() + ".";
 		betragSoll = toDoubleArraylist(betragListSoll);
 		betragHaben = toDoubleArraylist(betragListHaben);
-		System.out.println("Size: " + betragSoll.size() + "    " + betragHaben.size());
-		int sollPos = 0, habenPos = 0;
-		boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
-		putBuchungssatz(sollPos, habenPos, isSollBigger);
-		test();
+
+		if (sumOfValues(betragSoll) == sumOfValues(betragHaben)) {
+			int sollPos = 0, habenPos = 0;
+			boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
+			putBuchungssatz(sollPos, habenPos, isSollBigger);
+			test();
+		} else {
+			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz", "Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie ihre Eingabe.", "OK");
+		}
+
 	}
 
 	private void putBuchungssatz(int sollPos, int habenPos, boolean isSollBigger) {
@@ -145,7 +151,7 @@ public class NeuerBSController implements Initializable {
 		if (isSollBigger) {
 			buchungsbetrag = betragHaben.get(habenPos);
 			betragSoll.set(sollPos, betragSoll.get(sollPos) - betragHaben.get(habenPos));
-			
+
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
 			if (!isSollBigger) {
@@ -156,7 +162,7 @@ public class NeuerBSController implements Initializable {
 		} else {
 			buchungsbetrag = betragSoll.get(sollPos);
 			betragHaben.set(habenPos, betragHaben.get(habenPos) - betragSoll.get(sollPos));
-			
+
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
 			if (isSollBigger) {
@@ -176,7 +182,7 @@ public class NeuerBSController implements Initializable {
 			System.out.println("Buchungssatz:  " + bs2.getSollKonto() + " an " + bs2.getHabenKonto() + "  "
 					+ bs2.getBetrag() + " €");
 			buchungssätze.put("0", bs2);
-		} else if(!(rowSoll == 1 && rowHaben == 1)) {
+		} else if (!(rowSoll == 1 && rowHaben == 1)) {
 			putBuchungssatz(sollPos, habenPos, isSollBigger);
 		}
 	}
@@ -199,6 +205,14 @@ public class NeuerBSController implements Initializable {
 
 		}
 		return doublearraylist;
+	}
+
+	private double sumOfValues(ArrayList<Double> list) {
+		double sum = 0;
+		for (double value : list) {
+			sum += value;
+		}
+		return sum;
 	}
 
 	// Event Listener on Button[#buttonSchliessen].onAction
