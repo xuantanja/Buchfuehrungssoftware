@@ -1,7 +1,7 @@
 package konten;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 
 import geschaeftsfall.Buchungssatz;
@@ -12,11 +12,11 @@ import javafx.scene.layout.VBox;
 public class Kontoseite implements Serializable{
 
 	private boolean sollseite;
-	private HashMap<String, Buchungssatz> buchungen;
+	private Hashtable<String, Buchungssatz> buchungen;
 
 	public Kontoseite(boolean sollseite) {
 		this.sollseite = sollseite;
-		buchungen = new HashMap<>();
+		buchungen = new Hashtable<>();
 	}
 
 	public double getBetragssumme() {
@@ -39,11 +39,11 @@ public class Kontoseite implements Serializable{
 		
 	}
 
-	public HashMap<String, Buchungssatz> getBuchungen() {
+	public Hashtable<String, Buchungssatz> getBuchungen() {
 		return buchungen;
 	}
 
-	public void setBuchungen(HashMap<String, Buchungssatz> buchungen) {
+	public void setBuchungen(Hashtable<String, Buchungssatz> buchungen) {
 		this.buchungen = buchungen;
 	}
 	

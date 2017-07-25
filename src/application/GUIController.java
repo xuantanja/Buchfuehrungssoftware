@@ -11,11 +11,13 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.bearbeiten.NeuerBSController;
 import application.menu.bearbeiten.NeuerGFController;
 import application.menu.bearbeiten.UebersichtanzeigenController;
 import application.menu.datei.BilanzErstellenController;
 import io.DataStorage;
 import io.IOManager;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +36,7 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
+import utility.converter.TypeConverter;
 
 /**
  * FXML Controller class
@@ -268,6 +271,22 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_GF_BSEintragen(ActionEvent event) {
+		try {
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/NeuerBS.fxml"));
+			Scene scene = new Scene(loader.load());
+			NeuerBSController controller = loader.getController();
+			controller.setParameter(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle());
+			Stage stage = new Stage();
+			stage.setTitle("Buchungssatz erstellen");
+			stage.setScene(scene);
+			stage.showAndWait();
+			
+
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
