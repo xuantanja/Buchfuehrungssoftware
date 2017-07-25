@@ -36,12 +36,7 @@ public class UebersichtanzeigenController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
-		ArrayList<String> geschaeftsfaelle = new ArrayList<>();
 
-		for (Geschaeftsfall fall : faelle) {
-			geschaeftsfaelle.add(fall.getTitel());
-		}
-		CB_GF_auswaehlen.setItems((ObservableList<String>) FXCollections.observableArrayList(geschaeftsfaelle));
 	}
 
 	@FXML
@@ -51,6 +46,13 @@ public class UebersichtanzeigenController implements Initializable {
 
 	public void setFaelle(ArrayList<Geschaeftsfall> gfall) {
 		faelle = gfall;
+		
+		ArrayList<String> geschaeftsfaelle = new ArrayList<>();
+
+		for (Geschaeftsfall fall : faelle) {
+			geschaeftsfaelle.add(fall.getTitel());
+		}
+		CB_GF_auswaehlen.setItems((ObservableList<String>) FXCollections.observableArrayList(geschaeftsfaelle));
 	}
 
 }
