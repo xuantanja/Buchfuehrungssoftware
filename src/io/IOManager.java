@@ -23,8 +23,10 @@ public class IOManager {
 			return ds;
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("Ein Fehler ist beim Lesen der Datei aufgetreten.");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println("Ein Fehler ist beim umwandeln der Klasse aufgetreten.");
 		}
 		return null;
 	}

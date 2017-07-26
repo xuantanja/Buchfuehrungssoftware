@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import konten.Konto;
 import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
+import utility.map.IDMap;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class NeuerBSController implements Initializable {
 	private ArrayList<ComboBox<String>> comboListSoll, comboListHaben;
 	private ArrayList<TextField> betragListSoll, betragListHaben;
 	private ArrayList<Double> betragSoll, betragHaben;
-	private HashMap<String, Buchungssatz> buchungssätze;
+	private IDMap<Integer, Buchungssatz> buchungssätze;
 	private int rowSoll, rowHaben;
 	@FXML
 	private TextField textfieldTitel;
@@ -71,7 +72,7 @@ public class NeuerBSController implements Initializable {
 		comboListHaben = new ArrayList<>();
 		betragListSoll = new ArrayList<>();
 		betragListHaben = new ArrayList<>();
-		buchungssätze = new HashMap<>();
+		buchungssätze = new IDMap<>();
 		rowSoll = 1;
 		rowHaben = 1;
 
@@ -129,7 +130,6 @@ public class NeuerBSController implements Initializable {
 	// Event Listener on Button[#buttonHinzufügen].onAction
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
-		String ID = comboGF.getSelectionModel().getSelectedIndex() + ".";
 		betragSoll = toDoubleArraylist(betragListSoll);
 		betragHaben = toDoubleArraylist(betragListHaben);
 
@@ -139,7 +139,9 @@ public class NeuerBSController implements Initializable {
 			putBuchungssatz(sollPos, habenPos, isSollBigger);
 			test();
 		} else {
-			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz", "Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie ihre Eingabe.", "OK");
+			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
+					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie ihre Eingabe.",
+					"OK");
 		}
 
 	}
@@ -172,16 +174,12 @@ public class NeuerBSController implements Initializable {
 		}
 
 		Buchungssatz bs = new Buchungssatz(textfieldTitel.getText(), sollKonto, habenKonto, buchungsbetrag);
-		buchungssätze.put("0", bs);
-		System.out.println(
-				"Buchungssatz:  " + bs.getSollKonto() + " an " + bs.getHabenKonto() + "  " + bs.getBetrag() + " €");
+		buchungssätze.put(comboGF.getSelectionModel().getSelectedIndex(), bs);
 		if (sollPos == rowSoll - 1 && habenPos == rowHaben - 1) {
 			Buchungssatz bs2 = new Buchungssatz(textfieldTitel.getText(),
 					comboListSoll.get(sollPos).getSelectionModel().getSelectedItem(),
 					comboListHaben.get(habenPos).getSelectionModel().getSelectedItem(), betragSoll.get(sollPos));
-			System.out.println("Buchungssatz:  " + bs2.getSollKonto() + " an " + bs2.getHabenKonto() + "  "
-					+ bs2.getBetrag() + " €");
-			buchungssätze.put("0", bs2);
+			buchungssätze.put(comboGF.getSelectionModel().getSelectedIndex(), bs2);
 		} else if (!(rowSoll == 1 && rowHaben == 1)) {
 			putBuchungssatz(sollPos, habenPos, isSollBigger);
 		}
@@ -189,11 +187,14 @@ public class NeuerBSController implements Initializable {
 
 	private void test() {
 		System.out.println("---------------------------------------------------");
-		Iterator<Buchungssatz> it = buchungssätze.values().iterator();
+		Iterator<ArrayList<Buchungssatz>> it = buchungssätze.values().iterator();
 		while (it.hasNext()) {
-			Buchungssatz b = it.next();
-			System.out.println(
-					"Buchungssatz:  " + b.getSollKonto() + " an " + b.getHabenKonto() + "  " + b.getBetrag() + " €");
+			ArrayList<Buchungssatz> blist = it.next();
+			for (Buchungssatz b : blist) {
+				System.out.println("Buchungssatz:  " + b.getSollKonto() + " an " + b.getHabenKonto() + "  "
+						+ b.getBetrag() + " €");
+			}
+
 		}
 		System.out.println("---------------------------------------------------");
 	}
@@ -213,6 +214,11 @@ public class NeuerBSController implements Initializable {
 			sum += value;
 		}
 		return sum;
+	}
+	
+	public IDMap<Integer, Buchungssatz> getNeueBuchungssaetze() {
+		return buchungssätze;
+
 	}
 
 	// Event Listener on Button[#buttonSchliessen].onAction

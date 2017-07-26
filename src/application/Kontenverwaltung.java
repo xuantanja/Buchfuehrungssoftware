@@ -30,10 +30,11 @@ public class Kontenverwaltung {
 			konten.put(konto.getKuerzel(), konto);
 		}
 	}
-	
-	public Kontenverwaltung(File file, HashMap<String, Konto> kontenListe, ArrayList<Geschaeftsfall> faelle, LocalDate gfBeginn) {
+
+	public Kontenverwaltung(File file, HashMap<String, Konto> kontenListe, ArrayList<Geschaeftsfall> faelle,
+			LocalDate gfBeginn) {
 		speicherort = file;
-		faelle = new ArrayList<>(faelle);
+		this.faelle = new ArrayList<>(faelle);
 		konten = new HashMap<>(kontenListe);
 		geschaeftsjahrBeginn = gfBeginn;
 	}
@@ -42,15 +43,26 @@ public class Kontenverwaltung {
 	public void addKonto(Konto myKonto) {
 		konten.put(myKonto.getKuerzel(), myKonto);
 	}
-	//Geschäftsfälle werden der ArrayList hinzugefügt
+
+	// Geschäftsfälle werden der ArrayList hinzugefügt
 	public void addGeschaeftsfall(Geschaeftsfall myGFall) {
 		faelle.add(myGFall);
 	}
-	//dem Geschäftsfall wird ein Buchungssatz hinzugefügt	
+
+	// dem Geschäftsfall wird ein Buchungssatz hinzugefügt
 	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
 		gfall.addBuchung(bsatz);
 		konten.get(bsatz.getSollKonto()).buchung(bsatz, true);
 		konten.get(bsatz.getHabenKonto()).buchung(bsatz, false);
+	}
+
+	public void addBuchungssatz(Geschaeftsfall gfall, ArrayList<Buchungssatz> bsatz) {
+		gfall.addMultipleBuchung(bsatz);
+		for (Buchungssatz b : bsatz) {
+			konten.get(b.getSollKonto()).buchung(b, true);
+			konten.get(b.getHabenKonto()).buchung(b, false);
+		}
+
 	}
 
 	public void removeGeschaeftsfall() {
@@ -60,8 +72,8 @@ public class Kontenverwaltung {
 	public void removeBuchungssatz() {
 
 	}
-	
-	public void kontensaldierung(){
+
+	public void kontensaldierung() {
 		Iterator<Konto> it = konten.values().iterator();
 		while (it.hasNext()) {
 			Konto konto = it.next();
@@ -72,7 +84,7 @@ public class Kontenverwaltung {
 	public Iterator<Konto> getKontenIterator() {
 		return konten.values().iterator();
 	}
-	
+
 	public HashMap<String, Konto> getKonten() {
 		return konten;
 	}

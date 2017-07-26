@@ -50,10 +50,10 @@ public class KontoContainer implements Serializable{
 	}
 
 	private void initialKontoLayout() {
-		Label l1 = new Label("-------------------");
-		Label l2 = new Label("-------------------");
-		Label l3 = new Label("-----------------------------------------");
-		Label l4 = new Label("-----------------------------------------");
+		Label l1 = new Label("-------------------------------");
+		Label l2 = new Label("-------------------------------");
+		Label l3 = new Label("-----------------------------");
+		Label l4 = new Label("-----------------------------");
 		l1.setVisible(false);
 		l2.setVisible(false);
 		l3.setVisible(false);
@@ -81,21 +81,11 @@ public class KontoContainer implements Serializable{
 
 	}
 
-	public void refresh() {
-		if (refNameS.getWidth() < refNameH.getWidth()) {
-			refNameH.setPrefWidth(refNameS.getWidth());
-		} else {
-			refNameS.setPrefWidth(refNameH.getWidth());
-		}
-		if (refBetragS.getWidth() < refBetragH.getWidth()) {
-			refBetragS.setPrefWidth(refBetragH.getWidth());
-		} else {
-			refBetragH.setPrefWidth(refBetragS.getWidth());
-		}
-
-	}
-
 	public VBox getLayout() {
+		Line vLine = new sLine(0, 0, 200, 0);
+		VBox layout = new sVBox(name, vLine, container);
+		layout.setPrefSize(200, 200);
+		layout.setAlignment(Pos.CENTER);
 		return layout;
 	}
 

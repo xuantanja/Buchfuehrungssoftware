@@ -1,20 +1,27 @@
 package utility.map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-public class IDMap<K, V> {
+public class IDMap<K, V> implements Serializable{
 
 	private HashMap<K, ArrayList<V>> container;
+	
+	public IDMap(){
+		container = new HashMap<>();
+	}
 
 	public void clear() {
 		container = new HashMap<>();
 	}
 
-	public boolean containsKey(Object key) {
-		return container.containsKey(key);
+	public boolean containsKey(K key) {
+			return container.containsKey(key);
+		
 	}
 
 	public boolean containsValue(Object value) {
@@ -68,6 +75,10 @@ public class IDMap<K, V> {
 			size += it.next().size();
 		}
 		return size;
+	}
+
+	public Collection<ArrayList<V>> values() {
+		return container.values();
 	}
 
 }

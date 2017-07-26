@@ -49,7 +49,7 @@ public class Geschaeftsfall implements Serializable {
 	}
 
 	public void addBuchung(Buchungssatz bsatz) {
-		bsatz.setID_B(ID + "." + (char) (97 + anzahlBuchungen) + "." + 1);
+		bsatz.setID_B(ID + "." + (char) (97 + anzahlBuchungen));
 		saetze.add(bsatz);
 		anzahlBuchungen++;
 	}
@@ -57,7 +57,7 @@ public class Geschaeftsfall implements Serializable {
 	public void addMultipleBuchung(ArrayList<Buchungssatz> bsList) {
 		for (int i = 0; i < bsList.size(); i++) {
 			Buchungssatz bsatz = bsList.get(i);
-			bsatz.setID_B(ID + "." + (char) (97 + saetze.size()) + "." + (i+1));
+			bsatz.setID_B(ID + "." + (char) (97 + anzahlBuchungen));
 			saetze.add(bsatz);
 		}
 		anzahlBuchungen++;

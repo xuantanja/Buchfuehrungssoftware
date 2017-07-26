@@ -15,6 +15,7 @@ import application.menu.bearbeiten.NeuerBSController;
 import application.menu.bearbeiten.NeuerGFController;
 import application.menu.bearbeiten.UebersichtanzeigenController;
 import application.menu.datei.BilanzErstellenController;
+import geschaeftsfall.Buchungssatz;
 import io.DataStorage;
 import io.IOManager;
 import javafx.collections.FXCollections;
@@ -37,6 +38,7 @@ import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
 import utility.converter.TypeConverter;
+import utility.map.IDMap;
 
 /**
  * FXML Controller class
@@ -74,7 +76,6 @@ public class GUIController implements Initializable {
 		t2_Ertragskonten = new GridPane();
 		t3_Steuerkonten = new GridPane();
 		kontenverwaltung = new Kontenverwaltung();
-		initalHeadings();
 
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
 		t3.getChildren().add(t3_Steuerkonten);
@@ -131,7 +132,7 @@ public class GUIController implements Initializable {
 			bilanzErstellenStage.showAndWait();
 			if (controller.isNeueBilanzErstellt()) {
 				kontenverwaltung = controller.getNeueBilanz();
-				ladeKonten();
+				ladeKonten(true);
 				enableMenuBar(true);
 			}
 		} catch (IOException e) {
@@ -144,7 +145,7 @@ public class GUIController implements Initializable {
 
 	}
 
-	private void ladeKonten() {
+	private void ladeKonten(boolean neueBilanz) {
 		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
 		for (int i = 0; i < gpList.length; i++) {
 			gpList[i].getChildren().clear();
@@ -158,6 +159,9 @@ public class GUIController implements Initializable {
 			case (1):
 				Bestandskonto bkonto = (Bestandskonto) konto;
 				bkonto.confirmAB();
+				if (!neueBilanz) {
+					bkonto.newContainer();
+				}
 				if (bkonto.isAktivkonto()) {
 					t1_A.add(bkonto.getGUIComponents(), count_t1_A % 2, count_t1_A / 2);
 					count_t1_A++;
@@ -168,6 +172,9 @@ public class GUIController implements Initializable {
 				break;
 			case (2):
 				Erfolgskonto ekonto = (Erfolgskonto) konto;
+				if (!neueBilanz) {
+					ekonto.newContainer();
+				}
 				if (ekonto.isErtragskonto()) {
 					t2_Ertragskonten.add(ekonto.getGUIComponents(), count_t2_Ertragskonten % 4,
 							count_t2_Ertragskonten / 4);
@@ -179,34 +186,36 @@ public class GUIController implements Initializable {
 				}
 				break;
 			case (3):
+				if(!neueBilanz){
+					konto.newContainer();
+				}
 				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
 				count_t3_Steuerkonten++;
 				break;
 			}
 		}
+		System.out.println("------------------------------INIT-DONE------------------------------");
 	}
 
 	@FXML
 	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf
 	// konten und faelle geschrieben werden können
-	private DataStorage handle_Datei_Oeffnen(ActionEvent event) {
+	private void handle_Datei_Oeffnen(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Öffne Bilanzdatei");
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\"));
+		fileChooser.setInitialDirectory(
+				new File(System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\"));
 		File file = fileChooser.showOpenDialog(new Stage());
 		DataStorage myStorage = null;
 		if (file != null) {
 			myStorage = io.IOManager.readFile(file);
 			// TODO
 			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
-
 			kontenverwaltung = new Kontenverwaltung(file, myStorage.getKonten(), myStorage.getFaelle(),
 					myStorage.getGeschaeftsjahrBeginn());
-			ladeKonten();
+			ladeKonten(false);
 			enableMenuBar(true);
 		}
-
-		return myStorage;
 	}
 
 	@FXML
@@ -222,6 +231,10 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_SchrittZurück(ActionEvent event) {
+		for (Iterator<Konto> iterator = kontenverwaltung.getKontenIterator(); iterator.hasNext();) {
+			System.out.println(iterator.next().description());
+
+		}
 	}
 
 	@FXML
@@ -282,7 +295,11 @@ public class GUIController implements Initializable {
 			stage.setScene(scene);
 			stage.showAndWait();
 			
-
+			IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
+			for (int gf : map.keySet()) {
+				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
+			}
+			
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
@@ -334,7 +351,6 @@ public class GUIController implements Initializable {
 		File file = new File(classLoader.getResource("application/FAQ.pdf").getFile());
 		GUI.services.showDocument(file.toURI().toString());
 	}
-
 
 	private void enableMenuBar(boolean enable) {
 		menuBearbeiten.setDisable(!enable);

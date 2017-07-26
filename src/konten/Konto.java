@@ -1,12 +1,13 @@
 package konten;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public abstract class Konto implements Serializable{
+public abstract class Konto implements Serializable {
 
 	private String titel;
 	private String kuerzel;
@@ -66,7 +67,6 @@ public abstract class Konto implements Serializable{
 					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
 			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
 		}
-		// guiContainer.refresh();
 	}
 
 	// isi hier die Buchung im Verrechnungskonto gemeint?
@@ -117,11 +117,27 @@ public abstract class Konto implements Serializable{
 	public KontoContainer getGuiContainer() {
 		return guiContainer;
 	}
+	
+	public void setGuiContainer(KontoContainer guiContainer) {
+		this.guiContainer = guiContainer;
+	}
 
 	public void setKuerzel(String kuerzel) {
 		this.kuerzel = kuerzel;
 	}
-	
-	
+
+	public void newContainer() {
+		guiContainer = new KontoContainer(titel);
+		for (Buchungssatz bsatz : sollSeite.getArrayOfBuchungen()) {
+			guiContainer.getRefNameS().getChildren()
+					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+		}
+		for (Buchungssatz bsatz : habenSeite.getArrayOfBuchungen()) {
+			guiContainer.getRefNameH().getChildren()
+					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+		}
+	}
 
 }

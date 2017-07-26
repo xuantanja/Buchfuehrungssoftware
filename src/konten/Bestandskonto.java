@@ -2,6 +2,7 @@ package konten;
 
 import java.io.Serializable;
 
+import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 
 public class Bestandskonto extends Konto implements Serializable{
@@ -39,6 +40,22 @@ public class Bestandskonto extends Konto implements Serializable{
 		beschreibung += "Bestandskonto; Anfangsbestand: " + getAnfangsbestand() + "; " + getTitel() + " ("
 				+ getKuerzel() + ") wird in das Konto " + getVerrechnungKonto() + " saldiert.";
 		return beschreibung;
+	}
+	
+	@Override
+	public void newContainer() {
+		setGuiContainer(new KontoContainer(getTitel()));
+		confirmAB();
+		for (Buchungssatz bsatz : getSollSeite().getArrayOfBuchungen()) {
+			getGuiContainer().getRefNameS().getChildren()
+					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			getGuiContainer().getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+		}
+		for (Buchungssatz bsatz : getHabenSeite().getArrayOfBuchungen()) {
+			getGuiContainer().getRefNameH().getChildren()
+					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+			getGuiContainer().getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+		}
 	}
 	
 	public double getAnfangsbestand() {
