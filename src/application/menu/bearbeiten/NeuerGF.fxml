@@ -11,7 +11,7 @@
       <Pane layoutX="14.0" layoutY="14.0" prefHeight="233.0" prefWidth="610.0">
          <children>
             <TextField fx:id="textfieldTitel" layoutY="2.0" prefHeight="25.0" prefWidth="610.0" promptText="Titel des Geschäftsfalls" />
-            <TextArea fx:id="textfieldBeschreibung" layoutY="33.0" prefHeight="200.0" prefWidth="610.0" promptText="Beschreibung des Geschäftsfalls" />
+            <TextArea fx:id="textfieldBeschreibung" layoutY="33.0" prefHeight="200.0" prefWidth="610.0" promptText="Beschreibung des Geschäftsfalls" wrapText="true" />
          </children>
       </Pane>
       <Button fx:id="buttonHinzufügen" layoutX="477.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleHinzufügen" prefHeight="25.0" prefWidth="147.0" text="Geschäftsfall hinzufügen" />
