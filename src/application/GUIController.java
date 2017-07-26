@@ -37,6 +37,7 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
+import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
 import utility.map.IDMap;
 
@@ -186,7 +187,7 @@ public class GUIController implements Initializable {
 				}
 				break;
 			case (3):
-				if(!neueBilanz){
+				if (!neueBilanz) {
 					konto.newContainer();
 				}
 				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
@@ -208,13 +209,16 @@ public class GUIController implements Initializable {
 		File file = fileChooser.showOpenDialog(new Stage());
 		DataStorage myStorage = null;
 		if (file != null) {
-			myStorage = io.IOManager.readFile(file);
-			// TODO
-			// hier Fall beachten, wenn falscher Filetyp geöffnet wird
-			kontenverwaltung = new Kontenverwaltung(file, myStorage.getKonten(), myStorage.getFaelle(),
-					myStorage.getGeschaeftsjahrBeginn());
-			ladeKonten(false);
-			enableMenuBar(true);
+			try {
+				myStorage = io.IOManager.readFile(file);
+				kontenverwaltung = new Kontenverwaltung(file, myStorage.getKonten(), myStorage.getFaelle(),
+						myStorage.getGeschaeftsjahrBeginn());
+				ladeKonten(false);
+				enableMenuBar(true);
+			} catch (IOException e) {
+				e.printStackTrace();
+				new AlertDialogFrame().showConfirmDialog("Die ausgewählte Datei konnte nicht geöffnet werden", "Die Datei ist nicht kompatibel mit dieser Version!", "Ok");
+			}
 		}
 	}
 
@@ -294,12 +298,12 @@ public class GUIController implements Initializable {
 			stage.setTitle("Buchungssatz erstellen");
 			stage.setScene(scene);
 			stage.showAndWait();
-			
+
 			IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
 			for (int gf : map.keySet()) {
 				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
 			}
-			
+
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();

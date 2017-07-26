@@ -12,23 +12,20 @@ import java.util.HashMap;
 
 import geschaeftsfall.Geschaeftsfall;
 import konten.Konto;
+import utility.alertDialog.AlertDialogFrame;
 
 public class IOManager {
 	
-	public static DataStorage readFile(File destination) {
+	public static DataStorage readFile(File destination) throws IOException {
 		try {
 			ObjectInputStream fileReader = new ObjectInputStream(new FileInputStream(destination));
 			DataStorage ds = ((DataStorage) fileReader.readObject());
 			fileReader.close();
 			return ds;
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Ein Fehler ist beim Lesen der Datei aufgetreten.");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Ein Fehler ist beim umwandeln der Klasse aufgetreten.");
 		}
-		return null;
+		throw new IOException();
 	}
 	
 	public static void saveFile(HashMap<String,Konto> faelle, ArrayList<Geschaeftsfall> konten, File destination, LocalDate gjBeginn) {
