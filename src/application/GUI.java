@@ -26,6 +26,7 @@ public class GUI extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BuFue.fxml"));
 		Scene scene = new Scene(loader.load());
 		primaryStage.setScene(scene);
+		primaryStage.setOnCloseRequest(e -> System.exit(0));
 		primaryStage.setTitle("BuFü HWR Version");
 		primaryStage.show();
 

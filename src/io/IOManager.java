@@ -28,13 +28,15 @@ public class IOManager {
 		throw new IOException();
 	}
 	
-	public static void saveFile(HashMap<String,Konto> faelle, ArrayList<Geschaeftsfall> konten, File destination, LocalDate gjBeginn) {
+	public static boolean saveFile(HashMap<String,Konto> faelle, ArrayList<Geschaeftsfall> konten, File destination, LocalDate gjBeginn) {
 		try {
 			ObjectOutputStream fileWriter = new ObjectOutputStream(new FileOutputStream(destination));
 			fileWriter.writeObject(new DataStorage(faelle, konten, gjBeginn));
 			fileWriter.close();
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

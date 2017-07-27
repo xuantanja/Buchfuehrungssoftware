@@ -138,12 +138,34 @@ public class NeuerBSController implements Initializable {
 			boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 			putBuchungssatz(sollPos, habenPos, isSollBigger);
 			test();
+			resetGUI();
 		} else {
 			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
 					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie ihre Eingabe.",
-					"OK");
+					"OK", AlertDialogFrame.WARNING_TYPE);
 		}
+	}
 
+	private void resetGUI() {
+		rowSoll = 1;
+		rowHaben = 1;
+		gridpaneBS.getChildren().removeAll(comboListSoll);
+		gridpaneBS.getChildren().removeAll(comboListHaben);
+		gridpaneBS.getChildren().removeAll(betragListSoll);
+		gridpaneBS.getChildren().removeAll(betragListHaben);
+		gridpaneBS.getChildren().removeAll(buttonPlusHaben, buttonPlusSoll, comboSoll, comboHaben, textfieldBetragSoll, textfieldBetragHaben);
+		gridpaneBS.add(buttonPlusSoll, 0, rowSoll);
+		gridpaneBS.add(buttonPlusHaben, 4, rowHaben);
+		gridpaneBS.add(comboSoll, 0, 0);
+		gridpaneBS.add(textfieldBetragSoll, 1, 0);
+		gridpaneBS.add(comboHaben, 4, 0);
+		gridpaneBS.add(textfieldBetragHaben, 5, 0);
+		comboSoll.getSelectionModel().clearSelection();
+		comboHaben.getSelectionModel().clearSelection();
+		textfieldBetragHaben.setText("");
+		textfieldBetragSoll.setText("");
+		
+		
 	}
 
 	private void putBuchungssatz(int sollPos, int habenPos, boolean isSollBigger) {
@@ -215,7 +237,7 @@ public class NeuerBSController implements Initializable {
 		}
 		return sum;
 	}
-	
+
 	public IDMap<Integer, Buchungssatz> getNeueBuchungssaetze() {
 		return buchungssätze;
 

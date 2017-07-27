@@ -217,15 +217,20 @@ public class GUIController implements Initializable {
 				enableMenuBar(true);
 			} catch (IOException e) {
 				e.printStackTrace();
-				new AlertDialogFrame().showConfirmDialog("Die ausgewählte Datei konnte nicht geöffnet werden", "Die Datei ist nicht kompatibel mit dieser Version!", "Ok");
+				new AlertDialogFrame().showConfirmDialog("Die ausgewählte Datei konnte nicht geöffnet werden", "Die Datei ist nicht kompatibel mit dieser Version!", "Ok", AlertDialogFrame.ERROR_TYPE);
 			}
 		}
 	}
 
 	@FXML
 	private void handle_Datei_Speichern(ActionEvent event) {
-		IOManager.saveFile(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle(),
+		boolean erfolgreich = IOManager.saveFile(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle(),
 				kontenverwaltung.getSpeicherort(), kontenverwaltung.getGeschaeftsjahrBeginn());
+		if(erfolgreich){
+				new AlertDialogFrame().showConfirmDialog("Die Bilanz wurde erfolgreich gespeichert", "Die Bilanz wurde unter der Datei " + kontenverwaltung.getSpeicherort().getName() + " gespeichert.", "Ok", AlertDialogFrame.INFORMATION_TYPE);
+		} else {
+			new AlertDialogFrame().showConfirmDialog("Speichern nicht erfolgreich", "Beim Speichern der Bilanz ist ein Fehler aufgetreten. Die Bilanz konnte nicht gespeichert werden", "Ok", AlertDialogFrame.ERROR_TYPE);
+		}
 	}
 
 	@FXML
@@ -297,13 +302,11 @@ public class GUIController implements Initializable {
 			Stage stage = new Stage();
 			stage.setTitle("Buchungssatz erstellen");
 			stage.setScene(scene);
-			stage.showAndWait();
-
-			IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
-			for (int gf : map.keySet()) {
-				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
-			}
-
+				stage.showAndWait();
+				IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
+				for (int gf : map.keySet()) {
+					kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
+				}
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();

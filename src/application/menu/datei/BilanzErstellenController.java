@@ -200,7 +200,6 @@ public class BilanzErstellenController implements Initializable {
 			standardPath.mkdirs();
 		}
 		bilanzHinzugefuegt = true;
-		new AlertDialogFrame().showConfirmDialog("Die Bilanz wurde erfolgreich erstellt", "Sie können nun beginnen Ihre ersten Geschäftsfälle und Buchungen zu erstellen!", "Bestätigen");
 		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
 		stage.close();
 	}
