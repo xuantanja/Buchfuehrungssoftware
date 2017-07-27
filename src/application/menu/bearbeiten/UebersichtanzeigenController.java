@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,16 +55,19 @@ public class UebersichtanzeigenController implements Initializable {
 			// Beschreibung der Geschäftsfälle in Label speichern
 			Label lb2 = new Label(fall.getBeschreibung());
 
+			lb2.setWrapText(true);
 			VBox_Anzeige.getChildren().add(lb1);
 			VBox_Anzeige.getChildren().add(lb2);
-
-			/*
-			 * if (!fall.getSaetze().equals(null)) { // Informationen zu den BS:
-			 * Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto());
-			 * Label lb4 = new Label(fall.getSaetze().get(i).getHabenKonto());
-			 * VBox_Anzeige.getChildren().add(lb3);
-			 * VBox_Anzeige.getChildren().add(lb4); }
-			 */
+			
+			ArrayList<Buchungssatz> bsList = fall.getSaetze();
+			 // Informationen zu den BS:
+			if (fall.hasSatz(i, bsList)) {
+				
+				Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto());
+				Label lb4 = new Label(fall.getSaetze().get(i).getHabenKonto());
+				VBox_Anzeige.getChildren().add(lb3);
+				VBox_Anzeige.getChildren().add(lb4);
+			}
 
 		}
 	}
