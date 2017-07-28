@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,18 +60,21 @@ public class UebersichtanzeigenController implements Initializable {
 			lb2.setWrapText(true);
 			VBox_Anzeige.getChildren().add(lb1);
 			VBox_Anzeige.getChildren().add(lb2);
-			
-			ArrayList<Buchungssatz> bsList = fall.getSaetze();
-			 // Informationen zu den BS:
-			if (fall.hasSatz(i, bsList)) {
-				
-				Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto());
-				Label lb4 = new Label(fall.getSaetze().get(i).getHabenKonto());
+
+			// Informationen zu den BS:
+			for (Buchungssatz bs : fall.getSaetze()) {
+				Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto() + " an "
+						+ fall.getSaetze().get(i).getHabenKonto() + " " + fall.getSaetze().get(i).getBetrag() + " €");
 				VBox_Anzeige.getChildren().add(lb3);
-				VBox_Anzeige.getChildren().add(lb4);
 			}
+			// Problem: Wenn ein Buchungssatz 2 oder mehr Konten auf einer Seite hat
 
 		}
+
+	}
+	
+	public void auswahlCB(){
+
 	}
 
 	public void setFaelle(ArrayList<Geschaeftsfall> gfall) {
