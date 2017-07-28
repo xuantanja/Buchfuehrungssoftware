@@ -64,16 +64,4 @@ public class Geschaeftsfall implements Serializable {
 		anzahlBuchungen++;
 	}
 
-
-	public boolean hasSatz(int x, ArrayList<Buchungssatz> bsList) {
-		try {
-			bsList.get(x).getBetrag();
-			return true;
-		} catch (NullPointerException e) {
-			return false;
-
-			// TODO: Wenn das Fenster geschlossen wird, dann wird eine
-			// NullPointerException geworfen.
-		}
-	}
 }

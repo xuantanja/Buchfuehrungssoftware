@@ -264,7 +264,7 @@ public class GUIController implements Initializable {
 
 			Stage bilanzErstellenStage = new Stage();
 			bilanzErstellenStage.setScene(scene);
-			bilanzErstellenStage.setTitle("XX");
+			bilanzErstellenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
 			bilanzErstellenStage.showAndWait();
 		} catch (IOException e) {
 			// TODO
