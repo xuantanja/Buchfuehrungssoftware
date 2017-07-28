@@ -229,11 +229,6 @@ public class NeuerBSController implements Initializable {
 		return sum;
 	}
 
-	public IDMap<Integer, Buchungssatz> getNeueBuchungssaetze() {
-		return buchungss‰tze;
-
-	}
-
 	private boolean exceptionhandling() {
 		try {
 			betragSoll = toDoubleArraylist(betragListSoll);
@@ -281,5 +276,10 @@ public class NeuerBSController implements Initializable {
 	@FXML
 	public void handleSchlieﬂen(ActionEvent event) {
 		((Stage) buttonSchliessen.getScene().getWindow()).close();
+	}
+	
+	public IDMap<Integer, Buchungssatz> getNeueBuchungssaetze() {
+		return buchungss‰tze;
+
 	}
 }
