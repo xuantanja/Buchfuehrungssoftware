@@ -17,7 +17,6 @@ import utility.map.IDMap;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -130,19 +129,12 @@ public class NeuerBSController implements Initializable {
 	// Event Listener on Button[#buttonHinzufügen].onAction
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
-		betragSoll = toDoubleArraylist(betragListSoll);
-		betragHaben = toDoubleArraylist(betragListHaben);
-
-		if (sumOfValues(betragSoll) == sumOfValues(betragHaben)) {
+		if (exceptionhandling()) {
 			int sollPos = 0, habenPos = 0;
 			boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 			putBuchungssatz(sollPos, habenPos, isSollBigger);
 			test();
 			resetGUI();
-		} else {
-			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
-					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie ihre Eingabe.",
-					"OK", AlertDialogFrame.WARNING_TYPE);
 		}
 	}
 
@@ -153,7 +145,8 @@ public class NeuerBSController implements Initializable {
 		gridpaneBS.getChildren().removeAll(comboListHaben);
 		gridpaneBS.getChildren().removeAll(betragListSoll);
 		gridpaneBS.getChildren().removeAll(betragListHaben);
-		gridpaneBS.getChildren().removeAll(buttonPlusHaben, buttonPlusSoll, comboSoll, comboHaben, textfieldBetragSoll, textfieldBetragHaben);
+		gridpaneBS.getChildren().removeAll(buttonPlusHaben, buttonPlusSoll, comboSoll, comboHaben, textfieldBetragSoll,
+				textfieldBetragHaben);
 		gridpaneBS.add(buttonPlusSoll, 0, rowSoll);
 		gridpaneBS.add(buttonPlusHaben, 4, rowHaben);
 		gridpaneBS.add(comboSoll, 0, 0);
@@ -164,8 +157,7 @@ public class NeuerBSController implements Initializable {
 		comboHaben.getSelectionModel().clearSelection();
 		textfieldBetragHaben.setText("");
 		textfieldBetragSoll.setText("");
-		
-		
+
 	}
 
 	private void putBuchungssatz(int sollPos, int habenPos, boolean isSollBigger) {
@@ -221,11 +213,10 @@ public class NeuerBSController implements Initializable {
 		System.out.println("---------------------------------------------------");
 	}
 
-	private ArrayList<Double> toDoubleArraylist(ArrayList<TextField> list) {
+	private ArrayList<Double> toDoubleArraylist(ArrayList<TextField> list) throws NumberFormatException {
 		ArrayList<Double> doublearraylist = new ArrayList<>();
 		for (TextField tf : list) {
 			doublearraylist.add(Double.parseDouble(tf.getText()));
-
 		}
 		return doublearraylist;
 	}
@@ -243,18 +234,52 @@ public class NeuerBSController implements Initializable {
 
 	}
 
+	private boolean exceptionhandling() {
+		try {
+			betragSoll = toDoubleArraylist(betragListSoll);
+			betragHaben = toDoubleArraylist(betragListHaben);
+		} catch (NumberFormatException e) {
+			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
+					"Es wurde eine ungültige Zahl bei den Wertbeträgen eingetragen! \nBitte überprüfen Sie Ihre Eingabe.",
+					"OK", AlertDialogFrame.WARNING_TYPE);
+			return false;
+		}
+		if (sumOfValues(betragSoll) != sumOfValues(betragHaben)) {
+			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
+					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie Ihre Eingabe.",
+					"OK", AlertDialogFrame.WARNING_TYPE);
+			return false;
+		}
+		if(comboGF.getSelectionModel().isEmpty()){
+			new AlertDialogFrame().showConfirmDialog("Keinen Geschäftsfall ausgewählt",
+					"Bitte wählen Sie einen Geschäftsfall aus, dem der Buchungssatz zugeordnet werden kann.",
+					"OK", AlertDialogFrame.WARNING_TYPE);
+			return false;
+		}
+		for(ComboBox<String> cb : comboListSoll){
+			if(cb.getSelectionModel().isEmpty()){
+				new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
+						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.",
+						"OK", AlertDialogFrame.WARNING_TYPE);
+				return false;
+			}
+		}
+		for(ComboBox<String> cb : comboListHaben){
+			if(cb.getSelectionModel().isEmpty()){
+				new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
+						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.",
+						"OK", AlertDialogFrame.WARNING_TYPE);
+				return false;
+			}
+		}
+		
+		return true;
+
+	}
+
 	// Event Listener on Button[#buttonSchliessen].onAction
 	@FXML
 	public void handleSchließen(ActionEvent event) {
 		((Stage) buttonSchliessen.getScene().getWindow()).close();
 	}
-
-	// Event Listener on Button[#checkboxBetragGleichsetzen].onAction
-	@FXML
-	public void handleSelectionBetragGleichsetzen(ActionEvent event) {
-		if (checkboxBetragGleichsetzen.isSelected()) {
-			// TODO
-		}
-	}
-
 }

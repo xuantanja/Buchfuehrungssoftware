@@ -32,7 +32,7 @@ public class KontoContainer implements Serializable{
 	public KontoContainer(String kontoname) {
 		name = new sLabel(kontoname);
 		name.setFont(Font.font("System", FontWeight.BOLD, 14));
-		hLine = new sLine(0, 0, 0, 100);
+		hLine = new sLine(0, 0, 0, 120);
 		Line vLine = new sLine(0, 0, 200, 0);
 
 		refBetragS = new sVBox();
@@ -43,7 +43,7 @@ public class KontoContainer implements Serializable{
 		container.setAlignment(Pos.CENTER);
 		container.setSpacing(2);
 		layout = new sVBox(name, vLine, container);
-		layout.setPrefSize(200, 200);
+		layout.setPrefSize(300, 200);
 		layout.setAlignment(Pos.CENTER);
 		initialKontoLayout();
 		
@@ -52,8 +52,8 @@ public class KontoContainer implements Serializable{
 	private void initialKontoLayout() {
 		Label l1 = new Label("-------------------------------");
 		Label l2 = new Label("-------------------------------");
-		Label l3 = new Label("-----------------------------");
-		Label l4 = new Label("-----------------------------");
+		Label l3 = new Label("--------------------------------------");
+		Label l4 = new Label("--------------------------------------");
 		l1.setVisible(false);
 		l2.setVisible(false);
 		l3.setVisible(false);
@@ -82,9 +82,9 @@ public class KontoContainer implements Serializable{
 	}
 
 	public VBox getLayout() {
-		Line vLine = new sLine(0, 0, 200, 0);
+		Line vLine = new sLine(0, 0, 220, 0);
 		VBox layout = new sVBox(name, vLine, container);
-		layout.setPrefSize(200, 200);
+		layout.setPrefSize(220, 200);
 		layout.setAlignment(Pos.CENTER);
 		return layout;
 	}

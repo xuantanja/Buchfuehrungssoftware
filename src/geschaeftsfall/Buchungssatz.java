@@ -16,6 +16,13 @@ public class Buchungssatz implements Serializable{
 		this.habenKonto = habenKonto;
 		this.betrag = betrag;
 	}
+	
+	public String getKonto(boolean sollseite){
+		if(sollseite){
+			return sollKonto;
+		}
+		return habenKonto;
+	}
 
 	public String getID() {
 		return ID;

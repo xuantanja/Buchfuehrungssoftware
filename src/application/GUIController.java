@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -60,6 +61,8 @@ public class GUIController implements Initializable {
 	private Menu menuBearbeiten, menuAnalyse;
 	@FXML
 	private MenuItem menuitemSpeichern;
+	@FXML
+	private Separator vSeparator;
 
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
@@ -87,6 +90,8 @@ public class GUIController implements Initializable {
 			gpList[i].setPadding(new Insets(10));
 		}
 		enableMenuBar(false);
+		t1_A.heightProperty().addListener(e -> {if(t1_A.getHeight() > t1_P.getHeight()) vSeparator.setPrefHeight(t1_A.getHeight());});
+		t1_P.heightProperty().addListener(e -> {if(t1_P.getHeight() > t1_A.getHeight()) vSeparator.setPrefHeight(t1_P.getHeight());});
 	}
 
 	private void initalHeadings() {

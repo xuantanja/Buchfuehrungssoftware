@@ -1,6 +1,7 @@
 package konten;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import geschaeftsfall.Buchungssatz;
@@ -68,11 +69,30 @@ public abstract class Konto implements Serializable {
 			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
 		}
 	}
-
-	// isi hier die Buchung im Verrechnungskonto gemeint?
-	public void rueckbuchung(Buchungssatz bsatz) {
-
-	}
+	
+//	public void buchung(ArrayList<Buchungssatz> bsatz, boolean sollseite) {
+//		double betrag = 0;
+//		for(Buchungssatz bs : bsatz){
+//			if(bs.getKonto(sollseite).equals(kuerzel)){
+//				betrag += bs.getBetrag();
+//				if(sollseite){
+//					sollSeite.getBuchungen().put(bs.getID(), bs);
+//				} else{
+//					habenSeite.getBuchungen().put(bs.getID(), bs);
+//				}
+//				
+//			}
+//		}
+//		if (sollseite) {
+//			guiContainer.getRefNameS().getChildren()
+//					.add(new Label(bsatz.get(0).getID() + " " + bsatz.get(0).getHabenKonto() + "    "));
+//			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(betrag) + " €"));
+//		} else {
+//			guiContainer.getRefNameH().getChildren()
+//					.add(new Label(bsatz.get(0).getID() + " " + bsatz.get(0).getHabenKonto() + "    "));
+//			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(betrag) + " €"));
+//		}
+//	}
 
 	public String getTitel() {
 		return titel;
