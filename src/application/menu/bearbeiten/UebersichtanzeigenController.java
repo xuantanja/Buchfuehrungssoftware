@@ -62,18 +62,31 @@ public class UebersichtanzeigenController implements Initializable {
 			VBox_Anzeige.getChildren().add(lb2);
 
 			// Informationen zu den BS:
-			for (Buchungssatz bs : fall.getSaetze()) {
-				Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto() + " an "
-						+ fall.getSaetze().get(i).getHabenKonto() + " " + fall.getSaetze().get(i).getBetrag() + " €");
-				VBox_Anzeige.getChildren().add(lb3);
+
+			long bsID = fall.getID();
+			ArrayList<Buchungssatz> neuListe = fall.getSaetze();
+			for (int j = 0; j <= neuListe.size(); j++) {
+				String s = neuListe.get(j).getID();
+				int bsIDList = Character.getNumericValue(s.charAt(0));
+				if (bsIDList != bsID) {
+					neuListe.remove(j);
+				}
+
+				Iterator<Buchungssatz> it = neuListe.iterator();
+				while (it.hasNext()) {
+					Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto() + " an " + fall.getSaetze().get(i).getHabenKonto()
+									+ " " + fall.getSaetze().get(i).getBetrag() + " €");
+
+					VBox_Anzeige.getChildren().add(lb3);
+				}
+				// Problem: Wenn ein Buchungssatz 2 oder mehr Konten auf einer
+				// Seite hat neue ArrayList --- immer remove bei id.
 			}
-			// Problem: Wenn ein Buchungssatz 2 oder mehr Konten auf einer Seite hat
-			// neue ArrayList --- immer remove bei id.
 		}
 
 	}
-	
-	public void auswahlCB(){
+
+	public void auswahlCB() {
 
 	}
 
