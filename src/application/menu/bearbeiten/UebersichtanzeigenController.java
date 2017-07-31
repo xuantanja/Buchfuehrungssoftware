@@ -68,7 +68,7 @@ public class UebersichtanzeigenController implements Initializable {
 				VBox_Anzeige.getChildren().add(lb3);
 			}
 			// Problem: Wenn ein Buchungssatz 2 oder mehr Konten auf einer Seite hat
-
+			// neue ArrayList --- immer remove bei id.
 		}
 
 	}
