@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.152-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.UebersichtanzeigenController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.UebersichtanzeigenController">
    <children>
       <Pane prefHeight="47.0" prefWidth="600.0">
          <children>
@@ -15,6 +15,7 @@
                <children>
                   <ComboBox fx:id="CB_GF_auswaehlen" layoutX="37.0" layoutY="11.0" prefHeight="25.0" prefWidth="290.0" promptText="Wählen Sie einen Geschäftfall aus" />
                   <Button fx:id="BTN_alle_GF_anzeigen" layoutX="399.0" layoutY="11.0" mnemonicParsing="false" onAction="#handle_alle_GF_anzeigen" text="Alle Geschäftsfälle anzeigen" />
+                  <Button fx:id="btn_check" layoutX="336.0" layoutY="11.0" mnemonicParsing="false" onAction="#handle_btnCheck" prefHeight="25.0" prefWidth="28.0" text="✔" />
                </children>
             </AnchorPane>
          </children>

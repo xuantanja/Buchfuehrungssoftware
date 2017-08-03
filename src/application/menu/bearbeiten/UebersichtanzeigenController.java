@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import konten.Konto;
+import utility.alertDialog.AlertDialogFrame;
 
 /**
  * FXML Controller class
@@ -39,6 +40,9 @@ public class UebersichtanzeigenController implements Initializable {
 	private Button BTN_alle_GF_anzeigen;
 
 	@FXML
+	private Button handle_btnCheck;
+
+	@FXML
 	private VBox VBox_Anzeige;
 
 	@Override
@@ -48,6 +52,8 @@ public class UebersichtanzeigenController implements Initializable {
 
 	@FXML
 	void handle_alle_GF_anzeigen(ActionEvent event) {
+		
+		VBox_Anzeige.getChildren().clear();
 
 		for (int i = 0; i < faelle.size(); i++) {
 			Geschaeftsfall fall = faelle.get(i);
@@ -61,33 +67,48 @@ public class UebersichtanzeigenController implements Initializable {
 			VBox_Anzeige.getChildren().add(lb1);
 			VBox_Anzeige.getChildren().add(lb2);
 
-			// Informationen zu den BS:
-
-			long bsID = fall.getID();
+			// Informationen zu den BS ausgeben:
 			ArrayList<Buchungssatz> neuListe = fall.getSaetze();
-			for (int j = 0; j <= neuListe.size(); j++) {
-				String s = neuListe.get(j).getID();
-				int bsIDList = Character.getNumericValue(s.charAt(0));
-				if (bsIDList != bsID) {
-					neuListe.remove(j);
-				}
+			for (int j = 0; j <= neuListe.size() - 1; j++) {
 
-				Iterator<Buchungssatz> it = neuListe.iterator();
-				while (it.hasNext()) {
-					Label lb3 = new Label(fall.getSaetze().get(i).getSollKonto() + " an " + fall.getSaetze().get(i).getHabenKonto()
-									+ " " + fall.getSaetze().get(i).getBetrag() + " €");
+				Label lb3 = new Label(neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
+						+ neuListe.get(j).getBetrag() + " €");
 
-					VBox_Anzeige.getChildren().add(lb3);
-				}
-				// Problem: Wenn ein Buchungssatz 2 oder mehr Konten auf einer
-				// Seite hat neue ArrayList --- immer remove bei id.
+				VBox_Anzeige.getChildren().add(lb3);
 			}
 		}
 
 	}
 
-	public void auswahlCB() {
+	@FXML
+	void handle_btnCheck(ActionEvent event){
+		VBox_Anzeige.getChildren().clear();
+			//new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz","Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie Ihre Eingabe.","OK", AlertDialogFrame.WARNING_TYPE);
+		String auswahl = CB_GF_auswaehlen.getValue();
+		for (int i = 0; i < faelle.size(); i++) {
+			Geschaeftsfall fall = faelle.get(i);
+			if(faelle.get(i).getTitel().equals(auswahl)){
+				
+				Label lb1 = new Label(fall.getID() + ". " + fall.getTitel());
+				lb1.setFont(Font.font("System", FontWeight.BOLD, 18));
+				// Beschreibung der Geschäftsfälle in Label speichern
+				Label lb2 = new Label(fall.getBeschreibung());
 
+				lb2.setWrapText(true);
+				VBox_Anzeige.getChildren().add(lb1);
+				VBox_Anzeige.getChildren().add(lb2);
+
+				// Informationen zu den BS ausgeben:
+				ArrayList<Buchungssatz> neuListe = fall.getSaetze();
+				for (int j = 0; j <= neuListe.size() - 1; j++) {
+
+					Label lb3 = new Label(neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
+							+ neuListe.get(j).getBetrag() + " €");
+
+					VBox_Anzeige.getChildren().add(lb3);
+				}
+			}
+		}
 	}
 
 	public void setFaelle(ArrayList<Geschaeftsfall> gfall) {
