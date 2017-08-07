@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.152-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.KontenverwaltungAnzeigenController">
+   <children>
+      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="BTN_KontoHinzufuegen" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" text="Konto hinzufügen">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="BTN_PDFSpeichern" mnemonicParsing="false" onAction="#handle_PDFSpeichern" text="Konten als PDF speichern" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </HBox>
+      <TableView fx:id="TW_Kontenliste" prefHeight="360.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="153.0" text="Kontoname" />
+          <TableColumn prefWidth="445.0" text="Kontobeschreibung" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

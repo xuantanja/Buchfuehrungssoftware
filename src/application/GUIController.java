@@ -257,6 +257,18 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/KontenverwaltungAnzeigen.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage KontoverwaltungAnzeigen = new Stage();
+			KontoverwaltungAnzeigen.setResizable(false);
+			KontoverwaltungAnzeigen.setScene(scene);
+			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
+			KontoverwaltungAnzeigen.showAndWait();
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -268,6 +280,7 @@ public class GUIController implements Initializable {
 			controller.setFaelle(kontenverwaltung.getFaelle());
 
 			Stage bilanzErstellenStage = new Stage();
+			bilanzErstellenStage.setResizable(false);
 			bilanzErstellenStage.setScene(scene);
 			bilanzErstellenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
 			bilanzErstellenStage.showAndWait();

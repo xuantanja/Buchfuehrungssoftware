@@ -239,6 +239,7 @@ public class NeuerBSController implements Initializable {
 					"OK", AlertDialogFrame.WARNING_TYPE);
 			return false;
 		}
+		System.out.println(sumOfValues(betragSoll)+ " " + sumOfValues(betragHaben));
 		if (sumOfValues(betragSoll) != sumOfValues(betragHaben)) {
 			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
 					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie Ihre Eingabe.",
