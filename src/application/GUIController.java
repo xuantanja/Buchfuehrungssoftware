@@ -135,6 +135,7 @@ public class GUIController implements Initializable {
 			Stage bilanzErstellenStage = new Stage();
 			bilanzErstellenStage.setScene(scene);
 			bilanzErstellenStage.setTitle("Neue Bilanz erstellen");
+			bilanzErstellenStage.setResizable(false);
 			bilanzErstellenStage.showAndWait();
 			if (controller.isNeueBilanzErstellt()) {
 				kontenverwaltung = controller.getNeueBilanz();
@@ -298,6 +299,7 @@ public class GUIController implements Initializable {
 			Scene scene = new Scene(loader.load());
 			NeuerGFController controller = loader.getController();
 			Stage stage = new Stage();
+			stage.setResizable(false);
 			stage.setTitle("Neuen Geschäftsfall erstellen");
 			stage.setScene(scene);
 			stage.showAndWait();
@@ -318,6 +320,7 @@ public class GUIController implements Initializable {
 			NeuerBSController controller = loader.getController();
 			controller.setParameter(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle());
 			Stage stage = new Stage();
+			stage.setResizable(false);
 			stage.setTitle("Buchungssatz erstellen");
 			stage.setScene(scene);
 				stage.showAndWait();
@@ -342,6 +345,7 @@ public class GUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/DiagrammErstellen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage diagrammErstellenStage = new Stage();
+			diagrammErstellenStage.setResizable(false);
 			diagrammErstellenStage.setScene(scene);
 			diagrammErstellenStage.setTitle("BuFü HWR Version");
 			diagrammErstellenStage.show();
