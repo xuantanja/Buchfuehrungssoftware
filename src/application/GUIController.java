@@ -358,6 +358,8 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Analyse_SBErstellen(ActionEvent event) {
+		kontenverwaltung.kontensaldierung();
+		ladeKonten(false);
 	}
 
 	@FXML

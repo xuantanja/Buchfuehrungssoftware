@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
+import konten.gui.KontoContainer;
 
 public class Bestandskonto extends Konto implements Serializable{
 

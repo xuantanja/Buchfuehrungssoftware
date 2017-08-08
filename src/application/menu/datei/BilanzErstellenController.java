@@ -33,6 +33,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import konten.Abschlusskonto;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
@@ -247,6 +248,8 @@ public class BilanzErstellenController implements Initializable {
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);
+		Konto guv = new Abschlusskonto("Gewinn- und Verlustkonto", "GuV", "SBK");
+		Konto sbk = new Abschlusskonto("Schlussbilanzkonto", "SBK", null);
 
 		kontenListe.add(bga);
 		kontenListe.add(bank);
@@ -260,6 +263,8 @@ public class BilanzErstellenController implements Initializable {
 		kontenListe.add(uerl);
 		kontenListe.add(privat);
 		kontenListe.add(efpz);
+		kontenListe.add(guv);
+		kontenListe.add(sbk);
 
 		if (checkboxProduzierendesU.isSelected()) {
 			Konto fe = new Bestandskonto("Fertige Erzeugnisse", "FE", "BV", 0, true);

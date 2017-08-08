@@ -52,8 +52,13 @@ public class Kontenverwaltung {
 	// dem Geschäftsfall wird ein Buchungssatz hinzugefügt
 	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
 		gfall.addBuchung(bsatz);
-		konten.get(bsatz.getSollKonto()).buchung(bsatz, true);
-		konten.get(bsatz.getHabenKonto()).buchung(bsatz, false);
+		if(bsatz.getSollKonto() != null){
+			konten.get(bsatz.getSollKonto()).buchung(bsatz, true); 
+		}
+		if(bsatz.getHabenKonto() != null){
+			konten.get(bsatz.getHabenKonto()).buchung(bsatz, false);
+		}
+		
 	}
 
 	public void addBuchungssatz(Geschaeftsfall gfall, ArrayList<Buchungssatz> bsatz) {
@@ -74,10 +79,18 @@ public class Kontenverwaltung {
 	}
 
 	public void kontensaldierung() {
+		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size(), "Jahresabschluss",
+				"Alle Buchungssätze, die zum Abschluss des Geschäftsjahres automatisch gebucht worden sind.");
+		addGeschaeftsfall(jahresabschluss);
 		Iterator<Konto> it = konten.values().iterator();
 		while (it.hasNext()) {
 			Konto konto = it.next();
-			konto.saldieren();
+			Buchungssatz bs = konto.saldieren();
+			if(bs != null){
+				bs.setID_B(" ");
+			addBuchungssatz(jahresabschluss, bs);
+			}
+			
 		}
 	}
 

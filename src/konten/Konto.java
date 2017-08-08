@@ -7,6 +7,8 @@ import java.util.Iterator;
 import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import konten.gui.Kontenbilanzierung;
+import konten.gui.KontoContainer;
 
 public abstract class Konto implements Serializable {
 
@@ -31,29 +33,26 @@ public abstract class Konto implements Serializable {
 		habenSeite = new Kontoseite(false);
 	}
 
-	public void saldieren() {
+	public Buchungssatz saldieren() {
 		double sollBetrag = sollSeite.getBetragssumme();
 		double habenBetrag = habenSeite.getBetragssumme();
-
-		if (sollBetrag > habenBetrag) {
-			// habenSeite.setSalidierungsbetrag(verrechnungKonto, sollBetrag -
-			// habenBetrag);
-			// sollSeite.setBilanzsumme(sollBetrag);
-			// habenSeite.setBilanzsumme(sollBetrag);
-		} else if (sollBetrag < habenBetrag) {
-			// sollSeite.setSalidierungsbetrag(verrechnungKonto, habenBetrag -
-			// sollBetrag);
-			// sollSeite.setBilanzsumme(habenBetrag);
-			// habenSeite.setBilanzsumme(habenBetrag);
-		} else {
-			// sollSeite.setBilanzsumme(sollBetrag);
-			// habenSeite.setBilanzsumme(sollBetrag);
+		if(getKontoart() == 1){
+			if(((Bestandskonto) this).isAktivkonto()){
+				sollBetrag += ((Bestandskonto) this).getAnfangsbestand();
+			} else{
+				habenBetrag += ((Bestandskonto) this).getAnfangsbestand();
+			}
 		}
-		System.out.println(titel);
-		System.out.println("Sollseite: " + sollBetrag);
-		System.out.println("Habenseite: " + habenBetrag);
-		System.out.println(verrechnungKonto + " " + (sollBetrag - habenBetrag));
-		System.out.println();
+		System.out.println(sollBetrag + "\t\t" + habenBetrag +"\t\t" + titel);
+		if (sollBetrag > habenBetrag) {
+			guiContainer.setBilanzwert(sollBetrag);
+			return new Buchungssatz("", verrechnungKonto, kuerzel, sollBetrag - habenBetrag);
+		} else if (sollBetrag < habenBetrag){
+			guiContainer.setBilanzwert(habenBetrag);
+			return new Buchungssatz("", kuerzel, verrechnungKonto, habenBetrag - sollBetrag);
+		}
+		return null;
+		
 	}
 
 	public void buchung(Buchungssatz bsatz, boolean sollseite) {
@@ -69,30 +68,6 @@ public abstract class Konto implements Serializable {
 			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
 		}
 	}
-	
-//	public void buchung(ArrayList<Buchungssatz> bsatz, boolean sollseite) {
-//		double betrag = 0;
-//		for(Buchungssatz bs : bsatz){
-//			if(bs.getKonto(sollseite).equals(kuerzel)){
-//				betrag += bs.getBetrag();
-//				if(sollseite){
-//					sollSeite.getBuchungen().put(bs.getID(), bs);
-//				} else{
-//					habenSeite.getBuchungen().put(bs.getID(), bs);
-//				}
-//				
-//			}
-//		}
-//		if (sollseite) {
-//			guiContainer.getRefNameS().getChildren()
-//					.add(new Label(bsatz.get(0).getID() + " " + bsatz.get(0).getHabenKonto() + "    "));
-//			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(betrag) + " €"));
-//		} else {
-//			guiContainer.getRefNameH().getChildren()
-//					.add(new Label(bsatz.get(0).getID() + " " + bsatz.get(0).getHabenKonto() + "    "));
-//			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(betrag) + " €"));
-//		}
-//	}
 
 	public String getTitel() {
 		return titel;

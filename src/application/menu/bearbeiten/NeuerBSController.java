@@ -130,9 +130,7 @@ public class NeuerBSController implements Initializable {
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
 		if (exceptionhandling()) {
-			int sollPos = 0, habenPos = 0;
-			boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
-			putBuchungssatz(sollPos, habenPos, isSollBigger);
+			putBuchungssatz(0, 0);
 			test();
 			resetGUI();
 		}
@@ -157,22 +155,19 @@ public class NeuerBSController implements Initializable {
 		comboHaben.getSelectionModel().clearSelection();
 		textfieldBetragHaben.setText("");
 		textfieldBetragSoll.setText("");
-
+		textfieldTitel.setText("");
 	}
 
-	private void putBuchungssatz(int sollPos, int habenPos, boolean isSollBigger) {
+	private void putBuchungssatz(int sollPos, int habenPos) {
 		double buchungsbetrag;
 		String sollKonto, habenKonto;
-		isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
+		boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
 		if (isSollBigger) {
 			buchungsbetrag = betragHaben.get(habenPos);
 			betragSoll.set(sollPos, betragSoll.get(sollPos) - betragHaben.get(habenPos));
 
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
-			if (!isSollBigger) {
-				sollPos++;
-			}
 			habenPos++;
 
 		} else {
@@ -181,9 +176,6 @@ public class NeuerBSController implements Initializable {
 
 			sollKonto = comboListSoll.get(sollPos).getSelectionModel().getSelectedItem();
 			habenKonto = comboListHaben.get(habenPos).getSelectionModel().getSelectedItem();
-			if (isSollBigger) {
-				habenPos++;
-			}
 			sollPos++;
 		}
 
@@ -195,7 +187,7 @@ public class NeuerBSController implements Initializable {
 					comboListHaben.get(habenPos).getSelectionModel().getSelectedItem(), betragSoll.get(sollPos));
 			buchungssätze.put(comboGF.getSelectionModel().getSelectedIndex(), bs2);
 		} else if (!(rowSoll == 1 && rowHaben == 1)) {
-			putBuchungssatz(sollPos, habenPos, isSollBigger);
+			putBuchungssatz(sollPos, habenPos);
 		}
 	}
 
