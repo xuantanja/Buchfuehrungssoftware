@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.bearbeiten.KontenverwaltungAnzeigenController;
 import application.menu.bearbeiten.NeuerBSController;
 import application.menu.bearbeiten.NeuerGFController;
 import application.menu.bearbeiten.UebersichtanzeigenController;
@@ -244,7 +245,7 @@ public class GUIController implements Initializable {
 		System.exit(0);
 	}
 
-	@FXML
+/*	@FXML
 	private void handle_Bearbeiten_SchrittZurück(ActionEvent event) {
 		for (Iterator<Konto> iterator = kontenverwaltung.getKontenIterator(); iterator.hasNext();) {
 			System.out.println(iterator.next().description());
@@ -254,7 +255,7 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Bearbeiten_SchrittVorwärts(ActionEvent event) {
-	}
+	}*/
 
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
@@ -262,6 +263,8 @@ public class GUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/KontenverwaltungAnzeigen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage KontoverwaltungAnzeigen = new Stage();
+			KontenverwaltungAnzeigenController controller = loader.getController();
+			controller.getKonten(kontenverwaltung.getKonten());;
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());

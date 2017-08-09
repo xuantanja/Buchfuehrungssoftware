@@ -31,9 +31,7 @@
         </Menu>
         <Menu fx:id="menuBearbeiten" mnemonicParsing="false" text="Bearbeiten">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittZurück" text="Schritt zurück" />
-            <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_SchrittVorwärts" text="Schritt vorwärts" />
-            <SeparatorMenuItem mnemonicParsing="false" />
+
             <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_Kontenverwaltung" text="Kontenverwaltung" />
                   <Menu mnemonicParsing="false" text="Geschäftsfälle">
                      <items>
