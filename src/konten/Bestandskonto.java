@@ -23,10 +23,10 @@ public class Bestandskonto extends Konto implements Serializable{
 	public void confirmAB() {
 		if (isAktivkonto()) {
 			getGuiContainer().getRefNameS().getChildren().add(new Label("AB"));
-			getGuiContainer().getRefBetragS().getChildren().add(new Label(anfangsbestand + " €"));
+			getGuiContainer().getRefBetragS().getChildren().add(new Label(anfangsbestand + "€"));
 		} else {
 			getGuiContainer().getRefNameH().getChildren().add(new Label("AB"));
-			getGuiContainer().getRefBetragH().getChildren().add(new Label(anfangsbestand + " €"));
+			getGuiContainer().getRefBetragH().getChildren().add(new Label(anfangsbestand + "€"));
 		}
 	}
 
@@ -50,12 +50,12 @@ public class Bestandskonto extends Konto implements Serializable{
 		for (Buchungssatz bsatz : getSollSeite().getArrayOfBuchungen()) {
 			getGuiContainer().getRefNameS().getChildren()
 					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			getGuiContainer().getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+			getGuiContainer().getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 		for (Buchungssatz bsatz : getHabenSeite().getArrayOfBuchungen()) {
 			getGuiContainer().getRefNameH().getChildren()
 					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			getGuiContainer().getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+			getGuiContainer().getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 	}
 	

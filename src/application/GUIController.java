@@ -200,6 +200,14 @@ public class GUIController implements Initializable {
 				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
 				count_t3_Steuerkonten++;
 				break;
+			case (4):
+				//TODO Folgender Code dient nur zur Veranschaulichung:
+				if (!neueBilanz) {
+					konto.newContainer();
+				}
+				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
+				count_t3_Steuerkonten++;
+				break;
 			}
 		}
 		System.out.println("------------------------------INIT-DONE------------------------------");

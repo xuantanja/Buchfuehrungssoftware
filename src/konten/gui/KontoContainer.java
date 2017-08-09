@@ -17,7 +17,6 @@ public class KontoContainer implements Serializable {
 
 	private sLine hLine;
 	private sLabel name;
-	private double bilanzwert;
 	// Layouts für die Sollseite
 	private sVBox refNameS;
 	private sVBox refBetragS;
@@ -29,7 +28,6 @@ public class KontoContainer implements Serializable {
 		name = new sLabel(kontoname);
 		name.setFont(Font.font("System", FontWeight.BOLD, 14));
 		hLine = new sLine(0, 0, 0, 120);
-		bilanzwert = -1;
 
 		refBetragS = new sVBox();
 		refNameS = new sVBox();
@@ -40,8 +38,8 @@ public class KontoContainer implements Serializable {
 	}
 
 	private void initialKontoLayout() {
-		Label l1 = new Label("--------------------------------------");
-		Label l2 = new Label("--------------------------------------");
+		Label l1 = new Label("-----------------------------------------");
+		Label l2 = new Label("-----------------------------------------");
 		Label l3 = new Label("--------------------------------------");
 		Label l4 = new Label("--------------------------------------");
 		l1.setVisible(false);
@@ -56,6 +54,8 @@ public class KontoContainer implements Serializable {
 		refNameH.getChildren().add(l2);
 		refBetragS.getChildren().add(l3);
 		refBetragH.getChildren().add(l4);
+		refBetragS.setAlignment(Pos.TOP_RIGHT);
+		refBetragH.setAlignment(Pos.TOP_RIGHT);
 
 		refNameS.heightProperty().addListener(e -> {
 			if (refNameS.getHeight() > hLine.getEndY() - hLine.getStartY()) {
@@ -71,7 +71,7 @@ public class KontoContainer implements Serializable {
 
 	}
 
-	public VBox getLayout() {
+	public VBox getLayout(double bilanzwert) {
 		Line vLine = new sLine(0, 0, 240, 0);
 		HBox container = new HBox(refNameS, refBetragS, hLine, refNameH, refBetragH);
 		container.setAlignment(Pos.CENTER);
@@ -79,9 +79,10 @@ public class KontoContainer implements Serializable {
 		VBox layout = new sVBox(name, vLine, container);
 		layout.setPrefSize(220, 200);
 		layout.setAlignment(Pos.CENTER);
+
 		if (bilanzwert != -1) {
-			System.out.println("-----------------------------------------------------dwadawdawdawdawd");
-			Kontenbilanzierung kb = new Kontenbilanzierung(refNameS.getWidth(),refNameH.getWidth(),refBetragS.getWidth(),refBetragH.getWidth());
+			System.out.println("[KontoContainer] "+ bilanzwert);
+			Kontenbilanzierung kb = new Kontenbilanzierung(60,60,60,60);
 			layout.getChildren().add(kb.getLayout(bilanzwert));
 		}
 		return layout;
@@ -121,14 +122,6 @@ public class KontoContainer implements Serializable {
 
 	public void setName(String name) {
 		this.name.setText(name);
-	}
-
-	public double getBilanzwert() {
-		return bilanzwert;
-	}
-
-	public void setBilanzwert(double bilanzwert) {
-		this.bilanzwert = bilanzwert;
 	}
 
 }

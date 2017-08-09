@@ -19,6 +19,7 @@ public abstract class Konto implements Serializable {
 	private String verrechnungKonto;
 	private KontoContainer guiContainer;
 	private String beschreibung;
+	private double bilanzwert;
 
 	public abstract int getKontoart();
 
@@ -31,6 +32,7 @@ public abstract class Konto implements Serializable {
 		guiContainer = new KontoContainer(titel);
 		sollSeite = new Kontoseite(true);
 		habenSeite = new Kontoseite(false);
+		bilanzwert = -1;
 	}
 
 	public Buchungssatz saldieren() {
@@ -45,11 +47,13 @@ public abstract class Konto implements Serializable {
 		}
 		System.out.println(sollBetrag + "\t\t" + habenBetrag +"\t\t" + titel);
 		if (sollBetrag > habenBetrag) {
-			guiContainer.setBilanzwert(sollBetrag);
+			bilanzwert = sollBetrag;
 			return new Buchungssatz("", verrechnungKonto, kuerzel, sollBetrag - habenBetrag);
 		} else if (sollBetrag < habenBetrag){
-			guiContainer.setBilanzwert(habenBetrag);
+			bilanzwert = habenBetrag;
 			return new Buchungssatz("", kuerzel, verrechnungKonto, habenBetrag - sollBetrag);
+		} else{
+			bilanzwert = 0;
 		}
 		return null;
 		
@@ -64,7 +68,7 @@ public abstract class Konto implements Serializable {
 		} else {
 			habenSeite.getBuchungen().put(bsatz.getID(), bsatz);
 			guiContainer.getRefNameH().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
 			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
 		}
 	}
@@ -98,7 +102,7 @@ public abstract class Konto implements Serializable {
 	}
 
 	public VBox getGUIComponents() {
-		return guiContainer.getLayout();
+		return guiContainer.getLayout(bilanzwert);
 	}
 
 	public String getBeschreibung() {
@@ -126,12 +130,12 @@ public abstract class Konto implements Serializable {
 		for (Buchungssatz bsatz : sollSeite.getArrayOfBuchungen()) {
 			guiContainer.getRefNameS().getChildren()
 					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 		for (Buchungssatz bsatz : habenSeite.getArrayOfBuchungen()) {
 			guiContainer.getRefNameH().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
+			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 	}
 

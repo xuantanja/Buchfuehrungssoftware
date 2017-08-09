@@ -284,8 +284,6 @@ public class BilanzErstellenController implements Initializable {
 		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
 		columnBeschreibung.setCellValueFactory(new PropertyValueFactory<Konto, String>("beschreibung"));
 		ArrayList<String> kontenKuerzel = new ArrayList<>();
-		kontenKuerzel.add("SBK");
-		kontenKuerzel.add("GuV");
 		for (Konto konto : kontenListe) {
 			kontenKuerzel.add(konto.getKuerzel());
 		}
@@ -308,8 +306,6 @@ public class BilanzErstellenController implements Initializable {
 			Scene scene = new Scene(loader.load());
 			KontoBearbeitenController controller = loader.getController();
 			ArrayList<String> kontenKuerzel = new ArrayList<>();
-			kontenKuerzel.add("SBK");
-			kontenKuerzel.add("GuV");
 			for (Konto konto : kontenListe) {
 				kontenKuerzel.add(konto.getKuerzel());
 			}

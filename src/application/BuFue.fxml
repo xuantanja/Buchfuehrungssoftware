@@ -62,7 +62,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="712.0" VBox.vgrow="ALWAYS">
          <children>
-            <TabPane prefHeight="635.0" prefWidth="1134.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="635.0" prefWidth="1140.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Bestandskonten">
                      <content>
@@ -78,7 +78,7 @@
                                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                     </GridPane>
-                                    <GridPane fx:id="t1_P" layoutX="603.0" layoutY="14.0">
+                                    <GridPane fx:id="t1_P" layoutX="593.0" layoutY="14.0">
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                                        </columnConstraints>
@@ -86,7 +86,7 @@
                                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                     </GridPane>
-                                    <Separator fx:id="vSeparator" layoutX="556.0" layoutY="8.0" orientation="VERTICAL" prefHeight="553.0" prefWidth="18.0" />
+                                    <Separator fx:id="vSeparator" layoutX="563.0" layoutY="8.0" orientation="VERTICAL" prefHeight="553.0" prefWidth="18.0" />
                                  </children>
                               </AnchorPane>
                            </content>
