@@ -37,6 +37,7 @@ public class AlertDialogFrame {
 			dialogStage.setScene(scene);
 			adc.setText(message, details, rightButtonText, "");
 			adc.getLeftButton().setVisible(false);
+			dialogStage.setResizable(false);
 			adc.setImage(types[type]);
 			dialogStage.showAndWait();
 
@@ -46,19 +47,19 @@ public class AlertDialogFrame {
 
 	}
 
-	public boolean showAndWaitMessageDialog(String message, String details, String rightButtonText,
-			String leftButtonText) {
+	public boolean showChoiseDialog(String message, String details, String rightButtonText,
+			String leftButtonText, int type) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/utility/alertDialog/alertDialog.fxml"));
-			AlertDialogController adc = loader.getController();
 			Scene scene = new Scene(loader.load());
+			AlertDialogController adc = loader.getController();
 			Stage dialogStage = new Stage();
 			dialogStage.setScene(scene);
-			adc.getMessageLabel().setText(message);
-			adc.getDetailsLabel().setText(details);
-			adc.getRightButton().setText(rightButtonText);
-			adc.getLeftButton().setText(leftButtonText);
+			adc.setText(message, details, rightButtonText, leftButtonText);
+			dialogStage.setResizable(false);
+			adc.setImage(types[type]);
 			dialogStage.showAndWait();
+			
 			return adc.isRightButtonClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
