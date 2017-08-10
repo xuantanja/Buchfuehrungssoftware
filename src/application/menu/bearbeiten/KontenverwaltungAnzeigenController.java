@@ -39,6 +39,12 @@ public class KontenverwaltungAnzeigenController {
 	private ArrayList<Konto> kontoListe;
 
 	public void initialize(URL location, ResourceBundle resources) {
+		kontoListe = new ArrayList<Konto>();
+
+	  //  for(String key : kntList.keySet())
+	   // {
+	     // kontoListe.add(kntList.get(key)); 
+	   // }
 		//tabelleAktualisieren();
 	}
     @FXML
@@ -67,11 +73,8 @@ public class KontenverwaltungAnzeigenController {
 	*/
     
 	//Kontenliste übergeben lassen und in einer ArrayListe speichern
-	public void getKonten(HashMap<String,Konto> kntList){
-	    for(String key : kntList.keySet())
-	    {
-	      kontoListe.add(kntList.get(key)); 
-	    }
+	public HashMap<String,Konto> getKonten(HashMap<String,Konto> kntList){
+		return kntList;
 	}
 
 
