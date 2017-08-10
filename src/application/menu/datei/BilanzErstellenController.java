@@ -248,8 +248,8 @@ public class BilanzErstellenController implements Initializable {
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);
-		Konto guv = new Abschlusskonto("Gewinn- und Verlustkonto", "GuV", "SBK");
-		Konto sbk = new Abschlusskonto("Schlussbilanzkonto", "SBK", null);
+		Konto guv = new Abschlusskonto("Gewinn- und Verlustkonto", "GuV", "EK");
+		Konto sbk = new Abschlusskonto("Schlussbilanzkonto", "SBK", "");
 
 		kontenListe.add(bga);
 		kontenListe.add(bank);

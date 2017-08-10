@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import geschaeftsfall.*;
 import konten.*;
+import utility.comparator.KontoComparator;
 
 public class Kontenverwaltung {
 
@@ -53,10 +54,10 @@ public class Kontenverwaltung {
 	// dem Geschäftsfall wird ein Buchungssatz hinzugefügt
 	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
 		gfall.addBuchung(bsatz);
-		if (bsatz.getSollKonto() != null) {
+		if (bsatz.getSollKonto() != null && konten.get(bsatz.getSollKonto()) != null) {
 			konten.get(bsatz.getSollKonto()).buchung(bsatz, true);
 		}
-		if (bsatz.getHabenKonto() != null) {
+		if (bsatz.getHabenKonto() != null && konten.get(bsatz.getHabenKonto()) != null) {
 			konten.get(bsatz.getHabenKonto()).buchung(bsatz, false);
 		}
 
@@ -80,22 +81,24 @@ public class Kontenverwaltung {
 	}
 
 	public void kontensaldierung() {
-		PriorityQueue<Konto> pqk = new PriorityQueue<>();
+		
+		for (Iterator<Konto> iterator = konten.values().iterator(); iterator.hasNext();) {
+			System.out.println(iterator.next().getTitel());
+		}
+		System.out.println("-----");
+		
+		PriorityQueue<Konto> pqk = new PriorityQueue<>(new KontoComparator());
+		pqk.addAll(konten.values());
 		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size(), "Jahresabschluss",
 				"Alle Buchungssätze, die zum Abschluss des Geschäftsjahres automatisch gebucht worden sind.");
 		addGeschaeftsfall(jahresabschluss);
-		Iterator<Konto> it = konten.values().iterator();
-		while (it.hasNext()) {
-			Konto konto = it.next();
-			if (konto.getKontoart() != 4) {
+		while (!pqk.isEmpty()) {
+			Konto konto = pqk.poll();
 				Buchungssatz bs = konto.saldieren();
 				if (bs != null) {
 					bs.setID_B(" ");
 					addBuchungssatz(jahresabschluss, bs);
 				}
-			} else {
-				
-			}
 		}
 		for (Buchungssatz bsatz : jahresabschluss.getSaetze()) {
 			bsatz.setID_B("");
