@@ -64,12 +64,12 @@ public abstract class Konto implements Serializable {
 			sollSeite.getBuchungen().put(bsatz.getID(), bsatz);
 			guiContainer.getRefNameS().getChildren()
 					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		} else {
 			habenSeite.getBuchungen().put(bsatz.getID(), bsatz);
 			guiContainer.getRefNameH().getChildren()
 					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
-			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + " €"));
+			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 	}
 

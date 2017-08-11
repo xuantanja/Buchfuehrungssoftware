@@ -54,7 +54,7 @@ public class Bestandskonto extends Konto implements Serializable{
 		}
 		for (Buchungssatz bsatz : getHabenSeite().getArrayOfBuchungen()) {
 			getGuiContainer().getRefNameH().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
+					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
 			getGuiContainer().getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 	}
