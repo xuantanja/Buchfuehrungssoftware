@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox prefHeight="660.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GUIController">
   <children>
@@ -37,8 +39,8 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_Uebersicht" text="Übersicht anzeigen" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_neuerGF" text="Neuen Geschäftsfall hinzufügen" />
-                        <MenuItem mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_BSEintragen" text="Buchungssatz einem Geschäftsfall hinzufügen" />
+                        <MenuItem fx:id="menuitemAddGF" mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_neuerGF" text="Neuen Geschäftsfall hinzufügen" />
+                        <MenuItem fx:id="menuitemAddBS" mnemonicParsing="false" onAction="#handle_Bearbeiten_GF_BSEintragen" text="Buchungssatz einem Geschäftsfall hinzufügen" />
                      </items>
                   </Menu>
           </items>
@@ -46,7 +48,7 @@
         <Menu fx:id="menuAnalyse" mnemonicParsing="false" text="Analyse">
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_EBEinsehen" text="Eröffnungsbilanz einsehen" />
-                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
+                  <MenuItem fx:id="menuitemJAB" mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_DiagrammeBerechnen" text="Diagramme berechnen" />
           </items>
@@ -109,19 +111,53 @@
                            </content>
                         </ScrollPane>
                      </content></Tab>
-                  <Tab text="Analyse">
+                  <Tab text="Jahresabschluss">
                      <content>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                           <content>
+                              <VBox fx:id="t4Container" prefHeight="518.0" prefWidth="1141.0">
                                  <children>
-                                    <PieChart layoutX="81.0" layoutY="6.0" prefHeight="267.0" prefWidth="339.0" />
-                                    <PieChart layoutX="534.0" layoutY="-3.0" prefHeight="285.0" prefWidth="390.0" />
+                                    <Label text="Abschlusskonten">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="30.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox fx:id="abschlusskontoContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+                                       <VBox.margin>
+                                          <Insets bottom="25.0" top="25.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Separator prefWidth="200.0" />
+                                    <Label text="Übersicht über die Anfangs- und Schlussbestände bzw. der Gewinn- und Verlustbeträge">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="30.0" top="25.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="(Erst zum Jahresabschluss verfügbar)">
+                                       <padding>
+                                          <Insets left="30.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox fx:id="chartContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
                                  </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                          </items>
-                        </SplitPane>
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
                      </content></Tab>
               </tabs>
             </TabPane>

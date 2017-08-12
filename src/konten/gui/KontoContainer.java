@@ -79,9 +79,9 @@ public class KontoContainer implements Serializable {
 		VBox layout = new sVBox(name, vLine, container);
 		layout.setPrefSize(220, 200);
 		layout.setAlignment(Pos.CENTER);
-
+		System.out.println("[KontoContainer] "+ bilanzwert);
 		if (bilanzwert != -1) {
-			System.out.println("[KontoContainer] "+ bilanzwert);
+			
 			Kontenbilanzierung kb = new Kontenbilanzierung(60,60,60,60);
 			layout.getChildren().add(kb.getLayout(bilanzwert));
 		}

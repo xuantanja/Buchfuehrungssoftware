@@ -31,6 +31,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -59,11 +60,17 @@ public class GUIController implements Initializable {
 	@FXML
 	private VBox t3;
 	@FXML
+	private VBox t4Container;
+	@FXML
 	private Menu menuBearbeiten, menuAnalyse;
 	@FXML
-	private MenuItem menuitemSpeichern;
+	private MenuItem menuitemSpeichern, menuitemJAB, menuitemAddGF, menuitemAddBS;
 	@FXML
 	private Separator vSeparator;
+	@FXML
+	private HBox abschlusskontoContainer;
+	@FXML
+	private HBox chartContainer;
 
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
@@ -91,8 +98,14 @@ public class GUIController implements Initializable {
 			gpList[i].setPadding(new Insets(10));
 		}
 		enableMenuBar(false);
-		t1_A.heightProperty().addListener(e -> {if(t1_A.getHeight() > t1_P.getHeight()) vSeparator.setPrefHeight(t1_A.getHeight());});
-		t1_P.heightProperty().addListener(e -> {if(t1_P.getHeight() > t1_A.getHeight()) vSeparator.setPrefHeight(t1_P.getHeight());});
+		t1_A.heightProperty().addListener(e -> {
+			if (t1_A.getHeight() > t1_P.getHeight())
+				vSeparator.setPrefHeight(t1_A.getHeight());
+		});
+		t1_P.heightProperty().addListener(e -> {
+			if (t1_P.getHeight() > t1_A.getHeight())
+				vSeparator.setPrefHeight(t1_P.getHeight());
+		});
 	}
 
 	private void initalHeadings() {
@@ -116,6 +129,7 @@ public class GUIController implements Initializable {
 		t3_Steuerkonten.add(labelSteuerkonto, 0, 0, 5, 1);
 		t1_A.add(labelAktiva, 0, 0, 2, 1);
 		t1_P.add(labelPassiva, 0, 0, 2, 1);
+
 	}
 
 	public GridPane getT1_A() {
@@ -144,11 +158,12 @@ public class GUIController implements Initializable {
 				enableMenuBar(true);
 			}
 		} catch (IOException e) {
-			// TODO
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Neue Bilanz erstellen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		} catch (NullPointerException e) {
-			// TODO: Wenn das Fenster geschlossen wird, dann wird eine
-			// NullPointerException geworfen.
+			// Wenn das Fenster geschlossen wird, dann wird eine
+			// NullPointerException geworfen. Exception wird ignoriert.
 		}
 
 	}
@@ -158,6 +173,8 @@ public class GUIController implements Initializable {
 		for (int i = 0; i < gpList.length; i++) {
 			gpList[i].getChildren().clear();
 		}
+		abschlusskontoContainer.getChildren().clear();
+		chartContainer.getChildren().clear();
 		initalHeadings();
 		Iterator<Konto> it = kontenverwaltung.getKontenIterator();
 		while (it.hasNext()) {
@@ -201,14 +218,19 @@ public class GUIController implements Initializable {
 				count_t3_Steuerkonten++;
 				break;
 			case (4):
-				//TODO Folgender Code dient nur zur Veranschaulichung:
 				if (!neueBilanz) {
 					konto.newContainer();
 				}
-				t3_Steuerkonten.add(konto.getGUIComponents(), count_t3_Steuerkonten % 4, count_t3_Steuerkonten / 4);
-				count_t3_Steuerkonten++;
+				abschlusskontoContainer.getChildren().add(konto.getGUIComponents());
 				break;
 			}
+		}
+		if (kontenverwaltung.getKonten().get("SBK").getBilanzwert() != -1) {
+			// TODO für Tanja: Hier müssen die Diagramme der HBox
+			// "chartContainer" hinzugefügt werden.
+			menuitemJAB.setDisable(true);
+			menuitemAddGF.setDisable(true);
+			menuitemAddBS.setDisable(true);
 		}
 		System.out.println("------------------------------INIT-DONE------------------------------");
 	}
@@ -228,11 +250,12 @@ public class GUIController implements Initializable {
 				myStorage = io.IOManager.readFile(file);
 				kontenverwaltung = new Kontenverwaltung(file, myStorage.getKonten(), myStorage.getFaelle(),
 						myStorage.getGeschaeftsjahrBeginn());
-				ladeKonten(false);
 				enableMenuBar(true);
+				ladeKonten(false);
 			} catch (IOException e) {
 				e.printStackTrace();
-				new AlertDialogFrame().showConfirmDialog("Die ausgewählte Datei konnte nicht geöffnet werden", "Die Datei ist nicht kompatibel mit dieser Version!", "Ok", AlertDialogFrame.ERROR_TYPE);
+				new AlertDialogFrame().showConfirmDialog("Die ausgewählte Datei konnte nicht geöffnet werden",
+						"Die Datei ist nicht kompatibel mit dieser Version!", "Ok", AlertDialogFrame.ERROR_TYPE);
 			}
 		}
 	}
@@ -241,10 +264,14 @@ public class GUIController implements Initializable {
 	private void handle_Datei_Speichern(ActionEvent event) {
 		boolean erfolgreich = IOManager.saveFile(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle(),
 				kontenverwaltung.getSpeicherort(), kontenverwaltung.getGeschaeftsjahrBeginn());
-		if(erfolgreich){
-				new AlertDialogFrame().showConfirmDialog("Die Bilanz wurde erfolgreich gespeichert", "Die Bilanz wurde unter der Datei " + kontenverwaltung.getSpeicherort().getName() + " gespeichert.", "Ok", AlertDialogFrame.INFORMATION_TYPE);
+		if (erfolgreich) {
+			new AlertDialogFrame().showConfirmDialog("Die Bilanz wurde erfolgreich gespeichert",
+					"Die Bilanz wurde unter der Datei " + kontenverwaltung.getSpeicherort().getName() + " gespeichert.",
+					"Ok", AlertDialogFrame.INFORMATION_TYPE);
 		} else {
-			new AlertDialogFrame().showConfirmDialog("Speichern nicht erfolgreich", "Beim Speichern der Bilanz ist ein Fehler aufgetreten. Die Bilanz konnte nicht gespeichert werden", "Ok", AlertDialogFrame.ERROR_TYPE);
+			new AlertDialogFrame().showConfirmDialog("Speichern nicht erfolgreich",
+					"Beim Speichern der Bilanz ist ein Fehler aufgetreten. Die Bilanz konnte nicht gespeichert werden",
+					"Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -267,8 +294,8 @@ public class GUIController implements Initializable {
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.show();
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Kontoverwaltung\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -286,8 +313,8 @@ public class GUIController implements Initializable {
 			bilanzErstellenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
 			bilanzErstellenStage.showAndWait();
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Übersicht anzeigen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -306,8 +333,8 @@ public class GUIController implements Initializable {
 			kontenverwaltung.addGeschaeftsfall(controller.getGeschaeftsfall(kontenverwaltung.getFaelle().size() + 1));
 
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Neuen Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -323,14 +350,14 @@ public class GUIController implements Initializable {
 			stage.setResizable(false);
 			stage.setTitle("Buchungssatz erstellen");
 			stage.setScene(scene);
-				stage.showAndWait();
-				IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
-				for (int gf : map.keySet()) {
-					kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
-				}
+			stage.showAndWait();
+			IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
+			for (int gf : map.keySet()) {
+				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
+			}
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Buchungssatz einem Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -351,8 +378,8 @@ public class GUIController implements Initializable {
 			diagrammErstellenStage.show();
 
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 	}
 
@@ -387,6 +414,9 @@ public class GUIController implements Initializable {
 		menuBearbeiten.setDisable(!enable);
 		menuAnalyse.setDisable(!enable);
 		menuitemSpeichern.setDisable(!enable);
+		menuitemJAB.setDisable(!enable);
+		menuitemAddGF.setDisable(!enable);
+		menuitemAddBS.setDisable(!enable);
 	}
 
 }

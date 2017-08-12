@@ -125,6 +125,14 @@ public abstract class Konto implements Serializable {
 		this.kuerzel = kuerzel;
 	}
 
+	public double getBilanzwert() {
+		return bilanzwert;
+	}
+
+	public void setBilanzwert(double bilanzwert) {
+		this.bilanzwert = bilanzwert;
+	}
+
 	public void newContainer() {
 		guiContainer = new KontoContainer(titel);
 		for (Buchungssatz bsatz : sollSeite.getArrayOfBuchungen()) {
