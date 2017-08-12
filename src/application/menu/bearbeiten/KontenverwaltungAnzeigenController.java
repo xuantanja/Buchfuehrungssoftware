@@ -1,4 +1,6 @@
 package application.menu.bearbeiten;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,73 +11,78 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import konten.Konto;
 import application.menu.datei.BilanzErstellenController;
 
-public class KontenverwaltungAnzeigenController {
+public class KontenverwaltungAnzeigenController implements Initializable {
 
+	@FXML
+	private Button BTN_KontoHinzufuegen;
 
+	@FXML
+	private Button BTN_PDFSpeichern;
 
+	@FXML
+	private TableView<Konto> TW_Kontenliste;
 
-    @FXML
-    private Button BTN_KontoHinzufuegen;
-
-    @FXML
-    private Button BTN_PDFSpeichern;
-
-    @FXML
-    private TableView<Konto> TW_Kontenliste;
-    
 	@FXML
 	private TableColumn<Konto, String> columnKonto;
-	
+
 	@FXML
 	private TableColumn<Konto, String> columnBeschreibung;
-	
-	private ArrayList<Konto> kontoListe;
 
+	private ObservableList<Konto> kontoListe;
+
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		kontoListe = new ArrayList<Konto>();
-
-	  //  for(String key : kntList.keySet())
-	   // {
-	     // kontoListe.add(kntList.get(key)); 
-	   // }
-		//tabelleAktualisieren();
+		kontoListe =  FXCollections.observableArrayList();
+		tabelleAktualisieren();
+		
 	}
-    @FXML
-    void handle_KontoHinzufuegen(ActionEvent event) {
 
-    }
+	@FXML
+	void handle_KontoHinzufuegen(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("KontoHinzufuegen.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage KontoHinzufuegen = new Stage();
+			KontoHinzufuegenController controller = loader.getController();
+			KontoHinzufuegen.setResizable(false);
+			KontoHinzufuegen.setScene(scene);
+			controller.setKonten(kontoListe);
+			KontoHinzufuegen.setTitle("BuFü HWR Version");
+			KontoHinzufuegen.show();
+		} catch (IOException e) {
+			// TODO
+			e.printStackTrace();
+		}
+	}
 
-    @FXML
-    void handle_PDFSpeichern(ActionEvent event) {
+	@FXML
+	void handle_PDFSpeichern(ActionEvent event) {
 
-    }
-/*	private void tabelleAktualisieren() {
-		TW_Kontenliste.getItems().clear();
-		ObservableList<Konto> obsList = FXCollections.observableArrayList(kontoListe);
-		TW_Kontenliste.setItems(obsList);
+	}
+
+	private void tabelleAktualisieren() {
+		TW_Kontenliste.setItems(kontoListe);
 		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
 		columnBeschreibung.setCellValueFactory(new PropertyValueFactory<Konto, String>("beschreibung"));
-		ArrayList<String> kontenKuerzel = new ArrayList<>();
-		kontenKuerzel.add("SBK");
-		kontenKuerzel.add("GuV");
-		for (Konto konto : kontoListe) {
-			kontenKuerzel.add(konto.getKuerzel());
-		}
-	//	verrechnungskonto.setItems(FXCollections.observableArrayList(kontenKuerzel));
-	}
-	*/
-    
-	//Kontenliste übergeben lassen und in einer ArrayListe speichern
-	public HashMap<String,Konto> getKonten(HashMap<String,Konto> kntList){
-		return kntList;
 	}
 
+	// Kontenliste übergeben lassen und in einer ArrayListe speichern
+	public void setKonten(HashMap<String, Konto> kntList) {
+
+		for (String key : kntList.keySet()) {
+			kontoListe.add(kntList.get(key));
+		}
+	}
 
 }

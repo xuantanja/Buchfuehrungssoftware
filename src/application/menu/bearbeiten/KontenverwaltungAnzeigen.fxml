@@ -28,8 +28,8 @@
       </HBox>
       <TableView fx:id="TW_Kontenliste" prefHeight="360.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="153.0" text="Kontoname" />
-          <TableColumn prefWidth="445.0" text="Kontobeschreibung" />
+          <TableColumn fx:id="columnKonto" prefWidth="153.0" text="Kontoname" />
+          <TableColumn fx:id="columnBeschreibung" prefWidth="445.0" text="Kontobeschreibung" />
         </columns>
       </TableView>
    </children>

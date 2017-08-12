@@ -272,11 +272,12 @@ public class GUIController implements Initializable {
 			Scene scene = new Scene(loader.load());
 			Stage KontoverwaltungAnzeigen = new Stage();
 			KontenverwaltungAnzeigenController controller = loader.getController();
-			controller.getKonten(kontenverwaltung.getKonten());;
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
+			controller.setKonten(kontenverwaltung.getKonten());
+
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
-			KontoverwaltungAnzeigen.showAndWait();
+			KontoverwaltungAnzeigen.show();
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
