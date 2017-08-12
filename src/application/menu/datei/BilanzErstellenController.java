@@ -8,10 +8,12 @@ package application.menu.datei;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Kontenverwaltung;
+import io.IOManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,8 +52,6 @@ public class BilanzErstellenController implements Initializable {
 	private static final String STANDARD_PATH = System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\";
 	@FXML
 	private TextField textfieldBilanzname;
-	@FXML
-	private TextField textfieldSteuersatz;
 	@FXML
 	private TextField textfieldKontenname;
 	@FXML
@@ -138,7 +138,10 @@ public class BilanzErstellenController implements Initializable {
 		});
 		contextMenu.getItems().addAll(item1, item2);
 		tableKonto.setContextMenu(contextMenu);
-
+		
+		LocalDate ld = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+		datepickerGJBeginn.setValue(ld);
+		
 		standardkontenHinzufuegen();
 	}
 
@@ -183,22 +186,22 @@ public class BilanzErstellenController implements Initializable {
 			kontenListe.add(bv);
 		}
 
-		String fehlermeldung = "";
-		double steuersatz;
-		try {
-			steuersatz = Double.parseDouble(textfieldSteuersatz.getText());
-			if (steuersatz < 0 || steuersatz > 100) {
-				throw new Exception();
-			}
-		} catch (Exception e) {
-			fehlermeldung += "Der angegebene Steuersatz ist keine gültige Zahl!";
-		}
+		
+		
 		// Fehlerüberprüfung abgeschlossen
 		neueBilanz = new Kontenverwaltung(new File(STANDARD_PATH + textfieldBilanzname.getText() + ".bil"),
 				kontenListe, datepickerGJBeginn.getValue());
 		File standardPath = new File(STANDARD_PATH);
 		if(!standardPath.exists()){
 			standardPath.mkdirs();
+		}
+		if(neueBilanz.getSpeicherort().exists()){
+			//DIALOG ADF
+			boolean erfolgreich = IOManager.saveFile(neueBilanz.getKonten(), neueBilanz.getFaelle(),
+					neueBilanz.getSpeicherort(), neueBilanz.getGeschaeftsjahrBeginn());
+			if(!erfolgreich){
+				new AlertDialogFrame().showConfirmDialog("Bilanz konnte nicht angelegt werden", "Möglicherweise ist der angegebene Dateiname (Bilanzname) nicht gültig.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			}
 		}
 		bilanzHinzugefuegt = true;
 		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
@@ -243,8 +246,8 @@ public class BilanzErstellenController implements Initializable {
 		dar = new Bestandskonto("Darlehen", "Dar", "SBK", 0, false);
 		ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, false);
 		ford = new Bestandskonto("Forderungen a.L.L.", "Ford", "SBK", 0, true);
-		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "Vorst", 19);
-		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "USt", 19);
+		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "Vorst");
+		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "USt");
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);

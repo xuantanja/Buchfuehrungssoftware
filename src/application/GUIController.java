@@ -253,18 +253,6 @@ public class GUIController implements Initializable {
 		System.exit(0);
 	}
 
-/*	@FXML
-	private void handle_Bearbeiten_SchrittZurück(ActionEvent event) {
-		for (Iterator<Konto> iterator = kontenverwaltung.getKontenIterator(); iterator.hasNext();) {
-			System.out.println(iterator.next().description());
-
-		}
-	}
-
-	@FXML
-	private void handle_Bearbeiten_SchrittVorwärts(ActionEvent event) {
-	}*/
-
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
 		try {

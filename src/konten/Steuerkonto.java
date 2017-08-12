@@ -5,11 +5,9 @@ import java.io.Serializable;
 public class Steuerkonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 3;
-	private double steuersatz;
 
-	public Steuerkonto(String titel, String kuerzel, String verrechnungskonto, double steuersatz) {
+	public Steuerkonto(String titel, String kuerzel, String verrechnungskonto) {
 		super(titel, kuerzel, verrechnungskonto);
-		this.steuersatz = steuersatz;
 		setBeschreibung(description());
 	}
 
@@ -19,6 +17,6 @@ public class Steuerkonto extends Konto implements Serializable{
 
 	@Override
 	public String description() {
-		return "standardm‰ﬂiger Steuersatz: " + steuersatz;
+		return "Steuerkonto: " + getKuerzel();
 	}
 }

@@ -72,14 +72,6 @@ public class Kontenverwaltung {
 
 	}
 
-	public void removeGeschaeftsfall() {
-
-	}
-
-	public void removeBuchungssatz() {
-
-	}
-
 	public void kontensaldierung() {
 		
 		for (Iterator<Konto> iterator = konten.values().iterator(); iterator.hasNext();) {
