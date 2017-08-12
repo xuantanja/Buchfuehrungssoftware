@@ -296,6 +296,7 @@ public class GUIController implements Initializable {
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
 					"Menüpunkt \"Kontoverwaltung\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
 		}
 	}
 
@@ -315,6 +316,7 @@ public class GUIController implements Initializable {
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
 					"Menüpunkt \"Übersicht anzeigen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
 		}
 	}
 
@@ -335,6 +337,7 @@ public class GUIController implements Initializable {
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
 					"Menüpunkt \"Neuen Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
 		}
 	}
 
@@ -358,6 +361,7 @@ public class GUIController implements Initializable {
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
 					"Menüpunkt \"Buchungssatz einem Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
 		}
 	}
 
@@ -380,6 +384,7 @@ public class GUIController implements Initializable {
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
 					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
 		}
 	}
 

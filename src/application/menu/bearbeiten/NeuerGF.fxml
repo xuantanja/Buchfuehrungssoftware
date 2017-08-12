@@ -15,5 +15,6 @@
          </children>
       </Pane>
       <Button fx:id="buttonHinzufügen" layoutX="477.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleHinzufügen" prefHeight="25.0" prefWidth="147.0" text="Geschäftsfall hinzufügen" />
+      <Button fx:id="buttonSchliessen" cancelButton="true" layoutX="388.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleSchließen" prefHeight="25.0" prefWidth="78.0" text="Schließen" />
    </children>
 </AnchorPane>

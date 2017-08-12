@@ -200,7 +200,6 @@ public class NeuerBSController implements Initializable {
 				System.out.println("Buchungssatz:  " + b.getSollKonto() + " an " + b.getHabenKonto() + "  "
 						+ b.getBetrag() + " €");
 			}
-
 		}
 		System.out.println("---------------------------------------------------");
 	}
@@ -260,9 +259,7 @@ public class NeuerBSController implements Initializable {
 				return false;
 			}
 		}
-		
 		return true;
-
 	}
 
 	// Event Listener on Button[#buttonSchliessen].onAction

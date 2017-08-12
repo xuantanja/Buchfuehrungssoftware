@@ -75,7 +75,7 @@
             </ScrollPane>
             <ComboBox fx:id="comboGF" layoutX="297.0" prefHeight="25.0" prefWidth="280.0" promptText="Geschäftsfall auswählen" />
             <Button fx:id="buttonHinzufügen" layoutX="417.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleHinzufügen" prefHeight="25.0" prefWidth="160.0" text="Buchungssatz hinzufügen" />
-            <Button fx:id="buttonSchliessen" layoutX="329.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleSchließen" prefHeight="25.0" prefWidth="78.0" text="Schließen" />
+            <Button fx:id="buttonSchliessen" cancelButton="true" layoutX="329.0" layoutY="215.0" mnemonicParsing="false" onAction="#handleSchließen" prefHeight="25.0" prefWidth="78.0" text="Schließen" />
          </children>
       </Pane>
    </children>

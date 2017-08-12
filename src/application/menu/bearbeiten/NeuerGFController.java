@@ -1,7 +1,6 @@
 package application.menu.bearbeiten;
 
 import javafx.fxml.FXML;
-
 import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
@@ -18,11 +17,19 @@ public class NeuerGFController {
 	private TextArea textfieldBeschreibung;
 	@FXML
 	private Button buttonHinzufügen;
+	@FXML
+	private Button buttonSchliessen;
 
 	// Event Listener on Button[#buttonHinzufügen].onAction
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
 		((Stage) buttonHinzufügen.getScene().getWindow()).close();
+	}
+	
+	// Event Listener on Button[#buttonSchliessen].onAction
+	@FXML
+	public void handleSchließen(ActionEvent event) {
+		((Stage) buttonSchliessen.getScene().getWindow()).close();
 	}
 	
 	public Geschaeftsfall getGeschaeftsfall(int ID){

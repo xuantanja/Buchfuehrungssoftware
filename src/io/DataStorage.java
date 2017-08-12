@@ -1,6 +1,5 @@
 package io;
 
-import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
