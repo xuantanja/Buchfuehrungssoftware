@@ -1,15 +1,14 @@
 package konten;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import konten.gui.Kontenbilanzierung;
 import konten.gui.KontoContainer;
 
+/**
+ * Die Klasse Konto representiert ein Konto innerhalb einer Bilanz.
+ */
 public abstract class Konto implements Serializable {
 
 	private String titel;
@@ -35,40 +34,93 @@ public abstract class Konto implements Serializable {
 		bilanzwert = -1;
 	}
 
+	/**
+	 * <i><b>Kontensaldierung</b></i><br>
+	 * <br>
+	 * Saldiert das Konto und gibt den Buchungssatz zurück, in dem der
+	 * saldierungsbetrag in das Verrechnungskonto gebucht wird. <br>
+	 * 
+	 * @return Buchungsatz mit dem Saldierungsbetrag
+	 */
 	public Buchungssatz saldieren() {
 		double sollBetrag = sollSeite.getBetragssumme();
 		double habenBetrag = habenSeite.getBetragssumme();
-		if(getKontoart() == 1){
-			if(((Bestandskonto) this).isAktivkonto()){
+		if (getKontoart() == 1) {
+			if (((Bestandskonto) this).isAktivkonto()) {
 				sollBetrag += ((Bestandskonto) this).getAnfangsbestand();
-			} else{
+			} else {
 				habenBetrag += ((Bestandskonto) this).getAnfangsbestand();
 			}
 		}
-		System.out.println(sollBetrag + "\t\t" + habenBetrag +"\t\t" + titel);
+		System.out.println(sollBetrag + "\t\t" + habenBetrag + "\t\t" + titel);
 		if (sollBetrag > habenBetrag) {
 			bilanzwert = sollBetrag;
 			return new Buchungssatz("", verrechnungKonto, kuerzel, sollBetrag - habenBetrag);
-		} else if (sollBetrag < habenBetrag){
+		} else if (sollBetrag < habenBetrag) {
 			bilanzwert = habenBetrag;
 			return new Buchungssatz("", kuerzel, verrechnungKonto, habenBetrag - sollBetrag);
-		} else{
+		} else {
 			bilanzwert = 0;
 		}
 		return null;
-		
 	}
 
+	/**
+	 * <i><b>Buchung eines Buchungssatzes</b></i><br>
+	 * <br>
+	 * Bucht den Buchungssatz auf die entsprechende Seite des Kontos. <br>
+	 * 
+	 * @param bsatz
+	 *            - der Buchungssatz, der gebucht werden soll
+	 * @param sollseite
+	 *            - die Seite auf der der Buchungssatz gebucht wird
+	 * 
+	 * @return Buchungsatz mit dem Saldierungsbetrag
+	 */
 	public void buchung(Buchungssatz bsatz, boolean sollseite) {
 		if (sollseite) {
 			sollSeite.getBuchungen().put(bsatz.getID(), bsatz);
-			guiContainer.getRefNameS().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
+			addBuchungssatzToContainer(bsatz, true);
 		} else {
 			habenSeite.getBuchungen().put(bsatz.getID(), bsatz);
+			addBuchungssatzToContainer(bsatz, false);
+		}
+	}
+
+	/**
+	 * <i><b>Erstellung eines neuen Containers für die GUI</b></i><br>
+	 * <br>
+	 * Die Benutzeroberfläche des Kontos wird neu erstellt. Wird für das Öffnen
+	 * einer Bilanz benötigt. <br>
+	 */
+	public void newContainer() {
+		guiContainer = new KontoContainer(titel);
+		for (Buchungssatz bsatz : sollSeite.getArrayOfBuchungen()) {
+			addBuchungssatzToContainer(bsatz, true);
+		}
+		for (Buchungssatz bsatz : habenSeite.getArrayOfBuchungen()) {
+			addBuchungssatzToContainer(bsatz, false);
+		}
+	}
+
+	/**
+	 * <i><b>Buchungssatz zur GUI hinzufügen</b></i><br>
+	 * <br>
+	 * Fügt den Buchungssatz der GUI hinzu <br>
+	 * 
+	 * @param bsatz
+	 *            - der Buchungssatz, der gebucht werden soll
+	 * @param sollseite
+	 *            - die Seite auf der der Buchungssatz gebucht wird
+	 */
+	protected void addBuchungssatzToContainer(Buchungssatz bsatz, boolean sollseite) {
+		if (sollseite) {
+			guiContainer.getRefNameS().getChildren()
+					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto()));
+			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
+		} else {
 			guiContainer.getRefNameH().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
+					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto()));
 			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
 		}
 	}
@@ -116,7 +168,7 @@ public abstract class Konto implements Serializable {
 	public KontoContainer getGuiContainer() {
 		return guiContainer;
 	}
-	
+
 	public void setGuiContainer(KontoContainer guiContainer) {
 		this.guiContainer = guiContainer;
 	}
@@ -131,20 +183,6 @@ public abstract class Konto implements Serializable {
 
 	public void setBilanzwert(double bilanzwert) {
 		this.bilanzwert = bilanzwert;
-	}
-
-	public void newContainer() {
-		guiContainer = new KontoContainer(titel);
-		for (Buchungssatz bsatz : sollSeite.getArrayOfBuchungen()) {
-			guiContainer.getRefNameS().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getHabenKonto() + "    "));
-			guiContainer.getRefBetragS().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
-		}
-		for (Buchungssatz bsatz : habenSeite.getArrayOfBuchungen()) {
-			guiContainer.getRefNameH().getChildren()
-					.add(new Label(bsatz.getID() + " " + bsatz.getSollKonto() + "    "));
-			guiContainer.getRefBetragH().getChildren().add(new Label(Double.toString(bsatz.getBetrag()) + "€"));
-		}
 	}
 
 }

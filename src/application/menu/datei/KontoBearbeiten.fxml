@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.datei.KontoBearbeitenController">
    <children>
       <TextField fx:id="textfieldKontenname" layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="365.0" promptText="Kontenname" />
-      <TextField fx:id="textfieldKuerzel" layoutX="396.0" layoutY="21.0" prefHeight="25.0" prefWidth="141.0" promptText="Kürzel (max. 5 Zeichen)" />
+      <TextField fx:id="textfieldKuerzel" layoutX="396.0" layoutY="21.0" prefHeight="25.0" prefWidth="141.0" promptText="Kürzel (max. 6 Zeichen)" />
       <Button fx:id="buttonAddKonto" layoutX="194.0" layoutY="142.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="163.0" text="Änderung Bestätigen" />
       <TextField fx:id="textfieldAB" layoutX="154.0" layoutY="59.0" prefHeight="25.0" prefWidth="108.0" promptText="Anfangsbestand" />
       <Label layoutX="265.0" layoutY="63.0" text="€" />

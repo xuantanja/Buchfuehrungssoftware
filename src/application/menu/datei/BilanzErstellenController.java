@@ -149,7 +149,7 @@ public class BilanzErstellenController implements Initializable {
 	@FXML
 	private void handle_KontoHinzufuegen(ActionEvent event) {
 		String fehlermeldung = "";
-		if (textfieldKuerzel.getText().length() > 5 || textfieldKuerzel.getText().length() == 0) {
+		if (textfieldKuerzel.getText().length() > 6 || textfieldKuerzel.getText().length() == 0) {
 			fehlermeldung += "- Das Kürzel ist bezüglich seiner Länge ungültig\n";
 		}
 		if (textfieldKontenname.getText().length() == 0) {

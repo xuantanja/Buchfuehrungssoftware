@@ -23,7 +23,7 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <TextField fx:id="textfieldKontenname" layoutX="17.0" layoutY="81.0" prefHeight="25.0" prefWidth="159.0" promptText="Kontenname" />
-      <TextField fx:id="textfieldKuerzel" layoutX="17.0" layoutY="114.0" prefHeight="25.0" prefWidth="159.0" promptText="Kürzel (max. 5 Zeichen)" />
+      <TextField fx:id="textfieldKuerzel" layoutX="17.0" layoutY="114.0" prefHeight="25.0" prefWidth="159.0" promptText="Kürzel (max. 6 Zeichen)" />
       <Button fx:id="buttonAddKonto" layoutX="597.0" layoutY="139.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="84.0" text="Hinzufügen" />
       <Separator layoutY="169.0" prefHeight="6.0" prefWidth="700.0" />
       <TextField fx:id="textfieldAB" layoutX="295.0" layoutY="77.0" prefHeight="25.0" prefWidth="108.0" promptText="Anfangsbestand" />
