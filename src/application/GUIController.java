@@ -389,6 +389,22 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Analyse_EBEinsehen(ActionEvent event) {
+		try {
+			System.out.println(getClass().getResource(""));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/EroeffnungsbilanzEinsehen.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage BEEinsehenStage = new Stage();
+			BEEinsehenStage.setResizable(false);
+			BEEinsehenStage.setScene(scene);
+			BEEinsehenStage.setTitle("BuFü HWR Version");
+			BEEinsehenStage.show();
+
+		} catch (IOException e) {
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

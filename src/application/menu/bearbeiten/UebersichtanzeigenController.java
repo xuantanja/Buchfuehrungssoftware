@@ -71,7 +71,7 @@ public class UebersichtanzeigenController implements Initializable {
 			ArrayList<Buchungssatz> neuListe = fall.getSaetze();
 			for (int j = 0; j <= neuListe.size() - 1; j++) {
 
-				Label lb3 = new Label(neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
+				Label lb3 = new Label(neuListe.get(j).getID() + " " + neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
 						+ neuListe.get(j).getBetrag() + " €");
 
 				VBox_Anzeige.getChildren().add(lb3);
@@ -102,7 +102,7 @@ public class UebersichtanzeigenController implements Initializable {
 				ArrayList<Buchungssatz> neuListe = fall.getSaetze();
 				for (int j = 0; j <= neuListe.size() - 1; j++) {
 
-					Label lb3 = new Label(neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
+					Label lb3 = new Label(neuListe.get(j).getID() + " " + neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
 							+ neuListe.get(j).getBetrag() + " €");
 
 					VBox_Anzeige.getChildren().add(lb3);
