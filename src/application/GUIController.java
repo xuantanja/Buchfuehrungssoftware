@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.analyse.EroeffnungsbilanzEinsehenController;
 import application.menu.bearbeiten.KontenverwaltungAnzeigenController;
 import application.menu.bearbeiten.NeuerBSController;
 import application.menu.bearbeiten.NeuerGFController;
@@ -79,6 +80,8 @@ public class GUIController implements Initializable {
 	private GridPane t3_Steuerkonten;
 	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten, count_t1_A, count_t1_P;
 	private Kontenverwaltung kontenverwaltung;
+	private Kontenverwaltung kontenverwaltungCopy;
+
 
 	/**
 	 * Initializes the controller class.
@@ -90,6 +93,8 @@ public class GUIController implements Initializable {
 		t2_Ertragskonten = new GridPane();
 		t3_Steuerkonten = new GridPane();
 		kontenverwaltung = new Kontenverwaltung();
+		kontenverwaltungCopy = new Kontenverwaltung();
+
 
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
 		t3.getChildren().add(t3_Steuerkonten);
@@ -156,6 +161,7 @@ public class GUIController implements Initializable {
 			bilanzErstellenStage.showAndWait();
 			if (controller.isNeueBilanzErstellt()) {
 				kontenverwaltung = controller.getNeueBilanz();
+				kontenverwaltungCopy = controller.getNeueBilanz();
 				ladeKonten(true);
 				enableMenuBar(true);
 			}
@@ -394,9 +400,14 @@ public class GUIController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/EroeffnungsbilanzEinsehen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage BEEinsehenStage = new Stage();
+			EroeffnungsbilanzEinsehenController controller = loader.getController();
+
 			BEEinsehenStage.setResizable(false);
 			BEEinsehenStage.setScene(scene);
-			BEEinsehenStage.setTitle("BuFü HWR Version");
+			
+			controller.setKonten(kontenverwaltungCopy.getKonten());
+			BEEinsehenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
+			
 			BEEinsehenStage.show();
 
 		} catch (IOException e) {
