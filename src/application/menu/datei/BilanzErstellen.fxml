@@ -23,7 +23,7 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <TextField fx:id="textfieldKontenname" layoutX="17.0" layoutY="81.0" prefHeight="25.0" prefWidth="159.0" promptText="Kontenname" />
-      <TextField fx:id="textfieldKuerzel" layoutX="17.0" layoutY="114.0" prefHeight="25.0" prefWidth="159.0" promptText="Kürzel (max. 6 Zeichen)" />
+      <TextField fx:id="textfieldKuerzel" layoutX="17.0" layoutY="114.0" prefHeight="25.0" prefWidth="159.0" promptText="Kürzel (max. 5 Zeichen)" />
       <Button fx:id="buttonAddKonto" layoutX="597.0" layoutY="139.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="84.0" text="Hinzufügen" />
       <Separator layoutY="169.0" prefHeight="6.0" prefWidth="700.0" />
       <TextField fx:id="textfieldAB" layoutX="295.0" layoutY="77.0" prefHeight="25.0" prefWidth="108.0" promptText="Anfangsbestand" />
@@ -40,7 +40,7 @@
          </font>
       </Label>
       <Label layoutX="524.0" layoutY="197.0" prefHeight="120.0" prefWidth="167.0" text="Umsatzsteuer, Vorsteuer, Bank, Kasse, Umsatzerlöse, Verbindlichkeiten a.L.L., Verbindlichkeiten geg. Kreditinstituten, Forderungen a.L.L., Rückstellungen, Privat, Ent. f. priv. Zwecke" wrapText="true" />
-      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="207.0" onKeyReleased="#handleKontoLoeschen" onMouseDragReleased="#handleKontoLoeschen" prefHeight="206.0" prefWidth="491.0">
+      <TableView fx:id="tableKonto" layoutX="14.0" layoutY="207.0" prefHeight="206.0" prefWidth="491.0">
         <columns>
           <TableColumn fx:id="columnKonto" prefWidth="145.33331298828125" text="Konto" />
           <TableColumn fx:id="columnBeschreibung" prefWidth="344.66668701171875" text="Beschreibung" />
@@ -48,7 +48,7 @@
       </TableView>
       <RadioButton fx:id="radioBestandskonto" layoutX="191.0" layoutY="81.0" mnemonicParsing="false" selected="true" text="Bestandskonto" />
       <RadioButton fx:id="radioErfolgskonto" layoutX="437.0" layoutY="81.0" mnemonicParsing="false" text="Erfolgskonto" />
-      <Label layoutX="17.0" layoutY="410.0" prefHeight="34.0" prefWidth="484.0" text="Hinweis: Um Konten zu entfernen, wählen Sie das jeweilige Konto/ die jeweiligen Konten aus und drücken Sie die rechte Maustaste und dann &quot;Entfernen&quot;." wrapText="true">
+      <Label layoutX="17.0" layoutY="410.0" prefHeight="34.0" prefWidth="484.0" text="Hinweis: Um ein Konto zu bearbeiten oder zu entfernen, wählen Sie das jeweilige Konto aus und drücken Sie die rechte Maustaste (Es könnten keine Steuerkonten oder Abschlusskonten gelöscht werden!)." wrapText="true">
          <font>
             <Font size="9.0" />
          </font>

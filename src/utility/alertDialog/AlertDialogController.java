@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -36,6 +37,8 @@ public class AlertDialogController implements Initializable {
 	private Button rightButton;
 	@FXML
 	private ImageView image;
+	@FXML
+	private GridPane container;
 
 	private boolean rightButtonClicked;
 
@@ -109,6 +112,14 @@ public class AlertDialogController implements Initializable {
 		this.rightButtonClicked = rightButtonClicked;
 	}
 	
+	public GridPane getContainer() {
+		return container;
+	}
+
+	public void setContainer(GridPane container) {
+		this.container = container;
+	}
+
 	public void setImage(Image img){
 		image.setImage(img);
 		image.prefWidth(60);

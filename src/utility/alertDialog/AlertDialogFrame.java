@@ -36,6 +36,7 @@ public class AlertDialogFrame {
 			Stage dialogStage = new Stage();
 			dialogStage.setScene(scene);
 			adc.setText(message, details, rightButtonText, "");
+			dialogStage.setHeight(adc.getContainer().getHeight());
 			adc.getLeftButton().setVisible(false);
 			dialogStage.setResizable(false);
 			adc.setImage(types[type]);

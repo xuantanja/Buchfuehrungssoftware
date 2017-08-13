@@ -49,7 +49,8 @@ import utility.alertDialog.AlertDialogFrame;
  */
 public class BilanzErstellenController implements Initializable {
 
-	private static final String STANDARD_PATH = System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\";
+	private static final String STANDARD_PATH = System.getProperty("user.home")
+			+ "\\AppData\\Roaming\\BuFü-HWRVersion\\";
 	@FXML
 	private TextField textfieldBilanzname;
 	@FXML
@@ -138,21 +139,27 @@ public class BilanzErstellenController implements Initializable {
 		});
 		contextMenu.getItems().addAll(item1, item2);
 		tableKonto.setContextMenu(contextMenu);
-		
+
 		LocalDate ld = LocalDate.of(LocalDate.now().getYear(), 1, 1);
 		datepickerGJBeginn.setValue(ld);
-		
+
 		standardkontenHinzufuegen();
 	}
 
 	@FXML
 	private void handle_KontoHinzufuegen(ActionEvent event) {
 		String fehlermeldung = "";
-		if (textfieldKuerzel.getText().length() > 6) {
-			fehlermeldung += "Das Kürzel besitzt mehr als 6 Zeichen!";
+		if (textfieldKuerzel.getText().length() > 5 || textfieldKuerzel.getText().length() == 0) {
+			fehlermeldung += "- Das Kürzel ist bezüglich seiner Länge ungültig\n";
 		}
 		if (textfieldKontenname.getText().length() == 0) {
-			fehlermeldung += "Keinen Kontonamen angegeben!";
+			fehlermeldung += "- Keinen Kontonamen angegeben\n";
+		}
+		if(radioBestandskonto.isSelected() && (textfieldAB.getText().length() == 0 || !isStringANumber(textfieldAB.getText()))){
+			fehlermeldung += "- Bitte geben Sie einen gültigen Anfangsbestand für das Konto an\n";
+		}
+		if(radioErfolgskonto.isSelected() && verrechnungskonto.getSelectionModel().isEmpty()){
+			fehlermeldung += "- Bitte geben Sie ein Verrechnungskonto für das Konto an\n";
 		}
 		// Fehlerüberprüfung abgeschlossen
 		if (fehlermeldung.equals("")) {
@@ -165,14 +172,19 @@ public class BilanzErstellenController implements Initializable {
 						verrechnungskonto.getValue(), radioErtragskonto.isSelected());
 				kontenListe.add(newEKonto);
 			}
+			tabelleAktualisieren();
+			new AlertDialogFrame().showConfirmDialog("\""+ textfieldKontenname.getText() +"\" hinzugefügt!",
+					"Das Konto wurde erfolgreich angelegt.", "Ok",
+					AlertDialogFrame.INFORMATION_TYPE);
+			textfieldKontenname.setText("");
+			textfieldAB.setText("");
+			textfieldKuerzel.setText("");
+		} else {
+			new AlertDialogFrame().showConfirmDialog("Das Konto \""+ textfieldKontenname.getText() +"\" konnte aus folgenden Gründen nicht hinzugefügt werden:",
+					fehlermeldung, "Ok",
+					AlertDialogFrame.WARNING_TYPE);
 		}
-		tabelleAktualisieren();
-	}
-
-	@FXML
-	private void handleKontoLoeschen(KeyEvent event) {
-		// (optinal) TODO: Löschung eines Kontos aus der Tabelle mit ENFT (und
-		// optinal mit rechte Maus -> Konto/Konten löschen).
+		
 	}
 
 	@FXML
@@ -185,27 +197,40 @@ public class BilanzErstellenController implements Initializable {
 			kontenListe.add(ue);
 			kontenListe.add(bv);
 		}
-
-		
-		
-		// Fehlerüberprüfung abgeschlossen
-		neueBilanz = new Kontenverwaltung(new File(STANDARD_PATH + textfieldBilanzname.getText() + ".bil"),
-				kontenListe, datepickerGJBeginn.getValue());
+		neueBilanz = new Kontenverwaltung(new File(STANDARD_PATH + textfieldBilanzname.getText() + ".bil"), kontenListe,
+				datepickerGJBeginn.getValue());
 		File standardPath = new File(STANDARD_PATH);
-		if(!standardPath.exists()){
+		if (!standardPath.exists()) {
 			standardPath.mkdirs();
 		}
-		if(neueBilanz.getSpeicherort().exists()){
-			//DIALOG ADF
+		boolean ersetzeDatei = true;
+		if (textfieldBilanzname.getText().length() == 0) {
+			new AlertDialogFrame().showConfirmDialog("Bilanz konnte nicht angelegt werden",
+					"Bitte geben sie einen Bilanznamen an, der ebenfalls als Dateinamen dienen wird.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
+			return;
+		}
+		if (neueBilanz.getSpeicherort().exists()) {
+			ersetzeDatei = new AlertDialogFrame().showChoiseDialog("Die Datei " + textfieldBilanzname.getText() + ".bil existiert bereits",
+					"Soll die Datei mit der neuen Bilanz überschrieben werden?", "Ok", "Abbrechen",
+					AlertDialogFrame.QUESTION_TYPE);
+		}
+		if (ersetzeDatei) {
 			boolean erfolgreich = IOManager.saveFile(neueBilanz.getKonten(), neueBilanz.getFaelle(),
 					neueBilanz.getSpeicherort(), neueBilanz.getGeschaeftsjahrBeginn());
-			if(!erfolgreich){
-				new AlertDialogFrame().showConfirmDialog("Bilanz konnte nicht angelegt werden", "Möglicherweise ist der angegebene Dateiname (Bilanzname) nicht gültig.", "Ok", AlertDialogFrame.ERROR_TYPE);
+			if (!erfolgreich) {
+				new AlertDialogFrame().showConfirmDialog("Bilanz konnte nicht angelegt werden",
+						"Möglicherweise ist der angegebene Dateiname (Bilanzname) nicht gültig.", "Ok",
+						AlertDialogFrame.ERROR_TYPE);
+			} else {
+				bilanzHinzugefuegt = true;
 			}
 		}
-		bilanzHinzugefuegt = true;
-		Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
-		stage.close();
+		if (bilanzHinzugefuegt) {
+			Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
+			stage.close();
+		}
+
 	}
 
 	@FXML
@@ -294,9 +319,10 @@ public class BilanzErstellenController implements Initializable {
 	}
 
 	private void loescheKonto(ObservableList<Konto> selectedKonten) {
+		
 		System.out.println("Löschen....");
 		for (int i = 0; i < selectedKonten.size(); i++) {
-			if (kontenListe.contains(selectedKonten.get(i))) {
+			if (kontenListe.contains(selectedKonten.get(i)) && selectedKonten.get(i).getKontoart() != 3 && selectedKonten.get(i).getKontoart() != 4) {
 				kontenListe.remove(selectedKonten.get(i));
 			}
 		}
@@ -304,7 +330,8 @@ public class BilanzErstellenController implements Initializable {
 	}
 
 	private void bearbeiteKonto(Konto selectedKonto) {
-		try {
+		if(selectedKonto.getKontoart() != 3 && selectedKonto.getKontoart() != 4){
+			try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("KontoBearbeiten.fxml"));
 			Scene scene = new Scene(loader.load());
 			KontoBearbeitenController controller = loader.getController();
@@ -313,7 +340,7 @@ public class BilanzErstellenController implements Initializable {
 				kontenKuerzel.add(konto.getKuerzel());
 			}
 			controller.setChangeKonto(selectedKonto, FXCollections.observableArrayList(kontenKuerzel));
-			
+
 			Stage stage = new Stage();
 			stage.setScene(scene);
 			stage.showAndWait();
@@ -321,7 +348,19 @@ public class BilanzErstellenController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		}
+		
 
+	}
+	
+	private boolean isStringANumber(String text) {
+		try {
+			Double.parseDouble(text);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+		
 	}
 
 	public Kontenverwaltung getNeueBilanz() {
