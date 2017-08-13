@@ -2,24 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="181.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.KontoHinzufuegenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.bearbeiten.KontoHinzufuegenController">
    <children>
       <TextField fx:id="textfieldKontenname" layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="365.0" promptText="Kontenname" />
       <TextField fx:id="textfieldKuerzel" layoutX="396.0" layoutY="21.0" prefHeight="25.0" prefWidth="141.0" promptText="Kürzel (max. 6 Zeichen)" />
-      <Button fx:id="buttonAddKonto" layoutX="194.0" layoutY="142.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="163.0" text="Eingabe bestätigen" />
-      <TextField fx:id="textfieldAB" layoutX="154.0" layoutY="59.0" prefHeight="25.0" prefWidth="108.0" promptText="Anfangsbestand" />
-      <Label layoutX="265.0" layoutY="63.0" text="€" />
-      <RadioButton fx:id="radioAktivkonto" layoutX="74.0" layoutY="90.0" mnemonicParsing="false" selected="true" text="Aktivkonto" />
-      <RadioButton fx:id="radioPassivkonto" layoutX="74.0" layoutY="114.0" mnemonicParsing="false" text="Passivkonto" />
-      <RadioButton fx:id="radioErtragskonto" layoutX="309.0" layoutY="111.0" mnemonicParsing="false" selected="true" text="Ertragskonto" />
-      <RadioButton fx:id="radioAufwandskonto" layoutX="309.0" layoutY="87.0" mnemonicParsing="false" text="Aufwandskonto" />
-      <RadioButton fx:id="radioBestandskonto" layoutX="43.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="Bestandskonto" />
-      <RadioButton fx:id="radioErfolgskonto" layoutX="289.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="Erfolgskonto" />
-      <ComboBox fx:id="verrechnungskonto" layoutX="389.0" layoutY="59.0" prefHeight="25.0" prefWidth="148.0" promptText="Verrechnungskonto" />
+      <Button fx:id="buttonAddKonto" layoutX="385.0" layoutY="116.0" mnemonicParsing="false" onAction="#handle_KontoHinzufuegen" prefHeight="25.0" prefWidth="163.0" text="Eingabe bestätigen" />
+      <RadioButton fx:id="radioAktivkonto" layoutX="74.0" layoutY="90.0" mnemonicParsing="false" selected="false" text="Aktivkonto" />
+      <RadioButton fx:id="radioPassivkonto" layoutX="74.0" layoutY="114.0" mnemonicParsing="false" selected="false"  text="Passivkonto" />
+      <RadioButton fx:id="radioErtragskonto" layoutX="222.0" layoutY="111.0" mnemonicParsing="false" selected="false" text="Ertragskonto" />
+      <RadioButton fx:id="radioAufwandskonto" layoutX="222.0" layoutY="87.0" mnemonicParsing="false" text="Aufwandskonto" />
+      <RadioButton fx:id="radioBestandskonto" layoutX="43.0" layoutY="63.0" mnemonicParsing="false" selected="false" text="Bestandskonto" />
+      <RadioButton fx:id="radioErfolgskonto" layoutX="202.0" layoutY="63.0" mnemonicParsing="false" selected="false" text="Erfolgskonto" />
+      <ComboBox fx:id="verrechnungskonto" layoutX="393.0" layoutY="59.0" prefHeight="25.0" prefWidth="148.0" promptText="Verrechnungskonto" />
    </children>
 </AnchorPane>
