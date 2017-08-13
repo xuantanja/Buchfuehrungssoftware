@@ -332,7 +332,9 @@ public class GUIController implements Initializable {
 			stage.setTitle("Neuen Geschäftsfall erstellen");
 			stage.setScene(scene);
 			stage.showAndWait();
+			if(!controller.isCloseButtonPressed()){
 			kontenverwaltung.addGeschaeftsfall(controller.getGeschaeftsfall(kontenverwaltung.getFaelle().size() + 1));
+			}
 
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",

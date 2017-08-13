@@ -271,8 +271,8 @@ public class BilanzErstellenController implements Initializable {
 		dar = new Bestandskonto("Darlehen", "Dar", "SBK", 0, false);
 		ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, false);
 		ford = new Bestandskonto("Forderungen a.L.L.", "Ford", "SBK", 0, true);
-		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "Vorst");
-		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "USt");
+		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "SBK");
+		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "SBK");
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
 		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);

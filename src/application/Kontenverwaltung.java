@@ -73,28 +73,62 @@ public class Kontenverwaltung {
 	}
 
 	public void kontensaldierung() {
-		
+
 		for (Iterator<Konto> iterator = konten.values().iterator(); iterator.hasNext();) {
 			System.out.println(iterator.next().getTitel());
 		}
 		System.out.println("-----");
-		
+
 		PriorityQueue<Konto> pqk = new PriorityQueue<>(new KontoComparator());
 		pqk.addAll(konten.values());
+		Konto[] steuerkonten = new Konto[2];
+		int i = 0;
 		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size(), "Jahresabschluss",
 				"Alle Buchungssätze, die zum Abschluss des Geschäftsjahres automatisch gebucht worden sind.");
 		addGeschaeftsfall(jahresabschluss);
 		while (!pqk.isEmpty()) {
 			Konto konto = pqk.poll();
-				Buchungssatz bs = konto.saldieren();
+			Buchungssatz bs = konto.saldieren();
+			if (konto.getKontoart() != 3) {
 				if (bs != null) {
 					bs.setID_B(" ");
 					addBuchungssatz(jahresabschluss, bs);
 				}
+			} else {
+				steuerkonten[i++] = konto;
+			}
 		}
+		steuerkontenSaldierung(jahresabschluss, steuerkonten);
 		for (Buchungssatz bsatz : jahresabschluss.getSaetze()) {
 			bsatz.setID_B("");
 		}
+	}
+
+	private void steuerkontenSaldierung(Geschaeftsfall jahresabschluss, Konto[] steuerkonten) {
+		Buchungssatz saldierung, sbkBuchung;
+		Konto konto1 = null, konto2 = null;
+
+		if (steuerkonten[0].getBilanzwert() > steuerkonten[1].getBilanzwert()) {
+			konto1 = steuerkonten[0];
+			konto2 = steuerkonten[1];
+		} else if (steuerkonten[0].getBilanzwert() < steuerkonten[1].getBilanzwert()) {
+			konto1 = steuerkonten[1];
+			konto2 = steuerkonten[0];
+		}
+		if (konto1 != null && konto2 != null) {
+			saldierung = konto2.saldieren();
+			if (saldierung != null) {
+				if (saldierung.getSollKonto().equals("SBK")) {
+					saldierung.setSollKonto(konto1.getKuerzel());
+				} else {
+					saldierung.setHabenKonto(konto1.getKuerzel());
+				}
+				addBuchungssatz(jahresabschluss, saldierung);
+			}
+			sbkBuchung = konto1.saldieren();
+			addBuchungssatz(jahresabschluss, sbkBuchung);
+		}
+
 	}
 
 	public Iterator<Konto> getKontenIterator() {
