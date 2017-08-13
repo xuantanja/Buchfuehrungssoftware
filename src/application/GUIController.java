@@ -161,7 +161,8 @@ public class GUIController implements Initializable {
 			}
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Neue Bilanz erstellen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Neue Bilanz erstellen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		} catch (NullPointerException e) {
 			// Wenn das Fenster geschlossen wird, dann wird eine
@@ -285,6 +286,9 @@ public class GUIController implements Initializable {
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
 		try {
+
+			System.out.println(kontenverwaltung.getKonten().size());
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/KontenverwaltungAnzeigen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage KontoverwaltungAnzeigen = new Stage();
@@ -294,10 +298,21 @@ public class GUIController implements Initializable {
 			controller.setKonten(kontenverwaltung.getKonten());
 
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
-			KontoverwaltungAnzeigen.show();
+			KontoverwaltungAnzeigen.showAndWait();
+			
+			//Ebene 1: neu erstellte Konten werden der Kontenverwaltung übergeben
+			if (controller.isKontenErstellt()) {
+				for (Konto konto : controller.getNeueKonten()) {
+					kontenverwaltung.addKonto(konto);
+					System.out.println(kontenverwaltung.getKonten().size());
+				}
+			ladeKonten(false);
+			}
+
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Kontoverwaltung\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Kontoverwaltung\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		}
 	}
@@ -317,7 +332,8 @@ public class GUIController implements Initializable {
 			bilanzErstellenStage.showAndWait();
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Übersicht anzeigen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Übersicht anzeigen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		}
 	}
@@ -334,13 +350,15 @@ public class GUIController implements Initializable {
 			stage.setTitle("Neuen Geschäftsfall erstellen");
 			stage.setScene(scene);
 			stage.showAndWait();
-			if(!controller.isCloseButtonPressed()){
-			kontenverwaltung.addGeschaeftsfall(controller.getGeschaeftsfall(kontenverwaltung.getFaelle().size() + 1));
+			if (!controller.isCloseButtonPressed()) {
+				kontenverwaltung
+						.addGeschaeftsfall(controller.getGeschaeftsfall(kontenverwaltung.getFaelle().size() + 1));
 			}
 
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Neuen Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Neuen Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		}
 	}
@@ -363,7 +381,8 @@ public class GUIController implements Initializable {
 			}
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Buchungssatz einem Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Buchungssatz einem Geschäftsfall hinzufügen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		}
 	}
@@ -386,7 +405,8 @@ public class GUIController implements Initializable {
 
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok", AlertDialogFrame.ERROR_TYPE);
+					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
 			e.printStackTrace();
 		}
 	}

@@ -41,11 +41,16 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 
 	private ObservableList<Konto> kontoListe;
 
+	private ObservableList<Konto> neueKonten;
+	
+	private boolean isErstellt;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		kontoListe =  FXCollections.observableArrayList();
+		kontoListe = FXCollections.observableArrayList();
+		neueKonten = FXCollections.observableArrayList();
+		isErstellt = false;
 		tabelleAktualisieren();
-		
 	}
 
 	@FXML
@@ -58,8 +63,20 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 			KontoHinzufuegen.setResizable(false);
 			KontoHinzufuegen.setScene(scene);
 			controller.setKonten(kontoListe);
+
 			KontoHinzufuegen.setTitle("BuFü HWR Version");
-			KontoHinzufuegen.show();
+			KontoHinzufuegen.showAndWait();
+			
+			//Ebene 2: Die beim "Konto hinzufügen"-Fenster hinzugefügte Konten werden der "kontenverwaltung Anzeigen"- Fenster übergeben
+			if (controller.isNeueKontenErstellt()) {
+				ObservableList<Konto> temp = controller.getNeueKonten();
+				isErstellt = true;
+				
+				for(Konto konto : temp){
+					neueKonten.add(konto);
+				}
+
+			}
 		} catch (IOException e) {
 			// TODO
 			e.printStackTrace();
@@ -83,6 +100,14 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 		for (String key : kntList.keySet()) {
 			kontoListe.add(kntList.get(key));
 		}
+	}
+
+	public ObservableList<Konto> getNeueKonten() {
+		return neueKonten;
+	}
+
+	public boolean isKontenErstellt(){
+		return isErstellt;
 	}
 
 }

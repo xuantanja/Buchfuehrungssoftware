@@ -31,7 +31,6 @@ public class KontoHinzufuegenController implements Initializable {
 	@FXML
 	private Button buttonAddKonto;
 
-
 	@FXML
 	private RadioButton radioAktivkonto;
 
@@ -53,8 +52,14 @@ public class KontoHinzufuegenController implements Initializable {
 	@FXML
 	private ComboBox<String> verrechnungskonto;
 
+	//werden übergeben
 	private ObservableList<String> kontoListe;
 	private ObservableList<Konto> kontenListe;
+	
+	//nur die neuen Konten
+	private  ObservableList<Konto> neueKonten;
+	
+	private boolean kontenErstellt;
 
 	@FXML
 	void handle_KontoHinzufuegen(ActionEvent event) {
@@ -65,59 +70,62 @@ public class KontoHinzufuegenController implements Initializable {
 		if (textfieldKontenname.getText().length() == 0) {
 			fehlermeldung += "- Keinen Kontonamen angegeben\n";
 		}
-//		if (radioBestandskonto.isSelected()) {
-//			fehlermeldung += "- Bitte geben Sie einen gültigen Anfangsbestand für das Konto an\n";
-//		}
 		if (radioErfolgskonto.isSelected() && verrechnungskonto.getSelectionModel().isEmpty()) {
 			fehlermeldung += "- Bitte geben Sie ein Verrechnungskonto für das Konto an\n";
 		}
 		// Fehlerüberprüfung abgeschlossen
 		if (fehlermeldung.equals("")) {
-			//Anfangsbestand ist bei dem späteren Hinzufügen von Bestandskonten = 0
+			// Anfangsbestand ist bei dem späteren Hinzufügen von Bestandskonten = 0
 			if (radioBestandskonto.isSelected()) {
 				Bestandskonto newBKonto = new Bestandskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
 						"SBK", 0, radioAktivkonto.isSelected());
 				kontenListe.add(newBKonto);
-				System.out.println(newBKonto.getTitel());
+				neueKonten.add(newBKonto);
 			} else if (radioErfolgskonto.isSelected()) {
 				Erfolgskonto newEKonto = new Erfolgskonto(textfieldKontenname.getText(), textfieldKuerzel.getText(),
 						verrechnungskonto.getValue(), radioErtragskonto.isSelected());
 				kontenListe.add(newEKonto);
-				System.out.println(newEKonto.getTitel());
-
+				neueKonten.add(newEKonto);
 			}
 			new AlertDialogFrame().showConfirmDialog("\"" + textfieldKontenname.getText() + "\" hinzugefügt!",
 					"Das Konto wurde erfolgreich angelegt.", "Ok", AlertDialogFrame.INFORMATION_TYPE);
 			textfieldKontenname.setText("");
 			textfieldKuerzel.setText("");
+			kontenErstellt = true;
+			
 		} else {
 			new AlertDialogFrame().showConfirmDialog(
 					"Das Konto \"" + textfieldKontenname.getText()
 							+ "\" konnte aus folgenden Gründen nicht hinzugefügt werden:",
 					fehlermeldung, "Ok", AlertDialogFrame.WARNING_TYPE);
 		}
+		
 
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		kontoListe = FXCollections.observableArrayList();
+		neueKonten= FXCollections.observableArrayList();
+		
 		ToggleGroup group1 = new ToggleGroup();
 		ToggleGroup group2 = new ToggleGroup();
 		ToggleGroup group3 = new ToggleGroup();
-		
+
 		radioBestandskonto.setToggleGroup(group1);
 		radioErfolgskonto.setToggleGroup(group1);
 		radioErtragskonto.setToggleGroup(group2);
 		radioAufwandskonto.setToggleGroup(group2);
 		radioAktivkonto.setToggleGroup(group3);
 		radioPassivkonto.setToggleGroup(group3);
+		
 		radioBestandskonto.setOnAction(e -> {
 			radioAufwandskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioErtragskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioAktivkonto.setDisable(!(radioBestandskonto.isSelected()));
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
 		});
+		
 		radioErfolgskonto.setOnAction(e -> {
 			radioAufwandskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioErtragskonto.setDisable(!(radioErfolgskonto.isSelected()));
@@ -138,12 +146,17 @@ public class KontoHinzufuegenController implements Initializable {
 			x++;
 			iter.next();
 		}
-		// ComboBox verrechnungsKonto werden die bereits bestehenden Konten
-		// übergeben
+		// ComboBox verrechnungsKonto werden die bereits bestehenden Konten übergeben
 		verrechnungskonto.setItems((ObservableList<String>) FXCollections.observableList(kontoListe));
 
 	}
-
-
 	
+	public  ObservableList<Konto> getNeueKonten(){
+		return neueKonten;
+	}
+	
+	public boolean isNeueKontenErstellt() {
+		return kontenErstellt;
+	}
+
 }

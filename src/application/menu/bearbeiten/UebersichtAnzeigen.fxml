@@ -24,7 +24,7 @@
          <children>
             <ScrollPane layoutX="27.0" layoutY="2.0" prefHeight="345.0" prefWidth="547.0">
                <content>
-                  <VBox fx:id="VBox_Anzeige" prefHeight="343.0" prefWidth="545.0" />
+                  <VBox fx:id="VBox_Anzeige" prefWidth="545.0" />
                </content>
             </ScrollPane>
          </children>
