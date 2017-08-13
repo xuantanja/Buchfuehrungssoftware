@@ -83,7 +83,7 @@ public class Kontenverwaltung {
 		pqk.addAll(konten.values());
 		Konto[] steuerkonten = new Konto[2];
 		int i = 0;
-		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size(), "Jahresabschluss",
+		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size()+1, "Jahresabschluss",
 				"Alle Buchungssätze, die zum Abschluss des Geschäftsjahres automatisch gebucht worden sind.");
 		addGeschaeftsfall(jahresabschluss);
 		while (!pqk.isEmpty()) {
