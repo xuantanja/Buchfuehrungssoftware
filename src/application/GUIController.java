@@ -8,6 +8,7 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -40,9 +41,10 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
+import utility.Collection.IDMap;
+import utility.Collection.Tuple;
 import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
-import utility.map.IDMap;
 
 /**
  * FXML Controller class
@@ -356,9 +358,8 @@ public class GUIController implements Initializable {
 			stage.setTitle("Buchungssatz erstellen");
 			stage.setScene(scene);
 			stage.showAndWait();
-			IDMap<Integer, Buchungssatz> map = controller.getNeueBuchungssaetze();
-			for (int gf : map.keySet()) {
-				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf), map.getAll(gf));
+			for (Tuple<Integer, ArrayList<Buchungssatz>> gf : controller.getNeueBuchungssaetze()) {
+				kontenverwaltung.addBuchungssatz(kontenverwaltung.getFaelle().get(gf.getX()), gf.getY());
 			}
 		} catch (IOException e) {
 			new AlertDialogFrame().showConfirmDialog("Interner Fehler",

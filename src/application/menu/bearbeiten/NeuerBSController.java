@@ -10,9 +10,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import konten.Konto;
+import utility.Collection.Tuple;
 import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
-import utility.map.IDMap;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class NeuerBSController implements Initializable {
 	private ArrayList<ComboBox<String>> comboListSoll, comboListHaben;
 	private ArrayList<TextField> betragListSoll, betragListHaben;
 	private ArrayList<Double> betragSoll, betragHaben;
-	private IDMap<Integer, Buchungssatz> buchungssätze;
+	private ArrayList<Tuple<Integer, ArrayList<Buchungssatz>>> buchungssätze;
 	private int rowSoll, rowHaben;
 	@FXML
 	private TextField textfieldTitel;
@@ -71,7 +71,10 @@ public class NeuerBSController implements Initializable {
 		comboListHaben = new ArrayList<>();
 		betragListSoll = new ArrayList<>();
 		betragListHaben = new ArrayList<>();
-		buchungssätze = new IDMap<>();
+		if (location != null) {
+			buchungssätze = new ArrayList<>();
+		}
+
 		rowSoll = 1;
 		rowHaben = 1;
 
@@ -89,7 +92,7 @@ public class NeuerBSController implements Initializable {
 		textfield.setPromptText("Betrag");
 		combobox.setPrefWidth(125);
 		GridPane.setMargin(combobox, new Insets(10, 0, 0, 0));
-		if (soll) {
+		if (soll && rowHaben == 1) {
 			comboListSoll.add(combobox);
 			betragListSoll.add(textfield);
 			euro.setText("€  an");
@@ -100,7 +103,7 @@ public class NeuerBSController implements Initializable {
 			gridpaneBS.getChildren().remove(buttonPlusSoll);
 			gridpaneBS.add(buttonPlusSoll, 0, rowSoll);
 
-		} else {
+		} else if(!soll && rowSoll == 1) {
 			comboListHaben.add(combobox);
 			betragListHaben.add(textfield);
 			euro.setText("€");
@@ -130,7 +133,10 @@ public class NeuerBSController implements Initializable {
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
 		if (exceptionhandling()) {
-			putBuchungssatz(0, 0);
+			Tuple<Integer, ArrayList<Buchungssatz>> neueBuchung = new Tuple<>(comboGF.getSelectionModel().getSelectedIndex(),
+					new ArrayList<>());
+			putBuchungssatz(0, 0, neueBuchung.getY());
+			buchungssätze.add(neueBuchung);
 			test();
 			resetGUI();
 		}
@@ -153,12 +159,13 @@ public class NeuerBSController implements Initializable {
 		gridpaneBS.add(textfieldBetragHaben, 5, 0);
 		comboSoll.getSelectionModel().clearSelection();
 		comboHaben.getSelectionModel().clearSelection();
+		initialize(null, null);
 		textfieldBetragHaben.setText("");
 		textfieldBetragSoll.setText("");
 		textfieldTitel.setText("");
 	}
 
-	private void putBuchungssatz(int sollPos, int habenPos) {
+	private void putBuchungssatz(int sollPos, int habenPos, ArrayList<Buchungssatz> buchung) {
 		double buchungsbetrag;
 		String sollKonto, habenKonto;
 		boolean isSollBigger = betragSoll.get(sollPos) > betragHaben.get(habenPos);
@@ -180,22 +187,22 @@ public class NeuerBSController implements Initializable {
 		}
 
 		Buchungssatz bs = new Buchungssatz(textfieldTitel.getText(), sollKonto, habenKonto, buchungsbetrag);
-		buchungssätze.put(comboGF.getSelectionModel().getSelectedIndex(), bs);
+		buchung.add(bs);
 		if (sollPos == rowSoll - 1 && habenPos == rowHaben - 1) {
 			Buchungssatz bs2 = new Buchungssatz(textfieldTitel.getText(),
 					comboListSoll.get(sollPos).getSelectionModel().getSelectedItem(),
 					comboListHaben.get(habenPos).getSelectionModel().getSelectedItem(), betragSoll.get(sollPos));
-			buchungssätze.put(comboGF.getSelectionModel().getSelectedIndex(), bs2);
+			buchung.add(bs2);
 		} else if (!(rowSoll == 1 && rowHaben == 1)) {
-			putBuchungssatz(sollPos, habenPos);
+			putBuchungssatz(sollPos, habenPos, buchung);
 		}
 	}
 
 	private void test() {
 		System.out.println("---------------------------------------------------");
-		Iterator<ArrayList<Buchungssatz>> it = buchungssätze.values().iterator();
+		Iterator<Tuple<Integer, ArrayList<Buchungssatz>>> it = buchungssätze.iterator();
 		while (it.hasNext()) {
-			ArrayList<Buchungssatz> blist = it.next();
+			ArrayList<Buchungssatz> blist = it.next().getY();
 			for (Buchungssatz b : blist) {
 				System.out.println("Buchungssatz:  " + b.getSollKonto() + " an " + b.getHabenKonto() + "  "
 						+ b.getBetrag() + " €");
@@ -230,32 +237,32 @@ public class NeuerBSController implements Initializable {
 					"OK", AlertDialogFrame.WARNING_TYPE);
 			return false;
 		}
-		System.out.println(sumOfValues(betragSoll)+ " " + sumOfValues(betragHaben));
+		System.out.println(sumOfValues(betragSoll) + " " + sumOfValues(betragHaben));
 		if (sumOfValues(betragSoll) != sumOfValues(betragHaben)) {
 			new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
 					"Die Beträge der Soll- und Habenseite stimmen in der Summe nicht überein! \nBitte überprüfen Sie Ihre Eingabe.",
 					"OK", AlertDialogFrame.WARNING_TYPE);
 			return false;
 		}
-		if(comboGF.getSelectionModel().isEmpty()){
+		if (comboGF.getSelectionModel().isEmpty()) {
 			new AlertDialogFrame().showConfirmDialog("Keinen Geschäftsfall ausgewählt",
-					"Bitte wählen Sie einen Geschäftsfall aus, dem der Buchungssatz zugeordnet werden kann.",
-					"OK", AlertDialogFrame.WARNING_TYPE);
+					"Bitte wählen Sie einen Geschäftsfall aus, dem der Buchungssatz zugeordnet werden kann.", "OK",
+					AlertDialogFrame.WARNING_TYPE);
 			return false;
 		}
-		for(ComboBox<String> cb : comboListSoll){
-			if(cb.getSelectionModel().isEmpty()){
+		for (ComboBox<String> cb : comboListSoll) {
+			if (cb.getSelectionModel().isEmpty()) {
 				new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
-						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.",
-						"OK", AlertDialogFrame.WARNING_TYPE);
+						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.", "OK",
+						AlertDialogFrame.WARNING_TYPE);
 				return false;
 			}
 		}
-		for(ComboBox<String> cb : comboListHaben){
-			if(cb.getSelectionModel().isEmpty()){
+		for (ComboBox<String> cb : comboListHaben) {
+			if (cb.getSelectionModel().isEmpty()) {
 				new AlertDialogFrame().showConfirmDialog("Fehlerhafter Buchungssatz",
-						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.",
-						"OK", AlertDialogFrame.WARNING_TYPE);
+						"Es wurde(n) kein(e) Konto/Konten angegeben. \nBitte überprüfen Sie Ihre Eingabe.", "OK",
+						AlertDialogFrame.WARNING_TYPE);
 				return false;
 			}
 		}
@@ -267,9 +274,9 @@ public class NeuerBSController implements Initializable {
 	public void handleSchließen(ActionEvent event) {
 		((Stage) buttonSchliessen.getScene().getWindow()).close();
 	}
-	
-	public IDMap<Integer, Buchungssatz> getNeueBuchungssaetze() {
-		return buchungssätze;
 
+	public ArrayList<Tuple<Integer, ArrayList<Buchungssatz>>> getNeueBuchungssaetze() {
+		return buchungssätze;
 	}
+	
 }

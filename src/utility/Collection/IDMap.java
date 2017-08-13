@@ -1,4 +1,4 @@
-package utility.map;
+package utility.Collection;
 
 import java.io.Serializable;
 import java.util.ArrayList;

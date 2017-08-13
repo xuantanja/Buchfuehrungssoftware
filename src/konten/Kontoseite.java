@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import geschaeftsfall.Buchungssatz;
-import utility.map.IDMap;
+import utility.Collection.IDMap;
 
 public class Kontoseite implements Serializable{
 
