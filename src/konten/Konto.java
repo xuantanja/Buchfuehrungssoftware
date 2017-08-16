@@ -60,7 +60,7 @@ public abstract class Konto implements Serializable {
 			bilanzwert = habenBetrag;
 			return new Buchungssatz("", kuerzel, verrechnungKonto, habenBetrag - sollBetrag);
 		} else {
-			bilanzwert = 0;
+			bilanzwert = sollBetrag;
 		}
 		return null;
 	}
