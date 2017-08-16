@@ -80,7 +80,6 @@ public class GUIController implements Initializable {
 	private GridPane t3_Steuerkonten;
 	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten, count_t1_A, count_t1_P;
 	private Kontenverwaltung kontenverwaltung;
-	private Kontenverwaltung kontenverwaltungCopy;
 
 
 	/**
@@ -93,7 +92,6 @@ public class GUIController implements Initializable {
 		t2_Ertragskonten = new GridPane();
 		t3_Steuerkonten = new GridPane();
 		kontenverwaltung = new Kontenverwaltung();
-		kontenverwaltungCopy = new Kontenverwaltung();
 
 
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
@@ -161,7 +159,6 @@ public class GUIController implements Initializable {
 			bilanzErstellenStage.showAndWait();
 			if (controller.isNeueBilanzErstellt()) {
 				kontenverwaltung = controller.getNeueBilanz();
-				kontenverwaltungCopy = controller.getNeueBilanz();
 				ladeKonten(true);
 				enableMenuBar(true);
 			}
@@ -402,10 +399,10 @@ public class GUIController implements Initializable {
 			Stage BEEinsehenStage = new Stage();
 			EroeffnungsbilanzEinsehenController controller = loader.getController();
 
-			BEEinsehenStage.setResizable(false);
+			//BEEinsehenStage.setResizable(false);
 			BEEinsehenStage.setScene(scene);
 			
-			controller.setKonten(kontenverwaltungCopy.getKonten());
+			controller.setKonten(kontenverwaltung.getKonten());
 			BEEinsehenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
 			
 			BEEinsehenStage.show();

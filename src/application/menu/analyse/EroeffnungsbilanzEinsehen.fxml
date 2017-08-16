@@ -3,61 +3,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.analyse.EroeffnungsbilanzEinsehenController">
-   <children>
-      <Pane prefHeight="90.0" prefWidth="600.0">
+
+<ScrollPane hbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.menu.analyse.EroeffnungsbilanzEinsehenController">
+   <content>
+      <VBox fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="79.0" prefWidth="600.0">
+            <Pane prefHeight="91.0" prefWidth="600.0">
                <children>
-                  <Label layoutX="26.0" layoutY="10.0" prefHeight="17.0" prefWidth="161.0" text="Eröffnungsbilanz">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="27.0" layoutY="45.0" prefHeight="37.0" prefWidth="547.0" text="Die Eröffnungsbilanz ist die Bilanz, die bei der Erstellung einer Bilanz als Ausgangspunkt eingeben wird. Die Bestände aus dem letzten Geschäftsjahr sind dort wiedergegeben." wrapText="true" />
-               </children>
-            </AnchorPane>
-         </children>
-      </Pane>
-      <AnchorPane prefHeight="308.0" prefWidth="600.0">
-         <children>
-            <ScrollPane layoutX="27.0" layoutY="38.0" prefHeight="309.0" prefWidth="556.0">
-               <content>
-                  <HBox fx:id="HB_Cont" prefHeight="298.0" prefWidth="559.0">
+                  <AnchorPane layoutX="-2.0" layoutY="1.0" prefHeight="79.0" prefWidth="600.0">
                      <children>
-                        <GridPane fx:id="GP_Aktiv" prefHeight="97.0" prefWidth="284.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="276.0" minHeight="0.0" prefHeight="271.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <GridPane fx:id="GP_Passiv" prefHeight="97.0" prefWidth="284.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="276.0" minHeight="0.0" prefHeight="271.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
+                        <Label layoutX="26.0" layoutY="10.0" prefHeight="17.0" prefWidth="161.0" text="Eröffnungsbilanz">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="45.0" prefHeight="37.0" prefWidth="547.0" text="Die Eröffnungsbilanz ist die Bilanz, die bei der Erstellung einer Bilanz als Ausgangspunkt eingeben wird. Die Bestände aus dem letzten Geschäftsjahr sind dort wiedergegeben." wrapText="true" />
                      </children>
-                  </HBox>
-               </content>
-            </ScrollPane>
+                  </AnchorPane>
+               </children>
+            </Pane>
          </children>
-      </AnchorPane>
-   </children>
-</VBox>
+      </VBox>
+   </content>
+</ScrollPane>
