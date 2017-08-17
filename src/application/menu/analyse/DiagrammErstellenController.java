@@ -47,7 +47,6 @@ public class DiagrammErstellenController {
 		// für Bestandskonten
 		pieChart_Bestand_alt = new PieChart(getChartDataA());
 		pieChart_Bestand_alt.setTitle("Anfangsbestände der Bestandskonten");
-		pieChart_Bestand_alt.setLabelsVisible(true);
 		// für Aufwandskonten
 		pieChart_Ertrag = new PieChart(getChartDataB());
 		pieChart_Ertrag.setTitle("Erträge der Erfolgskonten");
