@@ -30,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -76,7 +77,7 @@ public class GUIController implements Initializable {
 	private HBox abschlusskontoContainer;
 	@FXML
 	private HBox chartContainer;
-	
+
 	private PieChart pieChart_Bestand;
 	private PieChart pieChart_Ertrag;
 
@@ -87,6 +88,8 @@ public class GUIController implements Initializable {
 	private Kontenverwaltung kontenverwaltung;
 	private Kontenverwaltung kontenverwaltungCopy;
 
+	private ObservableList<Data> dataA;
+	private ObservableList<Data> dataB;
 
 	/**
 	 * Initializes the controller class.
@@ -99,8 +102,11 @@ public class GUIController implements Initializable {
 		t3_Steuerkonten = new GridPane();
 		kontenverwaltung = new Kontenverwaltung();
 		kontenverwaltungCopy = new Kontenverwaltung();
+		pieChart_Bestand = new PieChart();
+		pieChart_Ertrag = new PieChart();
 
-
+		dataA = FXCollections.observableArrayList();
+		dataB = FXCollections.observableArrayList();
 
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
 		t3.getChildren().add(t3_Steuerkonten);
@@ -244,27 +250,8 @@ public class GUIController implements Initializable {
 			// TODO für Tanja: Hier müssen die Diagramme der HBox
 			// "chartContainer" hinzugefügt werden.
 
-	        // für Bestandskonten
-	    	ObservableList<PieChart.Data> pieChartDataA =
-	                FXCollections.observableArrayList(
-	                new PieChart.Data("x", 60),
-	                new PieChart.Data("y", 10),
-	                new PieChart.Data("z", 10),
-	                new PieChart.Data("q", 10),
-	                new PieChart.Data("w", 10));
-	    	pieChart_Bestand.setData(pieChartDataA);
-	    	pieChart_Bestand.setTitle("Bilanzaufteilung bei Bestandskonten");
-	    	
-	    	// für Aufwandskonten
-	    	ObservableList<PieChart.Data> pieChartDataB =
-	                FXCollections.observableArrayList(
-	                new PieChart.Data("x", 60),
-	                new PieChart.Data("y", 10),
-	                new PieChart.Data("z", 10),
-	                new PieChart.Data("q", 10),
-	                new PieChart.Data("w", 10));
-	    	pieChart_Ertrag.setData(pieChartDataB);
-	    	pieChart_Ertrag.setTitle("Bilanzaufteilung bei Ertragskonten");
+			pieChart_Bestand.setData(getChartDataA());
+			pieChart_Ertrag.setData(getChartDataB());
 
 			chartContainer.getChildren().add(pieChart_Bestand);
 			chartContainer.getChildren().add(pieChart_Ertrag);
@@ -274,6 +261,37 @@ public class GUIController implements Initializable {
 			menuitemAddBS.setDisable(true);
 		}
 		System.out.println("------------------------------INIT-DONE------------------------------");
+	}
+
+	private ObservableList<Data> getChartDataA() {
+		ArrayList<Bestandskonto> bstand = new ArrayList<>();
+		ObservableList<PieChart.Data> kontenData = new ObservableList<PieChart.Data>();
+		for (Konto konto : kontenverwaltung.getKonten().values()) {
+			// "1" entspricht der Kontoart Bestandskonto
+			if (konto.getKontoart() == 1) {
+				bstand.add((Bestandskonto) konto);
+				kontenData.add(new PieChart.Data(konto.getTitel(),konto.getBilanzwert()));
+			}
+		
+		}
+		dataB.addAll(kontenData);
+		return dataA;
+	}
+
+	private ObservableList<Data> getChartDataB() {
+		ArrayList<Erfolgskonto> erfolg = new ArrayList<>();
+		ObservableList<PieChart.Data> kontenData = new ObservableList<PieChart.Data>();
+		for (Konto konto : kontenverwaltung.getKonten().values()) {
+			// "2" entspricht der Kontoart Erfolgskonto
+			if (konto.getKontoart() == 2) {
+				erfolg.add((Erfolgskonto) konto);
+				kontenData.add(new PieChart.Data(konto.getTitel(),konto.getBilanzwert()));
+				
+			}
+		
+		}
+		dataB.addAll(kontenData);
+		return dataB;
 	}
 
 	@FXML
@@ -337,14 +355,15 @@ public class GUIController implements Initializable {
 
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.showAndWait();
-			
-			//Ebene 1: neu erstellte Konten werden der Kontenverwaltung übergeben
+
+			// Ebene 1: neu erstellte Konten werden der Kontenverwaltung
+			// übergeben
 			if (controller.isKontenErstellt()) {
 				for (Konto konto : controller.getNeueKonten()) {
 					kontenverwaltung.addKonto(konto);
 					System.out.println(kontenverwaltung.getKonten().size());
 				}
-			ladeKonten(false);
+				ladeKonten(false);
 			}
 
 		} catch (IOException e) {
@@ -434,12 +453,12 @@ public class GUIController implements Initializable {
 			Stage BEEinsehenStage = new Stage();
 			EroeffnungsbilanzEinsehenController controller = loader.getController();
 
-			//BEEinsehenStage.setResizable(false);
+			// BEEinsehenStage.setResizable(false);
 			BEEinsehenStage.setScene(scene);
-			
+
 			controller.setKonten(kontenverwaltungCopy.getKonten());
 			BEEinsehenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
-			
+
 			BEEinsehenStage.show();
 
 		} catch (IOException e) {
