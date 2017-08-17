@@ -142,7 +142,7 @@ public class KontoHinzufuegenController implements Initializable {
 		Iterator<Konto> iter = kntList.iterator();
 		int x = 0;
 		while (iter.hasNext()) {
-			kontoListe.add(kntList.get(x).getTitel());
+			kontoListe.add(kntList.get(x).getKuerzel());
 			x++;
 			iter.next();
 		}

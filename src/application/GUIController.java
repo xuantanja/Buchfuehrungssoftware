@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import application.menu.analyse.DiagrammErstellenController;
 import application.menu.analyse.EroeffnungsbilanzEinsehenController;
 import application.menu.bearbeiten.KontenverwaltungAnzeigenController;
 import application.menu.bearbeiten.NeuerBSController;
@@ -58,15 +59,9 @@ import utility.converter.TypeConverter;
 public class GUIController implements Initializable {
 
 	@FXML
-	private GridPane t1_A;
+	private GridPane t1_A, t1_P;
 	@FXML
-	private GridPane t1_P;
-	@FXML
-	private VBox t2;
-	@FXML
-	private VBox t3;
-	@FXML
-	private VBox t4Container;
+	private VBox t2, t3, t4Container;
 	@FXML
 	private Menu menuBearbeiten, menuAnalyse;
 	@FXML
@@ -74,12 +69,7 @@ public class GUIController implements Initializable {
 	@FXML
 	private Separator vSeparator;
 	@FXML
-	private HBox abschlusskontoContainer;
-	@FXML
-	private HBox chartContainer;
-
-	private PieChart pieChart_Bestand;
-	private PieChart pieChart_Ertrag;
+	private HBox abschlusskontoContainer, chartContainer1, chartContainer2;
 
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
@@ -87,9 +77,6 @@ public class GUIController implements Initializable {
 	private int count_t2_Ertragskonten, count_t2_Aufwandskonten, count_t3_Steuerkonten, count_t1_A, count_t1_P;
 	private Kontenverwaltung kontenverwaltung;
 	private Kontenverwaltung kontenverwaltungCopy;
-
-	private ObservableList<Data> dataA;
-	private ObservableList<Data> dataB;
 
 	/**
 	 * Initializes the controller class.
@@ -102,11 +89,6 @@ public class GUIController implements Initializable {
 		t3_Steuerkonten = new GridPane();
 		kontenverwaltung = new Kontenverwaltung();
 		kontenverwaltungCopy = new Kontenverwaltung();
-		pieChart_Bestand = new PieChart();
-		pieChart_Ertrag = new PieChart();
-
-		dataA = FXCollections.observableArrayList();
-		dataB = FXCollections.observableArrayList();
 
 		t2.getChildren().addAll(t2_Ertragskonten, t2_Aufwandskonten);
 		t3.getChildren().add(t3_Steuerkonten);
@@ -195,7 +177,6 @@ public class GUIController implements Initializable {
 			gpList[i].getChildren().clear();
 		}
 		abschlusskontoContainer.getChildren().clear();
-		chartContainer.getChildren().clear();
 		initalHeadings();
 		Iterator<Konto> it = kontenverwaltung.getKontenIterator();
 		while (it.hasNext()) {
@@ -249,49 +230,17 @@ public class GUIController implements Initializable {
 		if (kontenverwaltung.getKonten().get("SBK").getBilanzwert() != -1) {
 			// TODO für Tanja: Hier müssen die Diagramme der HBox
 			// "chartContainer" hinzugefügt werden.
-
-			pieChart_Bestand.setData(getChartDataA());
-			pieChart_Ertrag.setData(getChartDataB());
-
-			chartContainer.getChildren().add(pieChart_Bestand);
-			chartContainer.getChildren().add(pieChart_Ertrag);
+			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
+			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
+			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
+			chartContainer2.getChildren().add(dec.getPieChart_Ertrag());
+			chartContainer2.getChildren().add(dec.getPieChart_Aufwand());
 
 			menuitemJAB.setDisable(true);
 			menuitemAddGF.setDisable(true);
 			menuitemAddBS.setDisable(true);
 		}
 		System.out.println("------------------------------INIT-DONE------------------------------");
-	}
-
-	private ObservableList<Data> getChartDataA() {
-		ArrayList<Bestandskonto> bstand = new ArrayList<>();
-		ObservableList<PieChart.Data> kontenData = new ObservableList<PieChart.Data>();
-		for (Konto konto : kontenverwaltung.getKonten().values()) {
-			// "1" entspricht der Kontoart Bestandskonto
-			if (konto.getKontoart() == 1) {
-				bstand.add((Bestandskonto) konto);
-				kontenData.add(new PieChart.Data(konto.getTitel(),konto.getBilanzwert()));
-			}
-		
-		}
-		dataB.addAll(kontenData);
-		return dataA;
-	}
-
-	private ObservableList<Data> getChartDataB() {
-		ArrayList<Erfolgskonto> erfolg = new ArrayList<>();
-		ObservableList<PieChart.Data> kontenData = new ObservableList<PieChart.Data>();
-		for (Konto konto : kontenverwaltung.getKonten().values()) {
-			// "2" entspricht der Kontoart Erfolgskonto
-			if (konto.getKontoart() == 2) {
-				erfolg.add((Erfolgskonto) konto);
-				kontenData.add(new PieChart.Data(konto.getTitel(),konto.getBilanzwert()));
-				
-			}
-		
-		}
-		dataB.addAll(kontenData);
-		return dataB;
 	}
 
 	@FXML

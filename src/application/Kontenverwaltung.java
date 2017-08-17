@@ -134,6 +134,10 @@ public class Kontenverwaltung {
 	public Iterator<Konto> getKontenIterator() {
 		return konten.values().iterator();
 	}
+	
+	public ArrayList<Konto> getKontenArraylist() {
+		return new ArrayList<>(konten.values());
+	}
 
 	public HashMap<String, Konto> getKonten() {
 		return konten;
