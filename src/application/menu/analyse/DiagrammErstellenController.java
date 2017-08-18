@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -45,39 +46,21 @@ public class DiagrammErstellenController {
 	public DiagrammErstellenController(ArrayList<Konto> konten) {
 		this.konten = konten;
 		// für Bestandskonten
-		pieChart_Bestand_alt = new PieChart(getChartDataA());
+		pieChart_Bestand_alt = new PieChart(getBestandDiaAlt());
 		pieChart_Bestand_alt.setTitle("Anfangsbestände der Bestandskonten");
 		// für Aufwandskonten
-		pieChart_Ertrag = new PieChart(getChartDataB());
+		pieChart_Ertrag = new PieChart(getErtragDia());
 		pieChart_Ertrag.setTitle("Erträge der Erfolgskonten");
 		// für Bestandskonten
-		pieChart_Bestand_neu = new PieChart(getChartDataC());
+		pieChart_Bestand_neu = new PieChart(getBestandDiaNeu());
 		pieChart_Bestand_neu.setTitle("Schlussbestände der Bestandskonten");
 		
-		pieChart_Aufwand = new PieChart(getChartDataD());
+		pieChart_Aufwand = new PieChart(getAufwandDia());
 		pieChart_Aufwand.setTitle("Aufwände der Erfolgskonten");
 		
 	}
 
-	private HashMap berechneProzenteB(HashMap konten) {
-		HashMap newKonten = konten;
-		// TODO ins SBK berechnete Konten; deren in SBK dargestellte Summe
-		// (Verrechungsbetrag) wird hier genommen
-		// und zu anteiligen Prozenten berechnet
-		return newKonten;
-
-	}
-
-	private HashMap berechneProzenteA(HashMap konten) {
-		HashMap newKonten = konten;
-		// TODO ins SBK berechnete Konten; deren in SBK dargestellte Summe
-		// (Verrechungsbetrag) wird hier genommen
-		// und zu anteiligen Prozenten berechnet
-		return newKonten;
-
-	}
-
-	private ObservableList<Data> getChartDataA() {
+	private ObservableList<Data> getBestandDiaAlt() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
 			// "1" entspricht der Kontoart Bestandskonto
@@ -88,7 +71,7 @@ public class DiagrammErstellenController {
 		return kontenData;
 	}
 
-	private ObservableList<Data> getChartDataB() {
+	private ObservableList<Data> getErtragDia() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
 			// "1" entspricht der Kontoart Bestandskonto
@@ -101,7 +84,7 @@ public class DiagrammErstellenController {
 		return kontenData;
 
 	}
-	private ObservableList<Data> getChartDataC() {
+	private ObservableList<Data> getBestandDiaNeu() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
 			// "1" entspricht der Kontoart Bestandskonto
@@ -112,10 +95,10 @@ public class DiagrammErstellenController {
 		return kontenData;
 	}
 	
-	private ObservableList<Data> getChartDataD() {
+	private ObservableList<Data> getAufwandDia() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
-			// "1" entspricht der Kontoart Bestandskonto
+			// "2" entspricht der Kontoart Erfolgskonto
 			if (konto.getKontoart() == 2) {
 				if(!((Erfolgskonto) konto).isErtragskonto()){
 					kontenData.add(new PieChart.Data(konto.getTitel(), konto.getBilanzwert()));

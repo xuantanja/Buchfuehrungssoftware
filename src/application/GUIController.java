@@ -228,6 +228,8 @@ public class GUIController implements Initializable {
 			// TODO für Tanja: Hier müssen die Diagramme der HBox
 			// "chartContainer" hinzugefügt werden.
 			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
+			chartContainer1.getChildren().clear();
+			chartContainer2.getChildren().clear();
 			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
 			chartContainer2.getChildren().add(dec.getPieChart_Ertrag());

@@ -150,8 +150,8 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <HBox fx:id="chartContainer1" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
-                                    <HBox fx:id="chartContainer2" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                                    <HBox fx:id="chartContainer1" alignment="CENTER" prefHeight="300.0" prefWidth="200.0" />
+                                    <HBox fx:id="chartContainer2" alignment="CENTER" prefHeight="300.0" prefWidth="200.0" />
                                  </children>
                                  <padding>
                                     <Insets top="20.0" />
