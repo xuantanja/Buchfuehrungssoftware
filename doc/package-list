@@ -1,0 +1,13 @@
+application
+application.menu.analyse
+application.menu.bearbeiten
+application.menu.datei
+geschaeftsfall
+io
+konten
+konten.gui
+utility.Collection
+utility.alertDialog
+utility.comparator
+utility.converter
+utility.serialisierung

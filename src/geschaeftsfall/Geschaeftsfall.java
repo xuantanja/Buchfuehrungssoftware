@@ -49,12 +49,28 @@ public class Geschaeftsfall implements Serializable {
 		return saetze;
 	}
 
+	/**
+	 * <i><b>Hinzufügen einer Buchung</b></i><br>
+	 * <br>
+	 * Der Buchungssatz wird zu einem Geschäftsfall zugeordnet.  <br>
+	 * 
+	 * @param bsatz
+	 *            - der Buchungssatz, der gebucht werden soll
+	 */
 	public void addBuchung(Buchungssatz bsatz) {
 		bsatz.setID_B(ID + "." + (char) (97 + anzahlBuchungen));
 		saetze.add(bsatz);
 		anzahlBuchungen++;
 	}
 
+	/**
+	 * <i><b>Hinzufügen mehrerer Buchungssätze</b></i><br>
+	 * <br>
+	 * Bucht den Buchungssatz auf die entsprechende Seite des Kontos. <br>
+	 * 
+	 * @param bsList
+	 *            - die Buchungssätze, die gebucht werden sollen
+	 */
 	public void addMultipleBuchung(ArrayList<Buchungssatz> bsList) {
 		for (int i = 0; i < bsList.size(); i++) {
 			Buchungssatz bsatz = bsList.get(i);

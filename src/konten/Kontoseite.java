@@ -16,7 +16,14 @@ public class Kontoseite implements Serializable{
 		this.sollseite = sollseite;
 		buchungen = new IDMap<>();
 	}
-
+	
+	/**
+	 * <i><b>Berechnung der Summe einer Kontoseite</b></i><br>
+	 * <br>
+	 * Rechnet alle Werte einer Kontoseite zu einem Wert zusammen. <br>
+	 *  
+	 * @return aufsummierter Wert der Beträge einer Kontoseite
+	 */
 	public double getBetragssumme() {
 		// Durchlaufen aller Buchungssätze, die auf diese Kontoseite gebucht
 		// worden sind.
