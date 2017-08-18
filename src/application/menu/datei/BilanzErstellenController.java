@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Kontenverwaltung;
+import application.menu.analyse.EroeffnungsbilanzEinsehenController;
 import io.IOManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,10 +156,11 @@ public class BilanzErstellenController implements Initializable {
 		if (textfieldKontenname.getText().length() == 0) {
 			fehlermeldung += "- Keinen Kontonamen angegeben\n";
 		}
-		if(radioBestandskonto.isSelected() && (textfieldAB.getText().length() == 0 || !isStringANumber(textfieldAB.getText()))){
+		if (radioBestandskonto.isSelected()
+				&& (textfieldAB.getText().length() == 0 || !isStringANumber(textfieldAB.getText()))) {
 			fehlermeldung += "- Bitte geben Sie einen gültigen Anfangsbestand für das Konto an\n";
 		}
-		if(radioErfolgskonto.isSelected() && verrechnungskonto.getSelectionModel().isEmpty()){
+		if (radioErfolgskonto.isSelected() && verrechnungskonto.getSelectionModel().isEmpty()) {
 			fehlermeldung += "- Bitte geben Sie ein Verrechnungskonto für das Konto an\n";
 		}
 		// Fehlerüberprüfung abgeschlossen
@@ -173,18 +175,18 @@ public class BilanzErstellenController implements Initializable {
 				kontenListe.add(newEKonto);
 			}
 			tabelleAktualisieren();
-			new AlertDialogFrame().showConfirmDialog("\""+ textfieldKontenname.getText() +"\" hinzugefügt!",
-					"Das Konto wurde erfolgreich angelegt.", "Ok",
-					AlertDialogFrame.INFORMATION_TYPE);
+			new AlertDialogFrame().showConfirmDialog("\"" + textfieldKontenname.getText() + "\" hinzugefügt!",
+					"Das Konto wurde erfolgreich angelegt.", "Ok", AlertDialogFrame.INFORMATION_TYPE);
 			textfieldKontenname.setText("");
 			textfieldAB.setText("");
 			textfieldKuerzel.setText("");
 		} else {
-			new AlertDialogFrame().showConfirmDialog("Das Konto \""+ textfieldKontenname.getText() +"\" konnte aus folgenden Gründen nicht hinzugefügt werden:",
-					fehlermeldung, "Ok",
-					AlertDialogFrame.WARNING_TYPE);
+			new AlertDialogFrame().showConfirmDialog(
+					"Das Konto \"" + textfieldKontenname.getText()
+							+ "\" konnte aus folgenden Gründen nicht hinzugefügt werden:",
+					fehlermeldung, "Ok", AlertDialogFrame.WARNING_TYPE);
 		}
-		
+
 	}
 
 	@FXML
@@ -211,11 +213,13 @@ public class BilanzErstellenController implements Initializable {
 			return;
 		}
 		if (neueBilanz.getSpeicherort().exists()) {
-			ersetzeDatei = new AlertDialogFrame().showChoiseDialog("Die Datei " + textfieldBilanzname.getText() + ".bil existiert bereits",
+			ersetzeDatei = new AlertDialogFrame().showChoiseDialog(
+					"Die Datei " + textfieldBilanzname.getText() + ".bil existiert bereits",
 					"Soll die Datei mit der neuen Bilanz überschrieben werden?", "Ok", "Abbrechen",
 					AlertDialogFrame.QUESTION_TYPE);
 		}
-		if (ersetzeDatei) {
+		boolean isBilanzAusgeglichen = eroeffnungsbilanzAnzeigen();
+		if (ersetzeDatei && isBilanzAusgeglichen) {
 			boolean erfolgreich = IOManager.saveFile(neueBilanz.getKonten(), neueBilanz.getFaelle(),
 					neueBilanz.getSpeicherort(), neueBilanz.getGeschaeftsjahrBeginn());
 			if (!erfolgreich) {
@@ -225,11 +229,36 @@ public class BilanzErstellenController implements Initializable {
 			} else {
 				bilanzHinzugefuegt = true;
 			}
+		} else if (!isBilanzAusgeglichen) {
+			new AlertDialogFrame().showConfirmDialog("Warnung: BIlanz ist nicht ausgeglichen!",
+					"Bitte bearbeiten Sie die Anfangsbestände der Konten so, dass die Bilanz auf der Aktivseite den gleichen Betrag wie auf der Passivseite besitzt.",
+					"Ok", AlertDialogFrame.ERROR_TYPE);
 		}
 		if (bilanzHinzugefuegt) {
 			Stage stage = (Stage) buttonBilanzErstellen.getScene().getWindow();
 			stage.close();
 		}
+
+	}
+
+	private boolean eroeffnungsbilanzAnzeigen() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../analyse/EroeffnungsbilanzEinsehen.fxml"));
+			Scene scene = new Scene(loader.load());
+			Stage stage = new Stage();
+			EroeffnungsbilanzEinsehenController controller = loader.getController();
+			stage.setResizable(false);
+			stage.setScene(scene);
+			controller.setKonten(kontenListe);
+			stage.show();
+			return controller.isBilanzAusgeglichen();
+		} catch (IOException e) {
+			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
+					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok",
+					AlertDialogFrame.ERROR_TYPE);
+			e.printStackTrace();
+		}
+		return false;
 
 	}
 
@@ -319,10 +348,11 @@ public class BilanzErstellenController implements Initializable {
 	}
 
 	private void loescheKonto(ObservableList<Konto> selectedKonten) {
-		
+
 		System.out.println("Löschen....");
 		for (int i = 0; i < selectedKonten.size(); i++) {
-			if (kontenListe.contains(selectedKonten.get(i)) && selectedKonten.get(i).getKontoart() != 3 && selectedKonten.get(i).getKontoart() != 4) {
+			if (kontenListe.contains(selectedKonten.get(i)) && selectedKonten.get(i).getKontoart() != 3
+					&& selectedKonten.get(i).getKontoart() != 4) {
 				kontenListe.remove(selectedKonten.get(i));
 			}
 		}
@@ -330,29 +360,28 @@ public class BilanzErstellenController implements Initializable {
 	}
 
 	private void bearbeiteKonto(Konto selectedKonto) {
-		if(selectedKonto.getKontoart() != 3 && selectedKonto.getKontoart() != 4){
+		if (selectedKonto.getKontoart() != 3 && selectedKonto.getKontoart() != 4) {
 			try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("KontoBearbeiten.fxml"));
-			Scene scene = new Scene(loader.load());
-			KontoBearbeitenController controller = loader.getController();
-			ArrayList<String> kontenKuerzel = new ArrayList<>();
-			for (Konto konto : kontenListe) {
-				kontenKuerzel.add(konto.getKuerzel());
-			}
-			controller.setChangeKonto(selectedKonto, FXCollections.observableArrayList(kontenKuerzel));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("KontoBearbeiten.fxml"));
+				Scene scene = new Scene(loader.load());
+				KontoBearbeitenController controller = loader.getController();
+				ArrayList<String> kontenKuerzel = new ArrayList<>();
+				for (Konto konto : kontenListe) {
+					kontenKuerzel.add(konto.getKuerzel());
+				}
+				controller.setChangeKonto(selectedKonto, FXCollections.observableArrayList(kontenKuerzel));
 
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.showAndWait();
-			tabelleAktualisieren();
-		} catch (IOException e) {
-			e.printStackTrace();
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.showAndWait();
+				tabelleAktualisieren();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		}
-		
 
 	}
-	
+
 	private boolean isStringANumber(String text) {
 		try {
 			Double.parseDouble(text);
@@ -360,7 +389,7 @@ public class BilanzErstellenController implements Initializable {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	public Kontenverwaltung getNeueBilanz() {

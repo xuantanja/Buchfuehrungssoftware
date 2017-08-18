@@ -38,8 +38,8 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		container.getChildren().add(eroeffnungsbilanzContainer);
 	}
 
-	public void setKonten(HashMap<String, Konto> kntList) {
-		for (Konto konto : kntList.values()) {
+	public void setKonten(ArrayList<Konto> kntList) {
+		for (Konto konto : kntList) {
 			// "1" entspricht der Kontoart Bestandskonto
 			if (konto.getKontoart() == 1) {
 				bKontoListe.add((Bestandskonto) konto);

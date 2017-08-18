@@ -402,7 +402,7 @@ public class GUIController implements Initializable {
 			// BEEinsehenStage.setResizable(false);
 			BEEinsehenStage.setScene(scene);
 
-			controller.setKonten(kontenverwaltung.getKonten());
+			controller.setKonten(kontenverwaltung.getKontenArraylist());
 			BEEinsehenStage.setTitle(kontenverwaltung.getSpeicherort().getName());
 
 			BEEinsehenStage.show();
