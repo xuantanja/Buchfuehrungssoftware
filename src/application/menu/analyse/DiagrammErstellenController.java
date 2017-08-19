@@ -23,8 +23,12 @@ import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
@@ -41,6 +45,7 @@ public class DiagrammErstellenController {
 	 * Initializes the controller class.
 	 */
 	private PieChart pieChart_Bestand_alt, pieChart_Bestand_neu, pieChart_Ertrag, pieChart_Aufwand;
+	private BarChart <String, Number>barChartGuV;
 	private ArrayList<Konto> konten;
 
 	public DiagrammErstellenController(ArrayList<Konto> konten) {
@@ -58,6 +63,27 @@ public class DiagrammErstellenController {
 		pieChart_Aufwand = new PieChart(getAufwandDia());
 		pieChart_Aufwand.setTitle("Aufwände der Erfolgskonten");
 		
+	
+		final NumberAxis xAxis = new NumberAxis();
+		final CategoryAxis yAxis = new CategoryAxis();
+
+
+  //      xAxis.setLabel("Wert");
+        xAxis.setLabel("Betraggröße");
+        
+        barChartGuV = new BarChart<String, Number>( yAxis,xAxis);
+		barChartGuV.setTitle("Verteilung von Gewinn-und Verluste");
+ 
+		XYChart.Series series1 = new XYChart.Series();
+		series1.setName("Gewinn");       
+        series1.getData().add(new XYChart.Data<String, Number>("", getGewinnWert()));
+    
+        
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Verlust");
+        series2.getData().add(new XYChart.Data<String, Number>("", getVerlustWert()));
+        barChartGuV.getData().add(series1);
+        barChartGuV.getData().add(series2);
 	}
 
 	private ObservableList<Data> getBestandDiaAlt() {
@@ -109,6 +135,32 @@ public class DiagrammErstellenController {
 		return kontenData;
 	}
 
+	private double getGewinnWert() {
+		double kontenData = 0.0;		
+		for (Konto konto : konten) {
+			// "1" entspricht der Kontoart Erfolgskonto
+			if (konto.getKontoart() == 2 ) {
+				if(((Erfolgskonto) konto).isErtragskonto()){
+					kontenData =+ konto.getBilanzwert();
+				}
+			}
+		}
+		return 7;
+
+	}
+	private double getVerlustWert() {
+		double kontenData = 0.0;
+		for (Konto konto : konten) {
+			// "1" entspricht der Kontoart Erfolgskonto
+			if (konto.getKontoart() == 2) {
+				if(!((Erfolgskonto) konto).isErtragskonto()){
+					kontenData =+ konto.getBilanzwert();
+				}
+			}
+		}
+		return 7;
+
+	}
 	public PieChart getPieChart_BestandAlt() {
 		return pieChart_Bestand_alt;
 	}
@@ -121,5 +173,9 @@ public class DiagrammErstellenController {
 	}
 	public PieChart getPieChart_Aufwand() {
 		return pieChart_Aufwand;
+	}
+
+	public BarChart getBarChart_GuV() {
+		return barChartGuV;
 	}
 }

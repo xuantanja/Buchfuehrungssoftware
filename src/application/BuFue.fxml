@@ -152,6 +152,7 @@
                                     </Label>
                                     <HBox fx:id="chartContainer1" alignment="CENTER" prefHeight="300.0" prefWidth="200.0" />
                                     <HBox fx:id="chartContainer2" alignment="CENTER" prefHeight="300.0" prefWidth="200.0" />
+                                    <HBox fx:id="chartContainer3" alignment="CENTER" prefHeight="300.0" prefWidth="200.0" />                                  
                                  </children>
                                  <padding>
                                     <Insets top="20.0" />
