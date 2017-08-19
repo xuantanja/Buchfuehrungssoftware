@@ -85,7 +85,13 @@ public class DiagrammErstellenController {
         barChartGuV.getData().add(series1);
         barChartGuV.getData().add(series2);
 	}
-
+	/**
+	 * <i><b>Berechnen des alten Bestandswertes (in der Eröffnungsbilanz)</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aus der Eröffnungsbilanz aller Bestandskonten.<br>
+	 * 
+	 *@return Aufsummierter Betrag der Anfangsbestäne aller Bestandskonten
+	 */
 	private ObservableList<Data> getBestandDiaAlt() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
@@ -96,11 +102,16 @@ public class DiagrammErstellenController {
 		}
 		return kontenData;
 	}
-
+	/**
+	 * <i><b>Berechnen des Gewinnwertes</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aller Ertragskonten, der Gewinnwert genannt wird. <br>
+	 * 
+	 *@return Aufsummierter Betrag aller Ertragskonten
+	 */
 	private ObservableList<Data> getErtragDia() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
-			// "1" entspricht der Kontoart Bestandskonto
 			if (konto.getKontoart() == 2) {
 				if(((Erfolgskonto) konto).isErtragskonto()){
 					kontenData.add(new PieChart.Data(konto.getTitel(), konto.getBilanzwert()));
@@ -110,6 +121,13 @@ public class DiagrammErstellenController {
 		return kontenData;
 
 	}
+	/**
+	 * <i><b>Berechnen des neuen Bestandswertes</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aller Bestandskonten.<br>
+	 * 
+	 *@return Aufsummierter Betrag aller Bestandskonten
+	 */
 	private ObservableList<Data> getBestandDiaNeu() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
@@ -121,6 +139,13 @@ public class DiagrammErstellenController {
 		return kontenData;
 	}
 	
+	/**
+	 * <i><b>Berechnen des Verlustwertes</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aller Verlustkonten, der Verlustwert genannt wird. <br>
+	 * 
+	 *@return Aufsummierter Betrag aller Verlustkonten
+	 */
 	private ObservableList<Data> getAufwandDia() {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
@@ -135,10 +160,16 @@ public class DiagrammErstellenController {
 		return kontenData;
 	}
 
+	/**
+	 * <i><b>Berechnen des Gewinnwertes</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aller Ertragskonten, der Gewinnwert genannt wird. <br>
+	 * 
+	 *@return Aufsummierter Betrag aller Ertragskonten
+	 */
 	private double getGewinnWert() {
 		double kontenData = 0.0;		
 		for (Konto konto : konten) {
-			// "1" entspricht der Kontoart Erfolgskonto
 			if (konto.getKontoart() == 2 ) {
 				if(((Erfolgskonto) konto).isErtragskonto()){
 					kontenData =+ konto.getBilanzwert();
@@ -148,10 +179,17 @@ public class DiagrammErstellenController {
 		return 7;
 
 	}
+	
+	/**
+	 * <i><b>Berechnen des Verlustwertes</b></i><br>
+	 * <br>
+	 * Liefert den aufsummierten Betrag aller Verlustkonten, der Verlustwert genannt wird. <br>
+	 * 
+	 *@return Aufsummierter Betrag aller Verlustkonten
+	 */
 	private double getVerlustWert() {
 		double kontenData = 0.0;
 		for (Konto konto : konten) {
-			// "1" entspricht der Kontoart Erfolgskonto
 			if (konto.getKontoart() == 2) {
 				if(!((Erfolgskonto) konto).isErtragskonto()){
 					kontenData =+ konto.getBilanzwert();
