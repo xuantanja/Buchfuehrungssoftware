@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
@@ -29,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
@@ -298,7 +300,7 @@ public class GUIController implements Initializable {
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
 			controller.setKonten(kontenverwaltung.getKonten());
-
+			controller.setExportNodes(new VBox(t1_A,t1_P,t2, t3, t4Container));
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.showAndWait();
 
