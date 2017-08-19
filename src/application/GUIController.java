@@ -23,8 +23,6 @@ import application.menu.datei.BilanzErstellenController;
 import geschaeftsfall.Buchungssatz;
 import io.DataStorage;
 import io.IOManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +30,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -48,10 +44,9 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
-import utility.Collection.IDMap;
 import utility.Collection.Tuple;
 import utility.alertDialog.AlertDialogFrame;
-import utility.converter.TypeConverter;
+
 
 /**
  * FXML Controller class
@@ -71,7 +66,7 @@ public class GUIController implements Initializable {
 	@FXML
 	private Separator vSeparator;
 	@FXML
-	private HBox abschlusskontoContainer, chartContainer1, chartContainer2;
+	private HBox abschlusskontoContainer, chartContainer1, chartContainer2, charContainer2, chartContainer3;
 
 	private GridPane t2_Ertragskonten;
 	private GridPane t2_Aufwandskonten;
@@ -230,10 +225,15 @@ public class GUIController implements Initializable {
 			// TODO für Tanja: Hier müssen die Diagramme der HBox
 			// "chartContainer" hinzugefügt werden.
 			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
+//			chartContainer1.getChildren().clear();
+//			chartContainer2.getChildren().clear();
+//			chartContainer3.getChildren().clear();
 			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
 			chartContainer2.getChildren().add(dec.getPieChart_Ertrag());
 			chartContainer2.getChildren().add(dec.getPieChart_Aufwand());
+			chartContainer3.getChildren().add(dec.getBarChart_GuV());
+
 
 			menuitemJAB.setDisable(true);
 			menuitemAddGF.setDisable(true);
