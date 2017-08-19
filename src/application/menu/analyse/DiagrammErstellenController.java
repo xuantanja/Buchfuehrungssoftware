@@ -176,7 +176,7 @@ public class DiagrammErstellenController {
 				}
 			}
 		}
-		return 7;
+		return kontenData;
 
 	}
 	
@@ -196,7 +196,7 @@ public class DiagrammErstellenController {
 				}
 			}
 		}
-		return 7;
+		return kontenData;
 
 	}
 	public PieChart getPieChart_BestandAlt() {
