@@ -49,7 +49,10 @@ public class UebersichtanzeigenController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 
 	}
-
+	/**
+	 * <i><b>Ausgabe aller Geschäftsfälle</b></i>
+	 * 
+	 */
 	@FXML
 	void handle_alle_GF_anzeigen(ActionEvent event) {
 		
@@ -70,7 +73,6 @@ public class UebersichtanzeigenController implements Initializable {
 			// Informationen zu den BS ausgeben:
 			ArrayList<Buchungssatz> neuListe = fall.getSaetze();
 			for (int j = 0; j <= neuListe.size() - 1; j++) {
-
 				Label lb3 = new Label(neuListe.get(j).getID() + " " + neuListe.get(j).getSollKonto() + " an " + neuListe.get(j).getHabenKonto() + " "
 						+ neuListe.get(j).getBetrag() + " €");
 
@@ -79,7 +81,9 @@ public class UebersichtanzeigenController implements Initializable {
 		}
 
 	}
-
+	/**
+	 * <i><b>Ausgabe eines ausgewählten Geschäftsfalles</b></i>
+	 */
 	@FXML
 	void handle_btnCheck(ActionEvent event){
 		VBox_Anzeige.getChildren().clear();
@@ -110,7 +114,14 @@ public class UebersichtanzeigenController implements Initializable {
 			}
 		}
 	}
-
+	/**
+	 * <i><b>Übergabe der Geschäftsfälle an den Controller</b></i><br>
+	 * <br>
+	 * Dem Controller werden die Geschäftsfälle der Kontenverwaltung übergeben<br>
+	 * 
+	 * @param gfall
+	 * 				- alle Geschäftsfälle einer Kontenverwaltung
+	 */
 	public void setFaelle(ArrayList<Geschaeftsfall> gfall) {
 		faelle = gfall;
 

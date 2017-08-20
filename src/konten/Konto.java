@@ -75,7 +75,6 @@ public abstract class Konto implements Serializable {
 	 * @param sollseite
 	 *            - die Seite auf der der Buchungssatz gebucht wird
 	 * 
-	 * @return Buchungsatz mit dem Saldierungsbetrag
 	 */
 	public void buchung(Buchungssatz bsatz, boolean sollseite) {
 		if (sollseite) {

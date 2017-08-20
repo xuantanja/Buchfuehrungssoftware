@@ -37,7 +37,14 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		//eroeffnungsbilanzContainer.setGridLinesVisible(true);
 		container.getChildren().add(eroeffnungsbilanzContainer);
 	}
-
+	/**
+	 * <i><b>Übergabe der Konten an den Controller</b></i><br>
+	 * <br>
+	 * Alle Bestandskonten einer Kontenliste werden dem Controller übergeben. <br>
+	 * 
+	 * @param kntList
+	 * 			- ist eine Liste von Konten
+	 */
 	public void setKonten(ArrayList<Konto> kntList) {
 		for (Konto konto : kntList) {
 			// "1" entspricht der Kontoart Bestandskonto
