@@ -49,9 +49,7 @@
           <items>
             <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_EBEinsehen" text="Eröffnungsbilanz einsehen" />
                   <MenuItem fx:id="menuitemJAB" mnemonicParsing="false" onAction="#handle_Analyse_SBErstellen" text="Schlussbilanz erstellen" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#handle_Analyse_DiagrammeBerechnen" text="Diagramme berechnen" />
-          </items>
+            </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Hilfe">
                <items>

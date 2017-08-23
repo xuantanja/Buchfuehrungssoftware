@@ -96,8 +96,8 @@ public class DiagrammErstellenController {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
 			// "1" entspricht der Kontoart Bestandskonto
-			if (konto.getKontoart() == 1) {
-				kontenData.add(new PieChart.Data(konto.getTitel(), ((Bestandskonto) konto).getAnfangsbestand()));
+			if (konto.getKontoart() == 1 && konto.getBilanzwert()!=0) {
+				kontenData.add(new PieChart.Data(konto.getKuerzel(), ((Bestandskonto) konto).getAnfangsbestand()));
 			}
 		}
 		return kontenData;
@@ -114,7 +114,7 @@ public class DiagrammErstellenController {
 		for (Konto konto : konten) {
 			if (konto.getKontoart() == 2) {
 				if(((Erfolgskonto) konto).isErtragskonto()){
-					kontenData.add(new PieChart.Data(konto.getTitel(), konto.getBilanzwert()));
+					kontenData.add(new PieChart.Data(konto.getKuerzel(), konto.getBilanzwert()));
 				}
 			}
 		}
@@ -132,8 +132,8 @@ public class DiagrammErstellenController {
 		ObservableList<PieChart.Data> kontenData = FXCollections.observableArrayList();
 		for (Konto konto : konten) {
 			// "1" entspricht der Kontoart Bestandskonto
-			if (konto.getKontoart() == 1) {
-				kontenData.add(new PieChart.Data(konto.getTitel(), konto.getBilanzwert()));
+			if (konto.getKontoart() == 1 && konto.getBilanzwert()!=0) {
+				kontenData.add(new PieChart.Data(konto.getKuerzel(), konto.getBilanzwert()));
 			}
 		}
 		return kontenData;
@@ -152,7 +152,7 @@ public class DiagrammErstellenController {
 			// "2" entspricht der Kontoart Erfolgskonto
 			if (konto.getKontoart() == 2) {
 				if(!((Erfolgskonto) konto).isErtragskonto()){
-					kontenData.add(new PieChart.Data(konto.getTitel(), konto.getBilanzwert()));
+					kontenData.add(new PieChart.Data(konto.getKuerzel(), konto.getBilanzwert()));
 				}
 				
 			}
