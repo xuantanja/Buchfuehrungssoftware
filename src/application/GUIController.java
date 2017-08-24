@@ -454,7 +454,7 @@ public class GUIController implements Initializable {
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("application/Handbuch.pdf").getFile());
+		File file = new File(classLoader.getResource("application/Nutzerhandbuch.pdf").getFile());
 		GUI.services.showDocument(file.toURI().toString());
 	}
 
