@@ -1,11 +1,16 @@
-Regeln:
+Regeln für GitHub:
 
-1. 	nicht in einer Methode arbeiten / bzw. nicht bevorzugt in einer Klasse
+1. 	Mehrere Teilnehmer dürfen nicht in einer Methode arbeiten / bzw. nicht bevorzugt in einer Klasse.
 
 2. 	*Programmieren*--> Commit--> Pull--> "Push to Upstream"
-	Hinweis beim Hochladen: nur "commit" und NICHT "commit and push" -> Schreibst es in github "meine Änderungen",
+	Hinweis beim Hochladen: nur "commit" und NICHT "commit and push"
+	-> Damit schreibt man es in "meine Änderungen",
 	dann unbedingt pull (aktuellen stand runterladen), Dann push (hochladen für alle)
 
-3. 	Oder Pull--> *Programmieren*--> "commit und push"
+3. 	Oder erst den aktuellen Stand herunterladen und nach getaner Arbeit teilen: Pull--> *Programmieren*--> "commit und push"
 
-4. 	Kontakt miteinader haben/Absprache :D 
+4.  Aussagekräftige Titel für die Commits formulieren
+
+5.  Sollte in einem Ticket auf ein Commit referenziert werden, dann den Commit bitte verlinken
+
+6. 	Kontakt miteinader haben/Absprache
