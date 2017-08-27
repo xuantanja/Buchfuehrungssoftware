@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Marc
  */
 public class AlertDialogController implements Initializable {
 

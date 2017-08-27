@@ -1,7 +1,6 @@
 package application.menu.bearbeiten;
 
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 

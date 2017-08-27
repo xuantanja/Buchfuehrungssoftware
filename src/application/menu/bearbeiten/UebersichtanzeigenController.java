@@ -2,13 +2,10 @@ package application.menu.bearbeiten;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,13 +17,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import konten.Konto;
-import utility.alertDialog.AlertDialogFrame;
 
 /**
  * FXML Controller class
  *
- * @author tmanlik
  */
 public class UebersichtanzeigenController implements Initializable {
 	/**

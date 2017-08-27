@@ -1,7 +1,6 @@
 package utility.alertDialog;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

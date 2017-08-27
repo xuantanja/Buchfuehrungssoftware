@@ -1,19 +1,5 @@
 package application.menu.bearbeiten;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import konten.Konto;
-import utility.Collection.Tuple;
-import utility.alertDialog.AlertDialogFrame;
-import utility.converter.TypeConverter;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,10 +11,21 @@ import geschaeftsfall.Geschaeftsfall;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import konten.Konto;
+import utility.Collection.Tuple;
+import utility.alertDialog.AlertDialogFrame;
+import utility.converter.TypeConverter;
 
 public class NeuerBSController implements Initializable {
 

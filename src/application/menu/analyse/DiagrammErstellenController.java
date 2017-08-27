@@ -1,35 +1,15 @@
 package application.menu.analyse;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ResourceBundle;
 
-import geschaeftsfall.Buchungssatz;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Side;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
@@ -37,7 +17,6 @@ import konten.Konto;
 /**
  * FXML Controller class
  *
- * @author tmanlik
  */
 public class DiagrammErstellenController {
 

@@ -5,7 +5,6 @@ import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utility.alertDialog.AlertDialogFrame;
 
 public class GUI extends Application {
 

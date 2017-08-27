@@ -1,9 +1,7 @@
 package geschaeftsfall;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Geschaeftsfall implements Serializable {
 

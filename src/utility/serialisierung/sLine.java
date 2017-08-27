@@ -2,8 +2,6 @@ package utility.serialisierung;
 
 import java.io.Serializable;
 
-import javafx.scene.Node;
-
 public class sLine extends javafx.scene.shape.Line implements Serializable{
 
 	public sLine() {

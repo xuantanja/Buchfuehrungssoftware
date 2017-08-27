@@ -1,25 +1,21 @@
 package application.menu.datei;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-
-import javafx.scene.control.ComboBox;
-
-import javafx.scene.control.RadioButton;
 
 public class KontoBearbeitenController implements Initializable {
 	@FXML
