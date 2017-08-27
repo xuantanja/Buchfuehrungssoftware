@@ -38,7 +38,7 @@ public abstract class Konto implements Serializable {
 	 * <i><b>Kontensaldierung</b></i><br>
 	 * <br>
 	 * Saldiert das Konto und gibt den Buchungssatz zurück, in dem der
-	 * saldierungsbetrag in das Verrechnungskonto gebucht wird. <br>
+	 * Saldierungsbetrag in das Verrechnungskonto gebucht wird. <br>
 	 * 
 	 * @return Buchungsatz mit dem Saldierungsbetrag
 	 */
