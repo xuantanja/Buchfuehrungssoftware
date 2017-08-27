@@ -300,7 +300,7 @@ public class GUIController implements Initializable {
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
 			controller.setKonten(kontenverwaltung.getKonten());
-			controller.setExportNodes(new VBox(t1_A, t1_P, t2, t3, t4Container));
+//			controller.setExportNodes(new VBox(t1_A, t1_P, t2, t3, t4Container));
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.showAndWait();
 
