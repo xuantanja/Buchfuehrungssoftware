@@ -74,12 +74,12 @@ public class DiagrammErstellenController {
         barChartGuV = new BarChart<String, Number>( yAxis,xAxis);
 		barChartGuV.setTitle("Verteilung von Gewinn-und Verluste");
  
-		XYChart.Series series1 = new XYChart.Series();
+		XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 		series1.setName("Gewinn");       
         series1.getData().add(new XYChart.Data<String, Number>("", getGewinnWert()));
     
         
-        XYChart.Series series2 = new XYChart.Series();
+        XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
         series2.setName("Verlust");
         series2.getData().add(new XYChart.Data<String, Number>("", getVerlustWert()));
         barChartGuV.getData().add(series1);
@@ -213,7 +213,7 @@ public class DiagrammErstellenController {
 		return pieChart_Aufwand;
 	}
 
-	public BarChart getBarChart_GuV() {
+	public BarChart<String, Number> getBarChart_GuV() {
 		return barChartGuV;
 	}
 }

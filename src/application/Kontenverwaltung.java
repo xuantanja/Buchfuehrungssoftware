@@ -154,4 +154,14 @@ public class Kontenverwaltung {
 	public LocalDate getGeschaeftsjahrBeginn() {
 		return geschaeftsjahrBeginn;
 	}
+	
+	public boolean isAlleErfolgskontenMitBilanzwertNull() {
+		boolean alleNull = true;
+		for(Konto konto : konten.values()) {
+			if(konto.getKontoart() == 2 && konto.getBilanzwert() != 0) {
+				alleNull = false;
+			}
+		}
+		return alleNull;
+	}
 }

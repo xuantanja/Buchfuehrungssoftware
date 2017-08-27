@@ -47,7 +47,6 @@ import konten.Konto;
 import utility.Collection.Tuple;
 import utility.alertDialog.AlertDialogFrame;
 
-
 /**
  * FXML Controller class
  *
@@ -225,15 +224,16 @@ public class GUIController implements Initializable {
 			// TODO für Tanja: Hier müssen die Diagramme der HBox
 			// "chartContainer" hinzugefügt werden.
 			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
-//			chartContainer1.getChildren().clear();
-//			chartContainer2.getChildren().clear();
-//			chartContainer3.getChildren().clear();
+			// chartContainer1.getChildren().clear();
+			// chartContainer2.getChildren().clear();
+			// chartContainer3.getChildren().clear();
 			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
-			chartContainer2.getChildren().add(dec.getPieChart_Ertrag());
-			chartContainer2.getChildren().add(dec.getPieChart_Aufwand());
-			chartContainer3.getChildren().add(dec.getBarChart_GuV());
-
+			if (!kontenverwaltung.isAlleErfolgskontenMitBilanzwertNull()) {
+				chartContainer2.getChildren().add(dec.getPieChart_Ertrag());
+				chartContainer2.getChildren().add(dec.getPieChart_Aufwand());
+				chartContainer3.getChildren().add(dec.getBarChart_GuV());
+			}
 
 			menuitemJAB.setDisable(true);
 			menuitemAddGF.setDisable(true);
@@ -300,7 +300,7 @@ public class GUIController implements Initializable {
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
 			controller.setKonten(kontenverwaltung.getKonten());
-			controller.setExportNodes(new VBox(t1_A,t1_P,t2, t3, t4Container));
+			controller.setExportNodes(new VBox(t1_A, t1_P, t2, t3, t4Container));
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.showAndWait();
 
