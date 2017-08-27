@@ -101,7 +101,7 @@
                            </content>
                         </ScrollPane>
                      </content></Tab>
-                  <Tab text="sonstige Konten">
+                  <Tab text="Steuerkonten">
                      <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                            <content>

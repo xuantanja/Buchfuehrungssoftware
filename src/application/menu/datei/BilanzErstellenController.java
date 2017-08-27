@@ -121,12 +121,16 @@ public class BilanzErstellenController implements Initializable {
 			radioErtragskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioAktivkonto.setDisable(!(radioBestandskonto.isSelected()));
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
+			textfieldAB.setDisable(!(radioBestandskonto.isSelected()));
+			verrechnungskonto.setDisable(!(radioErfolgskonto.isSelected()));
 		});
 		radioErfolgskonto.setOnAction(e -> {
 			radioAufwandskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioErtragskonto.setDisable(!(radioErfolgskonto.isSelected()));
 			radioAktivkonto.setDisable(!(radioBestandskonto.isSelected()));
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
+			textfieldAB.setDisable(radioErfolgskonto.isSelected());
+			verrechnungskonto.setDisable(!(radioErfolgskonto.isSelected()));
 		});
 
 		ContextMenu contextMenu = new ContextMenu();
@@ -304,7 +308,7 @@ public class BilanzErstellenController implements Initializable {
 		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "SBK");
 		Konto uerl = new Erfolgskonto("Umsatzerlöse", "UErl", "GuV", true);
 		Konto privat = new Erfolgskonto("Privat", "Privat", "EK", true);
-		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", false);
+		Konto efpz = new Erfolgskonto("Entnahme f. priv. Zwecke", "EfpZ", "Privat", true);
 		Konto guv = new Abschlusskonto("Gewinn- und Verlustkonto", "GuV", "EK");
 		Konto sbk = new Abschlusskonto("Schlussbilanzkonto", "SBK", "");
 
