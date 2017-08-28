@@ -52,7 +52,6 @@ public abstract class Konto implements Serializable {
 				habenBetrag += ((Bestandskonto) this).getAnfangsbestand();
 			}
 		}
-		System.out.println(sollBetrag + "\t\t" + habenBetrag + "\t\t" + titel);
 		if (sollBetrag > habenBetrag) {
 			bilanzwert = sollBetrag;
 			return new Buchungssatz("", verrechnungKonto, kuerzel, sollBetrag - habenBetrag);

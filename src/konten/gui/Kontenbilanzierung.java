@@ -18,7 +18,6 @@ public class Kontenbilanzierung implements Serializable {
 		this.refNameHwidth = refNameHwidth;
 		this.refBetragSwidth = refBetragSwidth;
 		this.refBetragHwidth = refBetragHwidth;
-		System.out.println(refBetragHwidth +" "+ refBetragSwidth+" "+ refNameHwidth+" "+ refNameSwidth);
 	}
 
 	public VBox getLayout(double bilanzwert) {

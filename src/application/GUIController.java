@@ -171,7 +171,6 @@ public class GUIController implements Initializable {
 		Iterator<Konto> it = kontenverwaltung.getKontenIterator();
 		while (it.hasNext()) {
 			Konto konto = it.next();
-			System.out.println(konto.getTitel());
 			switch (konto.getKontoart()) {
 			case (1):
 				Bestandskonto bkonto = (Bestandskonto) konto;
@@ -218,12 +217,7 @@ public class GUIController implements Initializable {
 			}
 		}
 		if (kontenverwaltung.getKonten().get("SBK").getBilanzwert() != -1) {
-			// TODO für Tanja: Hier müssen die Diagramme der HBox
-			// "chartContainer" hinzugefügt werden.
 			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
-			// chartContainer1.getChildren().clear();
-			// chartContainer2.getChildren().clear();
-			// chartContainer3.getChildren().clear();
 			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
 			if (!kontenverwaltung.isAlleErfolgskontenMitBilanzwertNull()) {
@@ -236,7 +230,6 @@ public class GUIController implements Initializable {
 			menuitemAddGF.setDisable(true);
 			menuitemAddBS.setDisable(true);
 		}
-		System.out.println("------------------------------INIT-DONE------------------------------");
 	}
 
 	@FXML
@@ -287,9 +280,6 @@ public class GUIController implements Initializable {
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
 		try {
-
-			System.out.println(kontenverwaltung.getKonten().size());
-
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/bearbeiten/KontenverwaltungAnzeigen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage KontoverwaltungAnzeigen = new Stage();
@@ -297,7 +287,6 @@ public class GUIController implements Initializable {
 			KontoverwaltungAnzeigen.setResizable(false);
 			KontoverwaltungAnzeigen.setScene(scene);
 			controller.setKonten(kontenverwaltung.getKonten());
-//			controller.setExportNodes(new VBox(t1_A, t1_P, t2, t3, t4Container));
 			KontoverwaltungAnzeigen.setTitle(kontenverwaltung.getSpeicherort().getName());
 			KontoverwaltungAnzeigen.showAndWait();
 
@@ -443,9 +432,14 @@ public class GUIController implements Initializable {
 
 	@FXML
 	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("application/specs.pdf").getFile());
-		GUI.services.showDocument(file.toURI().toString());
+		new AlertDialogFrame().showConfirmDialog("Produktinformationen - Release-Version: v1.0 / 29.08.2017",
+				"Die Software wurde im Laufe des Projekts für das Modul \"objektorientierte Programmierung\" erstellt.\n\n"
+				+ "(Matirkelnummer) Entwickler der Buchführungssoftware:\n"
+				+ "(652059) Sophie-Louise Schmidt\n"
+				+ "(674216) Tanja Manlik\n"
+				+ "(658024) Emil\n"
+				+ "(691071) Marc Tukendorf\n", "Ok",
+				AlertDialogFrame.INFORMATION_TYPE);
 	}
 
 	@FXML
