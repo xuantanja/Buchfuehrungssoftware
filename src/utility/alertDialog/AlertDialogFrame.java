@@ -2,6 +2,7 @@ package utility.alertDialog;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -35,7 +36,7 @@ public class AlertDialogFrame {
 			Stage dialogStage = new Stage();
 			dialogStage.setScene(scene);
 			adc.setText(message, details, rightButtonText, "");
-			dialogStage.setHeight(adc.getContainer().getHeight());
+			Platform.runLater(() ->{dialogStage.setHeight(adc.getContainer().getBoundsInLocal().getHeight() + adc.getRightButton().getHeight() + 10);});
 			adc.getLeftButton().setVisible(false);
 			dialogStage.setResizable(false);
 			adc.setImage(types[type]);
