@@ -33,7 +33,7 @@ public class NeuerBSController implements Initializable {
 	private ArrayList<ComboBox<String>> comboListSoll, comboListHaben;
 	private ArrayList<TextField> betragListSoll, betragListHaben;
 	private ArrayList<Double> betragSoll, betragHaben;
-	private ArrayList<Tuple<Integer, ArrayList<Buchungssatz>>> buchungssätze;
+	private ArrayList<Tuple<Integer, ArrayList<Buchungssatz>>> buchungssaetze;
 	private int rowSoll, rowHaben;
 	@FXML
 	private TextField textfieldTitel;
@@ -69,7 +69,7 @@ public class NeuerBSController implements Initializable {
 		betragListSoll = new ArrayList<>();
 		betragListHaben = new ArrayList<>();
 		if (location != null) {
-			buchungssätze = new ArrayList<>();
+			buchungssaetze = new ArrayList<>();
 		}
 
 		rowSoll = 1;
@@ -133,7 +133,7 @@ public class NeuerBSController implements Initializable {
 			Tuple<Integer, ArrayList<Buchungssatz>> neueBuchung = new Tuple<>(comboGF.getSelectionModel().getSelectedIndex(),
 					new ArrayList<>());
 			putBuchungssatz(0, 0, neueBuchung.getY());
-			buchungssätze.add(neueBuchung);
+			buchungssaetze.add(neueBuchung);
 			test();
 			resetGUI();
 		}
@@ -197,7 +197,7 @@ public class NeuerBSController implements Initializable {
 
 	private void test() {
 		System.out.println("---------------------------------------------------");
-		Iterator<Tuple<Integer, ArrayList<Buchungssatz>>> it = buchungssätze.iterator();
+		Iterator<Tuple<Integer, ArrayList<Buchungssatz>>> it = buchungssaetze.iterator();
 		while (it.hasNext()) {
 			ArrayList<Buchungssatz> blist = it.next().getY();
 			for (Buchungssatz b : blist) {
@@ -273,7 +273,7 @@ public class NeuerBSController implements Initializable {
 	}
 
 	public ArrayList<Tuple<Integer, ArrayList<Buchungssatz>>> getNeueBuchungssaetze() {
-		return buchungssätze;
+		return buchungssaetze;
 	}
 	
 }

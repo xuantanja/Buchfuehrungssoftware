@@ -64,7 +64,7 @@ public class Geschaeftsfall implements Serializable {
 	/**
 	 * <i><b>Hinzufügen mehrerer Buchungssätze</b></i><br>
 	 * <br>
-	 * Bucht den Buchungssatz auf die entsprechende Seite des Kontos. <br>
+	 * Bucht die Buchungssätze zu dem Geschäftsfall . <br>
 	 * 
 	 * @param bsList
 	 *            - die Buchungssätze, die gebucht werden sollen
