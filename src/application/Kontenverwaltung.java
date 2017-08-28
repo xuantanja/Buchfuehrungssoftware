@@ -129,7 +129,6 @@ public class Kontenverwaltung {
 			sbkBuchung = konto1.saldieren();
 			addBuchungssatz(jahresabschluss, sbkBuchung);
 		}
-
 	}
 
 	public Iterator<Konto> getKontenIterator() {
