@@ -300,7 +300,7 @@ public class BilanzErstellenController implements Initializable {
 		kasse = new Bestandskonto("Kasse", "Kasse", "SBK", 0, true);
 		verb = new Bestandskonto("Verbindlichkeiten a.L.L.", "Verb", "SBK", 0, false);
 		dar = new Bestandskonto("Darlehen", "Dar", "SBK", 0, false);
-		ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, true);
+		ek = new Bestandskonto("Eigenkapital", "EK", "SBK", 0, false);
 		ford = new Bestandskonto("Forderungen a.L.L.", "Ford", "SBK", 0, true);
 		Konto ust = new Steuerkonto("Umsatzsteuer", "USt", "SBK");
 		Konto vorst = new Steuerkonto("Vorsteuer", "Vorst", "SBK");

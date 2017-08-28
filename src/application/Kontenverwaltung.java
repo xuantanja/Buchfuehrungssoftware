@@ -5,12 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.PriorityQueue;
-
+import java.util.LinkedList;
 import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
 import konten.Konto;
-import utility.comparator.KontoComparator;
 
 public class Kontenverwaltung {
 
@@ -74,21 +72,32 @@ public class Kontenverwaltung {
 	}
 
 	public void kontensaldierung() {
-
-		for (Iterator<Konto> iterator = konten.values().iterator(); iterator.hasNext();) {
-			System.out.println(iterator.next().getTitel());
+		LinkedList<Konto> sortedKontoList = new LinkedList<Konto>();
+		int pos = 0;
+		for (Konto konto : konten.values()) {
+			for (int j = 0; j < sortedKontoList.size(); j++) {
+				if (konto.getVerrechnungKonto().equals(sortedKontoList.get(j).getKuerzel())) {
+					pos = j;
+				}
+			}
+			if(pos == -1){
+				pos = sortedKontoList.size();
+			}
+			//System.out.println("[KONTENVERWALTUNG] "+ pos + " = " + konto.getTitel());
+			if(!konto.getKuerzel().equals("SBK")){
+			sortedKontoList.add(pos, konto);	
+			}
+			
+			pos = -1;
 		}
-		System.out.println("-----");
 
-		PriorityQueue<Konto> pqk = new PriorityQueue<>(new KontoComparator());
-		pqk.addAll(konten.values());
 		Konto[] steuerkonten = new Konto[2];
 		int i = 0;
-		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size()+1, "Jahresabschluss",
+		Geschaeftsfall jahresabschluss = new Geschaeftsfall(faelle.size() + 1, "Jahresabschluss",
 				"Alle Buchungssätze, die zum Abschluss des Geschäftsjahres automatisch gebucht worden sind.");
 		addGeschaeftsfall(jahresabschluss);
-		while (!pqk.isEmpty()) {
-			Konto konto = pqk.poll();
+		while (!sortedKontoList.isEmpty()) {
+			Konto konto = sortedKontoList.poll();
 			Buchungssatz bs = konto.saldieren();
 			if (konto.getKontoart() != 3) {
 				if (bs != null) {
@@ -100,6 +109,7 @@ public class Kontenverwaltung {
 			}
 		}
 		steuerkontenSaldierung(jahresabschluss, steuerkonten);
+		konten.get("SBK").saldieren();
 		for (Buchungssatz bsatz : jahresabschluss.getSaetze()) {
 			bsatz.setID_B("");
 		}
@@ -135,7 +145,7 @@ public class Kontenverwaltung {
 	public Iterator<Konto> getKontenIterator() {
 		return konten.values().iterator();
 	}
-	
+
 	public ArrayList<Konto> getKontenArraylist() {
 		return new ArrayList<>(konten.values());
 	}
@@ -155,11 +165,11 @@ public class Kontenverwaltung {
 	public LocalDate getGeschaeftsjahrBeginn() {
 		return geschaeftsjahrBeginn;
 	}
-	
+
 	public boolean isAlleErfolgskontenMitBilanzwertNull() {
 		boolean alleNull = true;
-		for(Konto konto : konten.values()) {
-			if(konto.getKontoart() == 2 && konto.getBilanzwert() != 0) {
+		for (Konto konto : konten.values()) {
+			if (konto.getKontoart() == 2 && konto.getBilanzwert() != 0) {
 				alleNull = false;
 			}
 		}

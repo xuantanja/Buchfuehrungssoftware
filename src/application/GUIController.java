@@ -101,8 +101,8 @@ public class GUIController implements Initializable {
 	}
 
 	private void initalHeadings() {
-		count_t2_Aufwandskonten = 5;
-		count_t2_Ertragskonten = 5;
+		count_t2_Aufwandskonten = 4;
+		count_t2_Ertragskonten = 4;
 		count_t3_Steuerkonten = 5;
 		count_t1_A = 2;
 		count_t1_P = 2;
@@ -434,10 +434,10 @@ public class GUIController implements Initializable {
 	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
 		new AlertDialogFrame().showConfirmDialog("Produktinformationen - Release-Version: v1.0 / 29.08.2017",
 				"Die Software wurde im Laufe des Projekts für das Modul \"objektorientierte Programmierung\" erstellt.\n\n"
-				+ "(Matirkelnummer) Entwickler der Buchführungssoftware:\n"
+				+ "(Matrikelnummer) Entwickler der Buchführungssoftware:\n"
 				+ "(652059) Sophie-Louise Schmidt\n"
 				+ "(674216) Tanja Manlik\n"
-				+ "(658024) Emil\n"
+				+ "(658024) Emil Tenbieg\n"
 				+ "(691071) Marc Tukendorf\n", "Ok",
 				AlertDialogFrame.INFORMATION_TYPE);
 	}
