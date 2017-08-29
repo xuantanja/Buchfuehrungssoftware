@@ -433,7 +433,7 @@ public class GUIController implements Initializable {
 	@FXML
 	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
 		new AlertDialogFrame().showConfirmDialog("Produktinformationen - Release-Version: v1.0 / 29.08.2017",
-				"Die Software wurde im Laufe des Projekts für das Modul \"objektorientierte Programmierung\" erstellt.\n\n"
+				"Die Software wurde im Laufe des Projekts für das Modul \"Objektorientierte Programmierung\" erstellt.\n\n"
 				+ "(Matrikelnummer) Entwickler der Buchführungssoftware:\n"
 				+ "(652059) Sophie-Louise Schmidt\n"
 				+ "(674216) Tanja Manlik\n"
