@@ -1,6 +1,9 @@
 package konten;
 
 import java.io.Serializable;
+/**
+ * Die Klasse Erfolgskonto repräsentiert ein Konto, welches Aufwände und Erträge hat.
+ */
 
 public class Erfolgskonto extends Konto implements Serializable{
 
@@ -24,7 +27,14 @@ public class Erfolgskonto extends Konto implements Serializable{
 	public int getKontoart() {
 		return KONTENART_ID;
 	}
-
+	
+	/**
+	 * <i><b>Vergabe der Beschreibung</b></i><br>
+	 * <br>
+	 * Es wird eine Beschreibung je ach Kontoart vergeben. <br>
+	 *
+	 * @return Beschreibung für das Konto
+	 */
 	@Override
 	public String description() {
 		String beschreibung = "";

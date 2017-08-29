@@ -7,7 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
+/**
+ * 
+ * AlertDialogFrame stellt die Methoden für Warnfester bereit.
+ *
+ */
 public class AlertDialogFrame {
 
 	public static final int INFORMATION_TYPE = 0;

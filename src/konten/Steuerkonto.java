@@ -2,6 +2,9 @@ package konten;
 
 import java.io.Serializable;
 
+/**
+ * Die Klasse Steuerkonto repräsentiert ein Konto, welches Steuersätze hat.
+ */
 public class Steuerkonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 3;

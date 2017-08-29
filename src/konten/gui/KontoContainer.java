@@ -36,7 +36,13 @@ public class KontoContainer implements Serializable {
 
 		initialKontoLayout();
 	}
-
+	
+	/**
+	 * <i><b>Vergabe der Beschreibung</b></i><br>
+	 * <br>
+	 * Layout für die Initialisierung eines Kontos auf der GUI. <br>
+	 *
+	 */
 	private void initialKontoLayout() {
 		Label l1 = new Label("-----------------------------------------");
 		Label l2 = new Label("-----------------------------------------");
@@ -71,6 +77,13 @@ public class KontoContainer implements Serializable {
 
 	}
 
+	/**
+	 * <i><b>Layout für die Saldierung</b></i><br>
+	 * <br>
+	 * Es wird das Layout für den Jahresabschluss angepasst. <br>
+	 *
+	 * @return VBox mit angepasstem Layout
+	 */
 	public VBox getLayout(double bilanzwert) {
 		Line vLine = new sLine(0, 0, 240, 0);
 		HBox container = new HBox(refNameS, refBetragS, hLine, refNameH, refBetragH);

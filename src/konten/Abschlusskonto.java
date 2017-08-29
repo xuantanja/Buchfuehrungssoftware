@@ -1,7 +1,9 @@
 package konten;
 
 import java.io.Serializable;
-
+/**
+ * Die Klasse Abschlusskonto repräsentiert Konten, die zuletzt abgeschlossen werden.
+ */
 public class Abschlusskonto extends Konto implements Serializable{
 	
 	private static final int KONTENART_ID = 4;

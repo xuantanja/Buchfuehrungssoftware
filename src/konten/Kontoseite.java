@@ -6,7 +6,11 @@ import java.util.Iterator;
 
 import geschaeftsfall.Buchungssatz;
 import utility.Collection.IDMap;
-
+/**
+ * 
+ * Die Klasse Kontoseite ist für die beiden Seiten (Soll-und Haben) eines Kontos zuständig.
+ *
+ */
 public class Kontoseite implements Serializable{
 
 	private boolean sollseite;
@@ -43,6 +47,13 @@ public class Kontoseite implements Serializable{
 		return buchungen;
 	}
 	
+	/**
+	 * <i><b>Umwandlung in ArrayList vom Typ Buchungssatz</b></i><br>
+	 * <br>
+	 * Es wird eine ArrayList mit allen Buchungssätzen erstellt <br>
+	 *
+	 * @return alle Buchungssätze
+	 */
 	public ArrayList<Buchungssatz> getArrayOfBuchungen() {
 		ArrayList<Buchungssatz> bs = new ArrayList<>();
 		for (Iterator<ArrayList<Buchungssatz>> iterator = buchungen.values().iterator(); iterator.hasNext();) {

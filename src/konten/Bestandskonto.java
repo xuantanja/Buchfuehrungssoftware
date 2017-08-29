@@ -6,6 +6,9 @@ import geschaeftsfall.Buchungssatz;
 import javafx.scene.control.Label;
 import konten.gui.KontoContainer;
 
+/**
+ * Die Klasse Bestandskonto repräsentiert ein Konto mit Anfangsbeständen.
+ */
 public class Bestandskonto extends Konto implements Serializable{
 
 	private static final int KONTENART_ID = 1;
@@ -20,6 +23,12 @@ public class Bestandskonto extends Konto implements Serializable{
 		setBeschreibung(description());
 	}
 
+	/**
+	 * <i><b>Ausgabe der Anfangsbestände</b></i><br>
+	 * <br>
+	 * Die Anfangsbestände werden auf der GUI ausgegeben.  <br>
+	 * 
+	 */
 	public void confirmAB() {
 		if (isAktivkonto()) {
 			getGuiContainer().getRefNameS().getChildren().add(new Label("AB"));
@@ -30,6 +39,13 @@ public class Bestandskonto extends Konto implements Serializable{
 		}
 	}
 
+	/**
+	 * <i><b>Vergabe der Beschreibung</b></i><br>
+	 * <br>
+	 * Es wird eine Beschreibung je ach Kontoart vergeben. <br>
+	 *
+	 * @return Beschreibung für das Konto
+	 */
 	@Override
 	public String description() {
 		String beschreibung = "";
@@ -43,6 +59,13 @@ public class Bestandskonto extends Konto implements Serializable{
 		return beschreibung;
 	}
 	
+	/**
+	 * <i><b>Neuer Container für das Bestandskonto</b></i><br>
+	 * <br>
+	 * Die Benutzeroberfläche des Kontos wird neu erstellt. Wird für das Öffnen
+	 * einer Bilanz benötigt. Es wird erstellt für die eingegebenen Anfangsbestand.  <br>
+	 * 
+	 */
 	@Override
 	public void newContainer() {
 		setGuiContainer(new KontoContainer(getTitel()));

@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import konten.gui.KontoContainer;
 
 /**
- * Die Klasse Konto representiert ein Konto innerhalb einer Bilanz.
+ * Die Klasse Konto repräsentiert ein Konto innerhalb einer Bilanz.
  */
 public abstract class Konto implements Serializable {
 

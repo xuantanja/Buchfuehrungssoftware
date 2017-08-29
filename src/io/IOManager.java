@@ -27,6 +27,7 @@ public class IOManager {
 	 * @param destination
 	 * 			- Ordner der einzulesenden Datei
 	 * @return eine Datei mit Konten, Fällen und Geschäftsjahr
+	 * @throws IOException
 	 */
 	public static DataStorage readFile(File destination) throws IOException {
 		try {

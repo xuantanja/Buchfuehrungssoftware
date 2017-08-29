@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * AlertDialogs sind Fenster für Warnbenachrichtigungen und dienen als Antwort des Systems an den Nutzer.
  *
  */
 public class AlertDialogController implements Initializable {

@@ -20,6 +20,13 @@ public class Kontenbilanzierung implements Serializable {
 		this.refBetragHwidth = refBetragHwidth;
 	}
 
+	/**
+	 * <i><b> Layout für die VBox</b></i><br>
+	 * <br>
+	 * Es wird ein Layout für eine VBox erstellt. <br>
+	 *
+	 * @return Layout für VBox
+	 */
 	public VBox getLayout(double bilanzwert) {
 		Line hLineSoll = new Line(0, 0, refBetragSwidth, 0);
 		Line hLineHaben = new Line(0, 0, refBetragHwidth, 0);
