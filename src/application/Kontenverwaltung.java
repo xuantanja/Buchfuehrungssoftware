@@ -44,7 +44,6 @@ public class Kontenverwaltung {
 		geschaeftsjahrBeginn = gfBeginn;
 	}
 
-	// Konto wird der HashMap hinzugefügt
 	/**
 	 * <i><b>Hinzufügen eines Kontos</b></i><br>
 	 * <br>
