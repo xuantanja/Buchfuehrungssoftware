@@ -38,13 +38,6 @@ public class Kontoseite implements Serializable{
 		return betrag;
 	}
 	
-	public void setBilanzsumme(double betrag){
-		
-	}
-	
-	public void setSalidierungsbetrag(String verrechnungskonto, double betrag){
-		
-	}
 
 	public IDMap<String, Buchungssatz> getBuchungen() {
 		return buchungen;

@@ -8,6 +8,11 @@ import java.util.HashMap;
 import geschaeftsfall.Geschaeftsfall;
 import konten.Konto;
 
+/**
+ * 
+ * DataStorage fasst Konten, Geschäftsfälle und den Geschäftsjahrbeginn in einem Typ zusammen.
+ *
+ */
 public class DataStorage implements Serializable{
 
 	private static final long serialVersionUID = 8441138232055888468L;

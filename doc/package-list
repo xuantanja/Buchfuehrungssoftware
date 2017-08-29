@@ -6,8 +6,8 @@ geschaeftsfall
 io
 konten
 konten.gui
+testfaelle
 utility.Collection
 utility.alertDialog
-utility.comparator
 utility.converter
 utility.serialisierung
