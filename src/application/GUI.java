@@ -5,7 +5,11 @@ import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utility.alertDialog.AlertDialogFrame;
 
+/**
+ * In der Klasse GUI wird das Programm gestartet.
+ */
 public class GUI extends Application {
 
 	public static HostServices services;
@@ -24,9 +28,9 @@ public class GUI extends Application {
 		primaryStage.setOnCloseRequest(e -> {
 			try {
 				boolean close = true;
-//				close = new AlertDialogFrame().showChoiseDialog("Programm beenden",
-//						"Beim Schließen des Programms kann ungespeicherter Fortschritt verloren gehen.\nSind Sie sicher, dass Sie das Programm beenden möchten?",
-//						"Ok", "Cancel", AlertDialogFrame.QUESTION_TYPE);
+						close = new AlertDialogFrame().showChoiseDialog("Programm beenden",
+						"Beim Schließen des Programms kann ungespeicherter Fortschritt verloren gehen.\nSind Sie sicher, dass Sie das Programm beenden möchten?",
+						"Ok", "Cancel", AlertDialogFrame.QUESTION_TYPE);
 				if (close) {
 					System.exit(0);
 				} else {
