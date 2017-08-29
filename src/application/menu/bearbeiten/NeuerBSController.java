@@ -26,7 +26,9 @@ import konten.Konto;
 import utility.Collection.Tuple;
 import utility.alertDialog.AlertDialogFrame;
 import utility.converter.TypeConverter;
-
+/**
+ * NeuerBS dient zum Hinzufügen von Buchungssätzen.
+ */
 public class NeuerBSController implements Initializable {
 
 	private ObservableList<String> comboItemsList;

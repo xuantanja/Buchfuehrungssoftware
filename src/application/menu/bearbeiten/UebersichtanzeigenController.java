@@ -19,8 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * FXML Controller class
- *
+ * UebersichtAnzeigen dient zum Einsehen von Geschäftfällen.
  */
 public class UebersichtanzeigenController implements Initializable {
 	/**
@@ -43,9 +42,14 @@ public class UebersichtanzeigenController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 
 	}
+
 	/**
-	 * <i><b>Ausgabe aller Geschäftsfälle</b></i>
+	 * <i><b>Ereignisbehandlung: Geschäftsfälle anzeigen</b></i><br>
+	 * <br>
+	 * Es werden alle Geschäftsfälle einer Kontenverwaltung angezeigt. <br>
 	 * 
+	 * @param event
+	 * 			- Nutzeraktion
 	 */
 	@FXML
 	void handle_alle_GF_anzeigen(ActionEvent event) {
@@ -76,7 +80,12 @@ public class UebersichtanzeigenController implements Initializable {
 
 	}
 	/**
-	 * <i><b>Ausgabe eines ausgewählten Geschäftsfalles</b></i>
+	 * <i><b>Ereignisbehandlung: ein Geschäftsfall anzeigen</b></i><br>
+	 * <br>
+	 * Es wird ein ausgewählter Geschäftsfall einer Kontenverwaltung angezeigt. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
 	 */
 	@FXML
 	void handle_btnCheck(ActionEvent event){

@@ -18,7 +18,9 @@ import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
 import utility.alertDialog.AlertDialogFrame;
-
+/**
+ * KontoHinzufuegen dient ausschließlich zum Hinzufügen von Konten.
+ */
 public class KontoHinzufuegenController implements Initializable {
 
 	@FXML

@@ -14,7 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import konten.Bestandskonto;
 import konten.Konto;
-
+/**
+ * EröffnungsbilanzEinsehen dient zum Einsehen der bei der Eröffnungsbilanz erstellten Konten mit deren Anfangsbeständen.
+ */
 public class EroeffnungsbilanzEinsehenController implements Initializable {
 
 	@FXML
