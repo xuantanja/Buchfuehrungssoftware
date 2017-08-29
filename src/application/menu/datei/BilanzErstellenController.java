@@ -43,7 +43,7 @@ import konten.Steuerkonto;
 import utility.alertDialog.AlertDialogFrame;
 
 /**
- * FXML Controller class
+ * BilanzErstellen dient für das Erstellen einer Bilanz und damit einer Datei. Es können Eingaben über Bestände vom letzten Jahr getätigt werden. Neue Konten können hinzugefügt werden.
  *
  */
 public class BilanzErstellenController implements Initializable {
@@ -149,6 +149,14 @@ public class BilanzErstellenController implements Initializable {
 		standardkontenHinzufuegen();
 	}
 
+	/**
+	 * <i><b>Ereignisbehandlung: Hinzufügen eines Kontos</b></i><br>
+	 * <br>
+	 * Es wird auf fehlerhafte Nutzereingaben geprüft. Ein Konto wird nach Angaben des Nutzer erstellt.<br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_KontoHinzufuegen(ActionEvent event) {
 		String fehlermeldung = "";
@@ -191,6 +199,14 @@ public class BilanzErstellenController implements Initializable {
 
 	}
 
+	/**
+	 * <i><b>Ereignisbehandlung: Bilanz erstellen</b></i><br>
+	 * <br>
+	 * Die neue Bilanz wird nach Angaben des Nutzers erstellt. Es wird geprüft, ob der Name der Bilanz bereits vergeben ist. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handleBilanzErstellen(ActionEvent event) {
 		if (checkboxProduzierendesU.isSelected()) {
@@ -242,7 +258,13 @@ public class BilanzErstellenController implements Initializable {
 		}
 
 	}
-
+	/**
+	 * <i><b>Anzeigen der Eröffnungsbilanz</b></i><br>
+	 * <br>
+	 * Es wird eine FXML-Datei geladen, mit der die Eröffnungsbilanz eingesehen wird. Die Eröffnungsbilanz ist Abhängig von den Eingaben des Nutzers. <br>
+	 * 
+	 * @return ob die Eröffnungsbilanz ausgeglichen ist
+	 */
 	private boolean eroeffnungsbilanzAnzeigen() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../analyse/EroeffnungsbilanzEinsehen.fxml"));
@@ -263,7 +285,14 @@ public class BilanzErstellenController implements Initializable {
 		return false;
 
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Anfangsbestände ändern</b></i><br>
+	 * <br>
+	 * Es wird eine FXML-Datei geladen. Nutzereingaben (geänderte Anfangsbestände) aus dem separatem Fenster werden den Konten übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handleABAendern(ActionEvent event) {
 		try {
@@ -294,6 +323,12 @@ public class BilanzErstellenController implements Initializable {
 
 	}
 
+	/**
+	 * <i><b>Hinzufügen von Standardkonten</b></i><br>
+	 * <br>
+	 * Es werden Standardkonten erstellt und ausgegeben. Es gibt die Möglichkeit Konten aus einem produzierendem Unternehmen zu übernehmen. <br>
+	 * 
+	 */
 	private void standardkontenHinzufuegen() {
 		bank = new Bestandskonto("Bank", "Bank", "SBK", 0, true);
 		bga = new Bestandskonto("Büro- und Geschäftsausstattung", "BGA", "SBK", 0, true);
@@ -336,6 +371,12 @@ public class BilanzErstellenController implements Initializable {
 		tabelleAktualisieren();
 	}
 
+	/**
+	 * <i><b>Aktualisierung der Tabelle</b></i><br>
+	 * <br>
+	 * Die Tabelle wird mit akuellen Werten der Kontenliste aktualisiert. <br>
+	 * 
+	 */
 	private void tabelleAktualisieren() {
 		tableKonto.getItems().clear();
 		ObservableList<Konto> obsList = FXCollections.observableArrayList(kontenListe);
@@ -349,6 +390,14 @@ public class BilanzErstellenController implements Initializable {
 		verrechnungskonto.setItems(FXCollections.observableArrayList(kontenKuerzel));
 	}
 
+	/**
+	 * <i><b>Löschen von Konten</b></i><br>
+	 * <br>
+	 * Es werden ausgewählte Konten aus der Kontenliste entfernt. <br>
+	 * 
+	 * @param selectedKonten
+	 * 			- ausgewählte Konten, die gelöscht werden sollen
+	 */
 	private void loescheKonto(ObservableList<Konto> selectedKonten) {
 
 		System.out.println("Löschen....");
@@ -360,7 +409,14 @@ public class BilanzErstellenController implements Initializable {
 		}
 		tabelleAktualisieren();
 	}
-
+	/**
+	 * <i><b>Bearbeitung eines Kontos</b></i><br>
+	 * <br>
+	 * Es wird eine FXML-Datei geladen. Nutzereingaben aus dem separatem Fenster werden den Konten übergeben. <br>
+	 * 
+	 * @param selectedKonto
+	 * 			- ausgewähltes Konto, welches bearbeitet werden soll
+	 */
 	private void bearbeiteKonto(Konto selectedKonto) {
 		if (selectedKonto.getKontoart() != 3 && selectedKonto.getKontoart() != 4) {
 			try {
@@ -384,6 +440,15 @@ public class BilanzErstellenController implements Initializable {
 
 	}
 
+	/**
+	 * <i><b>Überprüfung auf Nummer</b></i><br>
+	 * <br>
+	 * Es wird überprüft, ob der Text eine Nummer ist. <br>
+	 * 
+	 * @param text
+	 * 			- übergebener, zu verarbeitender Text
+	 * @return ob es eine Nummer ist
+	 */
 	private boolean isStringANumber(String text) {
 		try {
 			Double.parseDouble(text);

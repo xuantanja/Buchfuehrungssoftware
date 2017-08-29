@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import konten.Bestandskonto;
 import konten.Erfolgskonto;
 import konten.Konto;
-
+/**
+ * 
+ * KontoBearbeiten dient zum Bearbeiten eines Kontos während der Bilanzerstellung.Über den Anfangsbestand hinaus können weitere Eigenschaften geändert werden.
+ *
+ */
 public class KontoBearbeitenController implements Initializable {
 	@FXML
 	private TextField textfieldKontenname;
@@ -53,8 +57,16 @@ public class KontoBearbeitenController implements Initializable {
 		radioAktivkonto.setToggleGroup(group3);
 		radioPassivkonto.setToggleGroup(group3);
 	}
-
-	// Event Listener on Button[#buttonAddKonto].onAction
+	/**
+	 * <i><b>Ereignisbehandlung: Konto hinzufügen</b></i><br>
+	 * <br>
+	 * Ändern eines Kontos nach den Nutzereingaben.
+	 * Schließen des Fensters bei Button-Event zum Hinzufügen.
+	 * Event Listener on Button[#buttonAddKonto].onAction <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	public void handle_KontoHinzufuegen(ActionEvent event) {
 		changedKonto.setTitel(textfieldKontenname.getText());
@@ -73,7 +85,16 @@ public class KontoBearbeitenController implements Initializable {
 		}
 		((Stage) buttonAddKonto.getScene().getWindow()).close();
 	}
-
+	/**
+	 * <i><b>Anzeigen eines zu ändernden Kontos</b></i><br>
+	 * <br>
+	 *  Es wird das bearbeitende Konto aus den bisherigen Daten in die GUI übertragen. Dabei wird je nach Kontoart unterschieden bei den Zuständen der FXML-Elemente.<br>
+	 * 
+	 * @param konto
+	 * 			- das zu bearbeitende Konto
+	 * @param kontenListe
+	 * 			- Liste aller Konten
+	 */
 	public void setChangeKonto(Konto konto, ObservableList<String> kontenListe) {
 		textfieldKontenname.setText(konto.getTitel());
 		textfieldKuerzel.setText(konto.getKuerzel());

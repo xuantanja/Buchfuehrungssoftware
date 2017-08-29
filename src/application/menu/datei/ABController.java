@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * ABController dient zur Ausgabe und Änderung der Anfangsbestände.
+ */
 public class ABController implements Initializable {
 	@FXML
 	private TextField textfieldBank;
@@ -28,7 +31,15 @@ public class ABController implements Initializable {
 	@FXML
 	private Button buttonConfirm;
 
-	// Event Listener on Button[#buttonConfirm].onAction
+	/**
+	 * <i><b>Ereignisbehandlung: bei Bestätigung von Eingaben</b></i><br>
+	 * <br>
+	 * Schließen des Fensters bei Button-Event zum Bestätigen.
+	 * Event Listener on Button[#buttonConfirm].onAction <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	public void handleConfirmButton(ActionEvent event) {
 		((Stage) buttonConfirm.getScene().getWindow()).close();
