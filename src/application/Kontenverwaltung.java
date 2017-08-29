@@ -45,16 +45,40 @@ public class Kontenverwaltung {
 	}
 
 	// Konto wird der HashMap hinzugefügt
+	/**
+	 * <i><b>Hinzufügen eines Kontos</b></i><br>
+	 * <br>
+	 * Ein Konto wird der Kontenverwaltung hinzugefügt.  <br>
+	 * 
+	 * @param myKonto
+	 *            - das Konto, welches hinzugefügt werden sollen
+	 */
 	public void addKonto(Konto myKonto) {
 		konten.put(myKonto.getKuerzel(), myKonto);
 	}
 
-	// Geschäftsfälle werden der ArrayList hinzugefügt
+	/**
+	 * <i><b>Hinzufügen eines Geschäftsfalles</b></i><br>
+	 * <br>
+	 * Ein Geschäftsfall wird der Kontenverwaltung hinzugefügt.  <br>
+	 * 
+	 * @param myGFall
+	 *            - der Geschäftsfall, der hinzugefügt werden sollen
+	 */
 	public void addGeschaeftsfall(Geschaeftsfall myGFall) {
 		faelle.add(myGFall);
 	}
 
-	// dem Geschäftsfall wird ein Buchungssatz hinzugefügt
+	/**
+	 * <i><b>Hinzufügen eines Buchungssatzes</b></i><br>
+	 * <br>
+	 * Der Buchungssatz wird dem Geschäftsfall der Kontenverwaltung hinzugefügt und gebucht.  <br>
+	 * 
+	 * @param bsatz
+	 *            - der Buchungssatz, der gebucht werden sollen
+	 * @param gfall
+	 *            - der Geschäftsfall, auf den der Buchungssatz hinzugefügt werden
+	 */
 	public void addBuchungssatz(Geschaeftsfall gfall, Buchungssatz bsatz) {
 		gfall.addBuchung(bsatz);
 		if (bsatz.getSollKonto() != null && konten.get(bsatz.getSollKonto()) != null) {
@@ -65,7 +89,16 @@ public class Kontenverwaltung {
 		}
 
 	}
-
+	/**
+	 * <i><b>Hinzufügen mehrerer Buchungssätze</b></i><br>
+	 * <br>
+	 * Die Buchungssätze werden dem Geschäftsfall der Kontenverwaltung hinzugefügt und gebucht.  <br>
+	 * 
+	 * @param bsatz
+	 *            - die Buchungssätze, die gebucht werden sollen
+	 * @param gfall
+	 *            - der Geschäftsfall, auf den die Buchungssätze hinzugefügt werden
+	 */
 	public void addBuchungssatz(Geschaeftsfall gfall, ArrayList<Buchungssatz> bsatz) {
 		gfall.addMultipleBuchung(bsatz);
 		for (Buchungssatz b : bsatz) {
@@ -74,7 +107,13 @@ public class Kontenverwaltung {
 		}
 
 	}
-
+	
+	/**
+	 * <i><b>Saldierung aller Konten</b></i><br>
+	 * <br>
+	 * Die vorhandenen Konten in der Kontenverwaltung werden einer Reihenfolge nach saldiert. <br>
+	 * 
+	 */
 	public void kontensaldierung() {
 		LinkedList<Konto> sortedKontoList = new LinkedList<Konto>();
 		int pos = 0;
@@ -118,7 +157,16 @@ public class Kontenverwaltung {
 			bsatz.setID_B("");
 		}
 	}
-
+	/**
+	 * <i><b>Saldierung von Steuerkonten</b></i><br>
+	 * <br>
+	 * Die Steuerkonten werden miteinander je nach Größe des Bilanzwertes verbucht. <br>
+	 * 
+	 * @param jahresabschluss
+	 *            - der Geschäftsfall, der bei der einem Jahresabschluss erstellt wird und auf den die Saldierung gebucht wird
+	 * @param steuerkonten
+	 *            - beinhaltet die beiden Steuerkonten Vorsteuer und Umsatzsteuer
+	 */
 	private void steuerkontenSaldierung(Geschaeftsfall jahresabschluss, Konto[] steuerkonten) {
 		Buchungssatz saldierung, sbkBuchung;
 		Konto konto1 = null, konto2 = null;
