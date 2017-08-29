@@ -3,9 +3,13 @@ package application;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import geschaeftsfall.Buchungssatz;
 import geschaeftsfall.Geschaeftsfall;
 import konten.Konto;
@@ -83,7 +87,7 @@ public class Kontenverwaltung {
 			if(pos == -1){
 				pos = sortedKontoList.size();
 			}
-			//System.out.println("[KONTENVERWALTUNG] "+ pos + " = " + konto.getTitel());
+			System.out.println("[KONTENVERWALTUNG] "+ pos + " = " + konto.getTitel());
 			if(!konto.getKuerzel().equals("SBK")){
 			sortedKontoList.add(pos, konto);	
 			}
@@ -139,6 +143,7 @@ public class Kontenverwaltung {
 			sbkBuchung = konto1.saldieren();
 			addBuchungssatz(jahresabschluss, sbkBuchung);
 		}
+
 	}
 
 	public Iterator<Konto> getKontenIterator() {

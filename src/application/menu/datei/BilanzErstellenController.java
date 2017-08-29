@@ -320,8 +320,8 @@ public class BilanzErstellenController implements Initializable {
 		kontenListe.add(ust);
 		kontenListe.add(vorst);
 		kontenListe.add(uerl);
-		kontenListe.add(privat);
 		kontenListe.add(efpz);
+		kontenListe.add(privat);
 		kontenListe.add(guv);
 		kontenListe.add(sbk);
 
