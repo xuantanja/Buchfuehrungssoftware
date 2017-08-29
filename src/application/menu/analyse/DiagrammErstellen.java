@@ -18,7 +18,7 @@ import konten.Konto;
  * FXML Controller class
  *
  */
-public class DiagrammErstellenController {
+public class DiagrammErstellen {
 
 	/**
 	 * Initializes the controller class.
@@ -27,7 +27,7 @@ public class DiagrammErstellenController {
 	private BarChart <String, Number>barChartGuV;
 	private ArrayList<Konto> konten;
 
-	public DiagrammErstellenController(ArrayList<Konto> konten) {
+	public DiagrammErstellen(ArrayList<Konto> konten) {
 		this.konten = konten;
 		// für Bestandskonten
 		pieChart_Bestand_alt = new PieChart(getBestandDiaAlt());

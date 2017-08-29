@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-import application.menu.analyse.DiagrammErstellenController;
+import application.menu.analyse.DiagrammErstellen;
 import application.menu.analyse.EroeffnungsbilanzEinsehenController;
 import application.menu.bearbeiten.KontenverwaltungAnzeigenController;
 import application.menu.bearbeiten.NeuerBSController;
@@ -217,7 +217,7 @@ public class GUIController implements Initializable {
 			}
 		}
 		if (kontenverwaltung.getKonten().get("SBK").getBilanzwert() != -1) {
-			DiagrammErstellenController dec = new DiagrammErstellenController(kontenverwaltung.getKontenArraylist());
+			DiagrammErstellen dec = new DiagrammErstellen(kontenverwaltung.getKontenArraylist());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandAlt());
 			chartContainer1.getChildren().add(dec.getPieChart_BestandNeu());
 			if (!kontenverwaltung.isAlleErfolgskontenMitBilanzwertNull()) {
