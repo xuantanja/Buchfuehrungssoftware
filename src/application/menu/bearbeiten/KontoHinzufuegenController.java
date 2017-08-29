@@ -51,15 +51,21 @@ public class KontoHinzufuegenController implements Initializable {
 	@FXML
 	private ComboBox<String> verrechnungskonto;
 
-	//werden übergeben
 	private ObservableList<String> kontoListe;
 	private ObservableList<Konto> kontenListe;
 	
-	//nur die neuen Konten
 	private  ObservableList<Konto> neueKonten;
 	
 	private boolean kontenErstellt;
-
+	
+	/**
+	 * <i><b>Ereignisbehandlung: Konto Hinzufügen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis werden Nutzereingaben ausgelesen und es wird ein neues Konto erstellt. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	void handle_KontoHinzufuegen(ActionEvent event) {
 		String fehlermeldung = "";
@@ -132,7 +138,14 @@ public class KontoHinzufuegenController implements Initializable {
 			radioPassivkonto.setDisable(!(radioBestandskonto.isSelected()));
 		});
 	}
-
+	/**
+	 * <i><b>Übergabe/Setzen der Konten</b></i><br>
+	 * <br>
+	 * Alle Bestandskonten einer Kontenliste werden dem Controller übergeben. <br>
+	 * 
+	 * @param kntList
+	 * 			- ist eine Liste von Konten
+	 */
 	public void setKonten(ObservableList<Konto> kntList) {
 
 		kontenListe = kntList;

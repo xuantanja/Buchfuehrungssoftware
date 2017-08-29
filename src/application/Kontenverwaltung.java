@@ -44,7 +44,6 @@ public class Kontenverwaltung {
 		geschaeftsjahrBeginn = gfBeginn;
 	}
 
-	// Konto wird der HashMap hinzugefügt
 	/**
 	 * <i><b>Hinzufügen eines Kontos</b></i><br>
 	 * <br>
@@ -89,6 +88,7 @@ public class Kontenverwaltung {
 		}
 
 	}
+	
 	/**
 	 * <i><b>Hinzufügen mehrerer Buchungssätze</b></i><br>
 	 * <br>
@@ -105,7 +105,6 @@ public class Kontenverwaltung {
 			konten.get(b.getSollKonto()).buchung(b, true);
 			konten.get(b.getHabenKonto()).buchung(b, false);
 		}
-
 	}
 	
 	/**
@@ -217,7 +216,13 @@ public class Kontenverwaltung {
 	public LocalDate getGeschaeftsjahrBeginn() {
 		return geschaeftsjahrBeginn;
 	}
-
+	/**
+	 * <i><b>Prüfen nach vorhandenen Erfolgskonten</b></i><br>
+	 * <br>
+	 * Es wird überprüft, ob Erfolgskonten vorhanden sind. <br>
+	 * 
+	 * @return ob Erfolgskonten vorhanden sind
+	 */
 	public boolean isAlleErfolgskontenMitBilanzwertNull() {
 		boolean alleNull = true;
 		for (Konto konto : konten.values()) {

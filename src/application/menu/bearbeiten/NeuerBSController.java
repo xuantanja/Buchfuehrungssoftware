@@ -80,7 +80,14 @@ public class NeuerBSController implements Initializable {
 		betragListSoll.add(textfieldBetragSoll);
 		betragListHaben.add(textfieldBetragHaben);
 	}
-
+	/**
+	 * <i><b>Hinzufügen einer Konten-ComboBox</b></i><br>
+	 * <br>
+	 * Es wird eine neue ComboBox für ein Konto zu dem GridPane hinzugefügt. <br>
+	 * 
+	 * @param soll
+	 * 			- Seite des gewünschten hinzufügens
+	 */
 	private void handleAddRow(boolean soll) {
 		ComboBox<String> combobox = new ComboBox<>(comboItemsList);
 		TextField textfield = new TextField();
@@ -112,7 +119,16 @@ public class NeuerBSController implements Initializable {
 			gridpaneBS.add(buttonPlusHaben, 4, rowHaben);
 		}
 	}
-
+	/**
+	 * <i><b>Setzen von GUI-Elementen</b></i><br>
+	 * <br>
+	 * Es werden die GUI-Elemente zum Auswählen der Konten und Geschäftsfälle mit den aktuellen Werten befüllt. <br>
+	 * 
+	 * @param konten
+	 * 			- aktuelle HashMap von allen Konten
+	 * @param faelle
+	 * 			- aktuelle ArrayList von allen Geschäftsfällen
+	 */
 	public void setParameter(HashMap<String, Konto> konten, ArrayList<Geschaeftsfall> faelle) {
 		comboItemsList = FXCollections
 				.observableArrayList(new TypeConverter<String, Konto>().hashmapkeysToArrayList(konten));
@@ -125,8 +141,15 @@ public class NeuerBSController implements Initializable {
 		}
 		comboGF.setItems(FXCollections.observableArrayList(geschaeftsfaelle));
 	}
-
-	// Event Listener on Button[#buttonHinzufügen].onAction
+	/**
+	 * <i><b>Ereignisbehandlung: Hinzufügen-Button</b></i><br>
+	 * <br>
+	 * Beim Blick auf den "Hinzufügen"-Button werden Methoden zum Hinzufügen eines Buchungssatzes ausgeführt.
+	 * Event Listener on Button[#buttonHinzufügen].onAction <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	public void handleHinzufügen(ActionEvent event) {
 		if (exceptionhandling()) {
@@ -138,7 +161,12 @@ public class NeuerBSController implements Initializable {
 			resetGUI();
 		}
 	}
-
+	/**
+	 * <i><b>Zurücksetzen des Fensters</b></i><br>
+	 * <br>
+	 * Ausgewählte Nutzerwerte werden zurückgesetzt <br>
+	 * 
+	 */
 	private void resetGUI() {
 		rowSoll = 1;
 		rowHaben = 1;
@@ -161,7 +189,18 @@ public class NeuerBSController implements Initializable {
 		textfieldBetragSoll.setText("");
 		textfieldTitel.setText("");
 	}
-
+	/**
+	 * <i><b>Erstellen des neuen Buchungssatzes</b></i><br>
+	 * <br>
+	 * Es wird aus den Nutzereingaben ein neuer Buchungssatz erstellt <br>
+	 * 
+	 * @param sollPos
+	 * 			- Position der Sollseite
+	 * @param habenPos
+	 * 			- Position der Habenseite
+	 * @param buchung
+	 * 			- hinzufügende Liste aus Buchungssätzen
+	 */
 	private void putBuchungssatz(int sollPos, int habenPos, ArrayList<Buchungssatz> buchung) {
 		double buchungsbetrag;
 		String sollKonto, habenKonto;
@@ -194,7 +233,10 @@ public class NeuerBSController implements Initializable {
 			putBuchungssatz(sollPos, habenPos, buchung);
 		}
 	}
-
+	/**
+	 * <i><b> Testzwecke - Ausgabe der Buchungssätze in der Console</b></i><br>
+	 * 
+	 */
 	private void test() {
 		System.out.println("---------------------------------------------------");
 		Iterator<Tuple<Integer, ArrayList<Buchungssatz>>> it = buchungssaetze.iterator();
@@ -207,7 +249,11 @@ public class NeuerBSController implements Initializable {
 		}
 		System.out.println("---------------------------------------------------");
 	}
-
+	/**
+	 * <i><b>Umrechnung einer Textfield-Liste zu einer Double-Liste</b></i>
+	 * @param list
+	 * 			- Elemente dieser Liste werden zu Double-Werten umgewandelt
+	 */
 	private ArrayList<Double> toDoubleArraylist(ArrayList<TextField> list) throws NumberFormatException {
 		ArrayList<Double> doublearraylist = new ArrayList<>();
 		for (TextField tf : list) {
@@ -215,7 +261,11 @@ public class NeuerBSController implements Initializable {
 		}
 		return doublearraylist;
 	}
-
+	/**
+	 * <i><b>Berechnet die Summe von Werten einer ArrayList</b></i><br>
+	 * @param list
+	 * 			- Elemente dieser Liste werden summiert
+	 */
 	private double sumOfValues(ArrayList<Double> list) {
 		double sum = 0;
 		for (double value : list) {
@@ -224,6 +274,13 @@ public class NeuerBSController implements Initializable {
 		return sum;
 	}
 
+	/**
+	 * <i><b>Ausnahmenbehandlung bei Nutzereingaben</b></i><br>
+	 * <br>
+	 * Es wird geprüft, ob es fehlerhafte Nutzereingaben gibt. <br>
+	 * 
+	 * @return ob es einen Fehler gibt
+	 */
 	private boolean exceptionhandling() {
 		try {
 			betragSoll = toDoubleArraylist(betragListSoll);
@@ -265,8 +322,15 @@ public class NeuerBSController implements Initializable {
 		}
 		return true;
 	}
-
-	// Event Listener on Button[#buttonSchliessen].onAction
+	/**
+	 * <i><b>Ereignisbehandlung: Fenster Schließen</b></i><br>
+	 * <br>
+	 * Schließen des Fensters bei Button-Event zum Schließen.
+	 * Event Listener on Button[#buttonSchliessen].onAction <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	public void handleSchließen(ActionEvent event) {
 		((Stage) buttonSchliessen.getScene().getWindow()).close();

@@ -62,7 +62,14 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 		isErstellt = false;
 		tabelleAktualisieren();
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Konto Hinzufügen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller dieser FXML-Datei wird die neue Kontenliste übergeben <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	void handle_KontoHinzufuegen(ActionEvent event) {
 		try {
@@ -93,30 +100,26 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 		}
 	}
 
-	@FXML
-	void handle_PDFSpeichern(ActionEvent event) {
-		try {
-		    BufferedImage bufImage = SwingFXUtils.fromFXImage(exportNodes.get(0).snapshot(new SnapshotParameters(), null), null);
-		    FileOutputStream out = new FileOutputStream(new File(STANDARD_PATH + "/temp.jpg"));
-		    javax.imageio.ImageIO.write(bufImage, "jpg", out);
-		    out.flush();
-		    out.close();
-
-
-		}
-		catch(Exception e)
-		{
-		     e.printStackTrace();
-		}
-	}
-
+	/**
+	 * <i><b>Aktualisierung der Tabelle</b></i><br>
+	 * <br>
+	 * Die Tabelle wird mit akuellen Werten der Kontenliste aktualisiert. <br>
+	 * 
+	 */
 	private void tabelleAktualisieren() {
 		TW_Kontenliste.setItems(kontoListe);
 		columnKonto.setCellValueFactory(new PropertyValueFactory<Konto, String>("titel"));
 		columnBeschreibung.setCellValueFactory(new PropertyValueFactory<Konto, String>("beschreibung"));
 	}
 
-	// Kontenliste übergeben lassen und in einer ArrayListe speichern
+	/**
+	 * <i><b>Übergabe/Setzen der Konten</b></i><br>
+	 * <br>
+	 * Alle Bestandskonten einer Kontenliste werden dem Controller übergeben. <br>
+	 * 
+	 * @param kntList
+	 * 			- ist eine Liste von Konten
+	 */
 	public void setKonten(HashMap<String, Konto> kntList) {
 
 		for (String key : kntList.keySet()) {
@@ -124,11 +127,7 @@ public class KontenverwaltungAnzeigenController implements Initializable {
 		}
 	}
 	
-	public void setExportNodes(Node ... node){
-		for (int i = 0; i < node.length; i++) {
-			exportNodes.add(node[i]);
-		}
-	}
+
 
 	public ObservableList<Konto> getNeueKonten() {
 		return neueKonten;

@@ -66,10 +66,11 @@ public class Test {
 		
 		Bestandskonto a = new Bestandskonto("y", "y", "x", 0, false);
 		Bestandskonto b = new Bestandskonto("x", "x", "y", 0, false);
-		
+		kv.addKonto(a);
+		kv.addKonto(b);
 		
 		Geschaeftsfall g = new Geschaeftsfall(0, "gs1", "");
-		Buchungssatz bsatz = new Buchungssatz("", "a", "b", 7.0);
+		Buchungssatz bsatz = new Buchungssatz("", "x", "y", 7.0);
 		kv.addGeschaeftsfall(g);
 		//ein Buchungssatz wird dem Geschäftfall g zugeordnet
 		kv.addBuchungssatz(g, bsatz);
@@ -80,8 +81,9 @@ public class Test {
 		org.junit.Assert.assertEquals(1, anzahl);
 		
 	}
+	
 	/*
-	 * Testfall, ob ein Buchungssatz einem Geschäftsfall hinzugefügt wird
+	 * Testfall, ob mehrere Buchungssatz einem Geschäftsfall hinzugefügt werden
 	 */
 	@org.junit.Test
 	public void test_multipleBuchung() {
@@ -89,18 +91,17 @@ public class Test {
 		
 		Bestandskonto c = new Bestandskonto("y", "y", "x", 0, true);
 		Bestandskonto d = new Bestandskonto("x", "x", "y", 0, false);
-		kv.addKonto(c);
-		kv.addKonto(d);
-		
+
 		Geschaeftsfall f = new Geschaeftsfall(0, "gs1", "");
-		Buchungssatz bsatz1 = new Buchungssatz("", "c", "d", 7.0);
-		Buchungssatz bsatz2 = new Buchungssatz("", "d", "c", 2.0);
+		Buchungssatz bsatz1 = new Buchungssatz("", "x", "y", 7.0);
+		Buchungssatz bsatz2 = new Buchungssatz("", "y", "x", 2.0);
 
 		ArrayList<Buchungssatz> bsList = new ArrayList<Buchungssatz>();
 		bsList.add(bsatz1);
 		bsList.add(bsatz2);
 		
-		
+		kv.addKonto(c);
+		kv.addKonto(d);
 		kv.addGeschaeftsfall(f);
 		//ein Buchungssatz wird dem Geschäftfall g zugeordnet
 		kv.addBuchungssatz(f, bsList);

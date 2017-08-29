@@ -99,7 +99,12 @@ public class GUIController implements Initializable {
 				vSeparator.setPrefHeight(t1_P.getHeight());
 		});
 	}
-
+	/**
+	 * <i><b>Setzen vom Layout</b></i><br>
+	 * <br>
+	 * Es wird das Layout für die Hauptoberfläche modifiziert. <br>
+	 * 
+	 */
 	private void initalHeadings() {
 		count_t2_Aufwandskonten = 4;
 		count_t2_Ertragskonten = 4;
@@ -131,7 +136,14 @@ public class GUIController implements Initializable {
 	public GridPane getT1_P() {
 		return t1_P;
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Bilanz erstellen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen und ein Controller dieser erstellt. Erstellte Daten in dem Controller werden der Kontenverwaltung übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Datei_NeueBilanzErstellen(ActionEvent event) {
 		try {
@@ -160,7 +172,14 @@ public class GUIController implements Initializable {
 		}
 
 	}
-
+	/**
+	 * <i><b>Laden der Konten</b></i><br>
+	 * <br>
+	 * Es werden alle Konten auf die Hauptoberfläche geladen. Im Falle eines Jahresabschlusses werden Diagramme ausgegeben. <br>
+	 * 
+	 * @param neueBilanz
+	 * 			- wenn eine neue Bilanz erstellt wurde
+	 */
 	private void ladeKonten(boolean neueBilanz) {
 		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
 		for (int i = 0; i < gpList.length; i++) {
@@ -231,7 +250,14 @@ public class GUIController implements Initializable {
 			menuitemAddBS.setDisable(true);
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Datei Öffnen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine bestehende Datei geöffnet und der Kontenverwatung komplett übergeben <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf
 	// konten und faelle geschrieben werden können
@@ -256,7 +282,14 @@ public class GUIController implements Initializable {
 			}
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Datei Speichern</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird die Datei gespeichert. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Datei_Speichern(ActionEvent event) {
 		boolean erfolgreich = IOManager.saveFile(kontenverwaltung.getKonten(), kontenverwaltung.getFaelle(),
@@ -277,6 +310,14 @@ public class GUIController implements Initializable {
 		System.exit(0);
 	}
 
+	/**
+	 * <i><b>Ereignisbehandlung: Konto Hinzufügen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller dieser FXML-Datei wird die neue Kontenliste übergeben <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
 		try {
@@ -307,7 +348,14 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Übersicht aller Geschäftsfälle öffnen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller dieser FXML-Datei werden alle Geschäftfälle übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Bearbeiten_GF_Uebersicht(ActionEvent event) {
 		try {
@@ -328,7 +376,14 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Hinzufügen eines neuen Geschäftsfalles</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem Controller dieser FXML-Datei werden die neuen Geschäftsfälle der Kontenverwaltung übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Bearbeiten_GF_neuerGF(ActionEvent event) {
 		try {
@@ -353,7 +408,14 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Hinzufügen eines Buchungssatzes</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem Controller dieser FXML-Datei werden die neuen Buchungssätze der Kontenverwaltung übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Bearbeiten_GF_BSEintragen(ActionEvent event) {
 		try {
@@ -377,7 +439,14 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Einsehen der Eröffnungsbilanz</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller dieser FXML-Datei werden alle Konten übergeben. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Analyse_EBEinsehen(ActionEvent event) {
 		try {
@@ -386,8 +455,6 @@ public class GUIController implements Initializable {
 			Scene scene = new Scene(loader.load());
 			Stage BEEinsehenStage = new Stage();
 			EroeffnungsbilanzEinsehenController controller = loader.getController();
-
-			// BEEinsehenStage.setResizable(false);
 			BEEinsehenStage.setScene(scene);
 			BEEinsehenStage.setResizable(false);
 
@@ -404,32 +471,28 @@ public class GUIController implements Initializable {
 		}
 	}
 
-	@FXML
-	private void handle_Analyse_DiagrammeBerechnen(ActionEvent event) {
-		try {
-			System.out.println(getClass().getResource(""));
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("menu/analyse/DiagrammErstellen.fxml"));
-			Scene scene = new Scene(loader.load());
-			Stage diagrammErstellenStage = new Stage();
-			diagrammErstellenStage.setResizable(false);
-			diagrammErstellenStage.setScene(scene);
-			diagrammErstellenStage.setTitle("BuFü HWR Version");
-			diagrammErstellenStage.show();
-
-		} catch (IOException e) {
-			new AlertDialogFrame().showConfirmDialog("Interner Fehler",
-					"Menüpunkt \"Diagramme berechnen\" konnte nicht durchgeführt werden.", "Ok",
-					AlertDialogFrame.ERROR_TYPE);
-			e.printStackTrace();
-		}
-	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Erstellen einer Schlussbilanz</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus werden alle Konten der Kontenverwaltung saldiert. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Analyse_SBErstellen(ActionEvent event) {
 		kontenverwaltung.kontensaldierung();
 		ladeKonten(false);
 	}
 
+	/**
+	 * <i><b>Ereignisbehandlung: Anzeigen der Produktinformationen</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird die Produktinformation geöffnet in einem neuen Fenster. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
 		new AlertDialogFrame().showConfirmDialog("Produktinformationen - Release-Version: v1.0 / 29.08.2017",
@@ -442,20 +505,42 @@ public class GUIController implements Initializable {
 				AlertDialogFrame.INFORMATION_TYPE);
 	}
 
+	/**
+	 * <i><b>Ereignisbehandlung: Anzeigen des Handbuches</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird das Handbuch in einer PDF geöffnet. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("application/Nutzerhandbuch.pdf").getFile());
 		GUI.services.showDocument(file.toURI().toString());
 	}
-
+	/**
+	 * <i><b>Ereignisbehandlung: Anzeigen des FAQs</b></i><br>
+	 * <br>
+	 * Aus einem Ereignis heraus wird die FAQ in einer PDF geöffnet. <br>
+	 * 
+	 * @param event
+	 * 			- Nutzeraktion
+	 */
 	@FXML
 	private void handle_Hilfe_FAQ(ActionEvent event) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource("application/FAQ.pdf").getFile());
 		GUI.services.showDocument(file.toURI().toString());
 	}
-
+	/**
+	 * <i><b>MenuBar aktivieren</b></i><br>
+	 * <br>
+	 * Aktiviert Items in der MenuBar. <br>
+	 * 
+	 * @param enable
+	 * 			- Ob aktiviert, oder nicht
+	 */
 	private void enableMenuBar(boolean enable) {
 		menuBearbeiten.setDisable(!enable);
 		menuAnalyse.setDisable(!enable);

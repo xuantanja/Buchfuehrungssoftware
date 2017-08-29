@@ -29,11 +29,10 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		eroeffnungsbilanzContainer.setVgap(10);
 		eroeffnungsbilanzContainer.setHgap(35);
 		eroeffnungsbilanzContainer.setPadding(new Insets(20, 0, 0, 28));
-		//eroeffnungsbilanzContainer.setGridLinesVisible(true);
 		container.getChildren().add(eroeffnungsbilanzContainer);
 	}
 	/**
-	 * <i><b>Übergabe der Konten an den Controller</b></i><br>
+	 * <i><b>Übergabe/Setzen der Konten</b></i><br>
 	 * <br>
 	 * Alle Bestandskonten einer Kontenliste werden dem Controller übergeben. <br>
 	 * 
@@ -50,6 +49,12 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		befuelleGP();
 	}
 
+	/**
+	 * <i><b>Befüllen des GridPanes mit Kontennamen und Anganfsbeständen</b></i><br>
+	 * <br>
+	 * Bestandskonten werden in einem GridPane nach Aktiva und Passiva aufgeteilt und mit jeweiligen Kontonamen und Anfangsbestand ausgegeben  <br>
+	 * 
+	 */
 	public void befuelleGP() {
 		int rowAktiv = 1, rowPassiv = 1;
 		for (Bestandskonto konto : bKontoListe) {
@@ -86,7 +91,16 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		});
 
 	}
-
+	
+	/**
+	 * <i><b>Berechnen der Bilanzsumme</b></i><br>
+	 * <br>
+	 * Es wird die Bilanzsumme aller Aktiv- bzw. Passivkonten aus den Anfangsbeständen berechnet.  <br>
+	 * 
+	 * @param getAktiv
+	 *            - gibt an, ob es sich um die Aktiva- oder Passiva handelt
+	 * @return Bilanzsumme
+	 */
 	private double getBilanzsumme(boolean getAktiv) {
 		double summe = 0;
 		for (Bestandskonto konto : bKontoListe) {
@@ -98,7 +112,14 @@ public class EroeffnungsbilanzEinsehenController implements Initializable {
 		}
 		return summe;
 	}
+	/**
+	 * <i><b>Prüfung nach ausgeglichener Bilanz</b></i><br>
+	 * <br>
+	 * Es wird geprüft, ob die Bilanz ausgeglichen ist. Dafür werden die Anfangsbestände von Aktiv-und Passivkonten summiert. Ergibt die Differenz der beiden Summen gleich 0, dann ist die Bilanz ausgeglichen. <br>
+	 * 
 
+	 * @return Ob Bilanz ausgeglichen ist
+	 */
 	public boolean isBilanzAusgeglichen() {
 		double aktiv = 0, passiv = 0;
 		for (Bestandskonto konto : bKontoListe) {

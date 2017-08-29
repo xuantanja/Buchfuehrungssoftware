@@ -47,7 +47,6 @@ public class DiagrammErstellenController {
 		final CategoryAxis yAxis = new CategoryAxis();
 
 
-  //      xAxis.setLabel("Wert");
         xAxis.setLabel("Betraggröße");
         
         barChartGuV = new BarChart<String, Number>( yAxis,xAxis);
