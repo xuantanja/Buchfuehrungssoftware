@@ -313,7 +313,7 @@ public class GUIController implements Initializable {
 	/**
 	 * <i><b>Ereignisbehandlung: Konto Hinzufügen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller dieser FXML-Datei wird die neue Kontenliste übergeben <br>
+	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller dieser FXML-Datei wird die neue Kontenliste übergeben. <br>
 	 * 
 	 * @param event
 	 * 			- Nutzeraktion

@@ -1,5 +1,8 @@
 package utility.Collection;
 
+/**
+ * Ein Tupel ist ein Wertepaar.
+ */
 public class Tuple<X, Y> {
 	private X x;
 	private Y y;

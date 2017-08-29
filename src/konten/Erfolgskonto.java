@@ -31,7 +31,7 @@ public class Erfolgskonto extends Konto implements Serializable{
 	/**
 	 * <i><b>Vergabe der Beschreibung</b></i><br>
 	 * <br>
-	 * Es wird eine Beschreibung je ach Kontoart vergeben. <br>
+	 * Es wird eine Beschreibung je nach Kontoart vergeben. <br>
 	 *
 	 * @return Beschreibung für das Konto
 	 */
