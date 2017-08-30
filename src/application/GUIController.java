@@ -549,10 +549,8 @@ public class GUIController implements Initializable {
 				file.mkdirs();
 				file.delete();
 				if (!file.exists()) {
-					// In JAR
 					InputStream inputStream = ClassLoader.getSystemClassLoader()
 							.getResourceAsStream("application/Nutzerhandbuch.pdf");
-					// Copy file
 					OutputStream outputStream = new FileOutputStream(file);
 					byte[] buffer = new byte[1024];
 					int length;
@@ -581,15 +579,13 @@ public class GUIController implements Initializable {
 	private void handle_Hilfe_FAQ(ActionEvent event) {
 		try {
 			if (Desktop.isDesktopSupported()) {
-				File file = new File(System.getProperty("user.home")
-						+ "\\AppData\\Roaming\\BuFü-HWRVersion\\data\\FAQ.pdf");
+				File file = new File(
+						System.getProperty("user.home") + "\\AppData\\Roaming\\BuFü-HWRVersion\\data\\FAQ.pdf");
 				file.mkdirs();
 				file.delete();
 				if (!file.exists()) {
-					// In JAR
 					InputStream inputStream = ClassLoader.getSystemClassLoader()
 							.getResourceAsStream("application/FAQ.pdf");
-					// Copy file
 					OutputStream outputStream = new FileOutputStream(file);
 					byte[] buffer = new byte[1024];
 					int length;
