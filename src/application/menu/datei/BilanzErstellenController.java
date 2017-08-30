@@ -267,7 +267,7 @@ public class BilanzErstellenController implements Initializable {
 	 */
 	private boolean eroeffnungsbilanzAnzeigen() {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../analyse/EroeffnungsbilanzEinsehen.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("application/menu/analyse/EroeffnungsbilanzEinsehen.fxml"));
 			Scene scene = new Scene(loader.load());
 			Stage stage = new Stage();
 			EroeffnungsbilanzEinsehenController controller = loader.getController();

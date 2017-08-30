@@ -5,6 +5,7 @@
  */
 package application;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -515,9 +516,14 @@ public class GUIController implements Initializable {
 	 */
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("application/Nutzerhandbuch.pdf").getFile());
-		GUI.services.showDocument(file.toURI().toString());
+		if (Desktop.isDesktopSupported()) {
+		    try {
+		        File myFile = new File(getClass().getResource("Nutzerhandbuch.pdf").getFile());
+		        Desktop.getDesktop().open(myFile);
+		    } catch (IOException ex) {
+		    	ex.printStackTrace();
+		    }
+		}
 	}
 	/**
 	 * <i><b>Ereignisbehandlung: Anzeigen des FAQs</b></i><br>
@@ -529,9 +535,14 @@ public class GUIController implements Initializable {
 	 */
 	@FXML
 	private void handle_Hilfe_FAQ(ActionEvent event) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("application/FAQ.pdf").getFile());
-		GUI.services.showDocument(file.toURI().toString());
+		if (Desktop.isDesktopSupported()) {
+		    try {
+		        File myFile = new File(getClass().getResource("FAQ.pdf").getFile());
+		        Desktop.getDesktop().open(myFile);
+		    } catch (IOException ex) {
+		    	ex.printStackTrace();
+		    }
+		}
 	}
 	/**
 	 * <i><b>MenuBar aktivieren</b></i><br>
