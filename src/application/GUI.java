@@ -1,7 +1,6 @@
 package application;
 
 import javafx.application.Application;
-import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,16 +11,12 @@ import utility.alertDialog.AlertDialogFrame;
  */
 public class GUI extends Application {
 
-	public static HostServices services;
-
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		services = this.getHostServices();
-
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("BuFue.fxml"));
 		Scene scene = new Scene(loader.load());
 		primaryStage.setScene(scene);
