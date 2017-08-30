@@ -7,7 +7,11 @@ package application;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,6 +27,7 @@ import application.menu.datei.BilanzErstellenController;
 import geschaeftsfall.Buchungssatz;
 import io.DataStorage;
 import io.IOManager;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -100,6 +105,7 @@ public class GUIController implements Initializable {
 				vSeparator.setPrefHeight(t1_P.getHeight());
 		});
 	}
+
 	/**
 	 * <i><b>Setzen vom Layout</b></i><br>
 	 * <br>
@@ -137,13 +143,16 @@ public class GUIController implements Initializable {
 	public GridPane getT1_P() {
 		return t1_P;
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Bilanz erstellen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen und ein Controller dieser erstellt. Erstellte Daten in dem Controller werden der Kontenverwaltung übergeben. <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen und ein Controller
+	 * dieser erstellt. Erstellte Daten in dem Controller werden der
+	 * Kontenverwaltung übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Datei_NeueBilanzErstellen(ActionEvent event) {
@@ -173,13 +182,15 @@ public class GUIController implements Initializable {
 		}
 
 	}
+
 	/**
 	 * <i><b>Laden der Konten</b></i><br>
 	 * <br>
-	 * Es werden alle Konten auf die Hauptoberfläche geladen. Im Falle eines Jahresabschlusses werden Diagramme ausgegeben. <br>
+	 * Es werden alle Konten auf die Hauptoberfläche geladen. Im Falle eines
+	 * Jahresabschlusses werden Diagramme ausgegeben. <br>
 	 * 
 	 * @param neueBilanz
-	 * 			- wenn eine neue Bilanz erstellt wurde
+	 *            - wenn eine neue Bilanz erstellt wurde
 	 */
 	private void ladeKonten(boolean neueBilanz) {
 		GridPane[] gpList = new GridPane[] { t1_A, t1_P, t2_Ertragskonten, t2_Aufwandskonten, t3_Steuerkonten };
@@ -251,13 +262,15 @@ public class GUIController implements Initializable {
 			menuitemAddBS.setDisable(true);
 		}
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Datei Öffnen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine bestehende Datei geöffnet und der Kontenverwatung komplett übergeben <br>
+	 * Aus einem Ereignis heraus wird eine bestehende Datei geöffnet und der
+	 * Kontenverwatung komplett übergeben <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	// Typ DataStorage als Rückgabewert, damit bestehende Fälle und Konten auf
@@ -283,13 +296,14 @@ public class GUIController implements Initializable {
 			}
 		}
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Datei Speichern</b></i><br>
 	 * <br>
 	 * Aus einem Ereignis heraus wird die Datei gespeichert. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Datei_Speichern(ActionEvent event) {
@@ -314,10 +328,11 @@ public class GUIController implements Initializable {
 	/**
 	 * <i><b>Ereignisbehandlung: Konto Hinzufügen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller dieser FXML-Datei wird die neue Kontenliste übergeben. <br>
+	 * Aus einem Ereignis wird eine FXML-Datei geladen und aus dem Controller
+	 * dieser FXML-Datei wird die neue Kontenliste übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Bearbeiten_Kontenverwaltung(ActionEvent event) {
@@ -349,13 +364,16 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	 * <i><b>Ereignisbehandlung: Übersicht aller Geschäftsfälle öffnen</b></i><br>
+	 * <i><b>Ereignisbehandlung: Übersicht aller Geschäftsfälle
+	 * öffnen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller dieser FXML-Datei werden alle Geschäftfälle übergeben. <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller
+	 * dieser FXML-Datei werden alle Geschäftfälle übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Bearbeiten_GF_Uebersicht(ActionEvent event) {
@@ -377,13 +395,17 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	 * <i><b>Ereignisbehandlung: Hinzufügen eines neuen Geschäftsfalles</b></i><br>
+	 * <i><b>Ereignisbehandlung: Hinzufügen eines neuen
+	 * Geschäftsfalles</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem Controller dieser FXML-Datei werden die neuen Geschäftsfälle der Kontenverwaltung übergeben. <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem
+	 * Controller dieser FXML-Datei werden die neuen Geschäftsfälle der
+	 * Kontenverwaltung übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Bearbeiten_GF_neuerGF(ActionEvent event) {
@@ -409,13 +431,16 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Hinzufügen eines Buchungssatzes</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem Controller dieser FXML-Datei werden die neuen Buchungssätze der Kontenverwaltung übergeben. <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Aus dem
+	 * Controller dieser FXML-Datei werden die neuen Buchungssätze der
+	 * Kontenverwaltung übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Bearbeiten_GF_BSEintragen(ActionEvent event) {
@@ -440,13 +465,15 @@ public class GUIController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Einsehen der Eröffnungsbilanz</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller dieser FXML-Datei werden alle Konten übergeben. <br>
+	 * Aus einem Ereignis heraus wird eine FXML-Datei geladen. Dem Controller
+	 * dieser FXML-Datei werden alle Konten übergeben. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Analyse_EBEinsehen(ActionEvent event) {
@@ -475,10 +502,11 @@ public class GUIController implements Initializable {
 	/**
 	 * <i><b>Ereignisbehandlung: Erstellen einer Schlussbilanz</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus werden alle Konten der Kontenverwaltung saldiert. <br>
+	 * Aus einem Ereignis heraus werden alle Konten der Kontenverwaltung
+	 * saldiert. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Analyse_SBErstellen(ActionEvent event) {
@@ -489,21 +517,19 @@ public class GUIController implements Initializable {
 	/**
 	 * <i><b>Ereignisbehandlung: Anzeigen der Produktinformationen</b></i><br>
 	 * <br>
-	 * Aus einem Ereignis heraus wird die Produktinformation geöffnet in einem neuen Fenster. <br>
+	 * Aus einem Ereignis heraus wird die Produktinformation geöffnet in einem
+	 * neuen Fenster. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Hilfe_Produktinformationen(ActionEvent event) {
 		new AlertDialogFrame().showConfirmDialog("Produktinformationen - Release-Version: v1.0 / 29.08.2017",
 				"Die Software wurde im Laufe des Projekts für das Modul \"Objektorientierte Programmierung\" erstellt.\n\n"
-				+ "(Matrikelnummer) Entwickler der Buchführungssoftware:\n"
-				+ "(652059) Sophie-Louise Schmidt\n"
-				+ "(674216) Tanja Manlik\n"
-				+ "(658024) Emil Tenbieg\n"
-				+ "(691071) Marc Tukendorf\n", "Ok",
-				AlertDialogFrame.INFORMATION_TYPE);
+						+ "(Matrikelnummer) Entwickler der Buchführungssoftware:\n" + "(652059) Sophie-Louise Schmidt\n"
+						+ "(674216) Tanja Manlik\n" + "(658024) Emil Tenbieg\n" + "(691071) Marc Tukendorf\n",
+				"Ok", AlertDialogFrame.INFORMATION_TYPE);
 	}
 
 	/**
@@ -512,45 +538,81 @@ public class GUIController implements Initializable {
 	 * Aus einem Ereignis heraus wird das Handbuch in einer PDF geöffnet. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Hilfe_Handbuch(ActionEvent event) {
-		if (Desktop.isDesktopSupported()) {
-		    try {
-		        File myFile = new File(getClass().getResource("Nutzerhandbuch.pdf").getFile());
-		        Desktop.getDesktop().open(myFile);
-		    } catch (IOException ex) {
-		    	ex.printStackTrace();
-		    }
+		try {
+			if (Desktop.isDesktopSupported()) {
+				File file = new File(System.getProperty("user.home")
+						+ "\\AppData\\Roaming\\BuFü-HWRVersion\\data\\Nutzerhandbuch.pdf");
+				file.mkdirs();
+				file.delete();
+				if (!file.exists()) {
+					// In JAR
+					InputStream inputStream = ClassLoader.getSystemClassLoader()
+							.getResourceAsStream("application/Nutzerhandbuch.pdf");
+					// Copy file
+					OutputStream outputStream = new FileOutputStream(file);
+					byte[] buffer = new byte[1024];
+					int length;
+					while ((length = inputStream.read(buffer)) > 0) {
+						outputStream.write(buffer, 0, length);
+					}
+					outputStream.close();
+					inputStream.close();
+				}
+				Desktop.getDesktop().open(file);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * <i><b>Ereignisbehandlung: Anzeigen des FAQs</b></i><br>
 	 * <br>
 	 * Aus einem Ereignis heraus wird die FAQ in einer PDF geöffnet. <br>
 	 * 
 	 * @param event
-	 * 			- Nutzeraktion
+	 *            - Nutzeraktion
 	 */
 	@FXML
 	private void handle_Hilfe_FAQ(ActionEvent event) {
-		if (Desktop.isDesktopSupported()) {
-		    try {
-		        File myFile = new File(getClass().getResource("FAQ.pdf").getFile());
-		        Desktop.getDesktop().open(myFile);
-		    } catch (IOException ex) {
-		    	ex.printStackTrace();
-		    }
+		try {
+			if (Desktop.isDesktopSupported()) {
+				File file = new File(System.getProperty("user.home")
+						+ "\\AppData\\Roaming\\BuFü-HWRVersion\\data\\FAQ.pdf");
+				file.mkdirs();
+				file.delete();
+				if (!file.exists()) {
+					// In JAR
+					InputStream inputStream = ClassLoader.getSystemClassLoader()
+							.getResourceAsStream("application/FAQ.pdf");
+					// Copy file
+					OutputStream outputStream = new FileOutputStream(file);
+					byte[] buffer = new byte[1024];
+					int length;
+					while ((length = inputStream.read(buffer)) > 0) {
+						outputStream.write(buffer, 0, length);
+					}
+					outputStream.close();
+					inputStream.close();
+				}
+				Desktop.getDesktop().open(file);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * <i><b>MenuBar aktivieren</b></i><br>
 	 * <br>
 	 * Aktiviert Items in der MenuBar. <br>
 	 * 
 	 * @param enable
-	 * 			- Ob aktiviert, oder nicht
+	 *            - Ob aktiviert, oder nicht
 	 */
 	private void enableMenuBar(boolean enable) {
 		menuBearbeiten.setDisable(!enable);
